@@ -207,7 +207,6 @@ export function ApexMetaphor() {
   const videoRef = React.useRef<HTMLVideoElement>(null)
   const containerRef = React.useRef<HTMLDivElement>(null)
   const isInView = useInView(containerRef, { once: false })
-  const [currentTime, setCurrentTime] = React.useState(0)
 
   // Slow-mo configuration - adjust these values
   const SLOWMO_START = 3.5    // When to start slow-mo (seconds)
@@ -220,7 +219,6 @@ export function ApexMetaphor() {
     if (!videoRef.current) return
 
     const time = videoRef.current.currentTime
-    setCurrentTime(time)
 
     let targetRate = 1.0
 
@@ -277,16 +275,6 @@ export function ApexMetaphor() {
           <source src="/last-mile-f1.mp4" type="video/mp4" />
         </video>
 
-        {/* Time display overlay for tuning slow-mo timestamps */}
-        <div className="absolute bottom-4 right-4 z-20 bg-black/70 px-3 py-2 rounded-lg font-mono text-sm">
-          <div className="text-white">
-            Time: <span className="text-accent">{currentTime.toFixed(2)}s</span>
-          </div>
-          <div className="text-gray-400 text-xs mt-1">
-            Slow-mo: {SLOWMO_START}s - {SLOWMO_END}s
-          </div>
-        </div>
-        
         {/* Gradient overlay for readability */}
         <div className="absolute inset-0 bg-gradient-to-r from-surface-900/95 via-surface-900/80 to-surface-900/60" />
         <div className="absolute inset-0 bg-gradient-to-t from-surface-900/90 via-transparent to-surface-900/70" />
