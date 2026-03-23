@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { HeroTransformation } from '@/components/sections/HeroTransformation'
 import { ValueProposition } from '@/components/sections/ValueProposition'
 import { ApexMetaphor } from '@/components/sections/ApexMetaphor'
-import { LastMileTraffic } from '@/components/sections/LastMileTraffic'
+import { LastMileVideo } from '@/components/sections/LastMileVideo'
 import { WhyMostAIFails } from '@/components/sections/WhyMostAIFails'
 import { ALICEResponseDemo } from '@/components/sections/ALICEResponseDemo'
 import { CTASection } from '@/components/sections/CTASection'
@@ -24,7 +24,7 @@ export default function Home() {
     hero: <HeroTransformation />,
     value: <ValueProposition />,
     apex: <ApexMetaphor />,
-    lastmile: <LastMileTraffic />,
+    lastmile: <LastMileVideo />,
     problem: <WhyMostAIFails />,
     demo: <ALICEResponseDemo />,
     cta: <CTASection />,
