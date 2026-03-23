@@ -2,12 +2,12 @@
 
 import * as React from 'react'
 import { motion } from 'framer-motion'
-import { 
-  Sparkles, 
-  Target, 
-  Zap, 
-  AlertTriangle, 
-  MessageSquareQuote, 
+import {
+  Sparkles,
+  Target,
+  Zap,
+  AlertTriangle,
+  MessageSquareQuote,
   ArrowRight,
   Flag
 } from 'lucide-react'
@@ -56,11 +56,11 @@ const sections: SectionTab[] = [
     shortLabel: 'Demo',
     icon: <MessageSquareQuote className="w-4 h-4" /> 
   },
-  { 
-    id: 'cta', 
-    label: 'Get Started', 
+  {
+    id: 'cta',
+    label: 'Get Started',
     shortLabel: 'CTA',
-    icon: <ArrowRight className="w-4 h-4" /> 
+    icon: <ArrowRight className="w-4 h-4" />
   },
 ]
 

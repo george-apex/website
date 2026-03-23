@@ -9,6 +9,7 @@ import { LastMileVideo } from '@/components/sections/LastMileVideo'
 import { WhyMostAIFails } from '@/components/sections/WhyMostAIFails'
 import { ALICEResponseDemo } from '@/components/sections/ALICEResponseDemo'
 import { CTASection } from '@/components/sections/CTASection'
+
 import { SectionTabs, sections } from '@/components/sections/SectionTabs'
 
 export default function Home() {

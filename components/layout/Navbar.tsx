@@ -12,6 +12,7 @@ import { useScrollPosition } from '@/hooks'
 const NAV_LINKS = [
   { label: 'Solutions', href: '/solutions' },
   { label: 'Platform', href: '/platform' },
+  { label: 'Data Platform', href: '/data-platform' },
   { label: 'Agents', href: '/agents' },
   { label: 'E3 Quant Hub', href: '/e3-quant-hub' },
   { label: 'Security', href: '/security' },
