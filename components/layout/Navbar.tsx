@@ -29,9 +29,8 @@ export const NAV_LINKS: NavLink[] = [
     label: 'Home', 
     href: '/',
     subTabs: [
-      { id: 'hero', label: 'Chaos to Clarity', shortLabel: 'Hero' },
-      { id: 'value', label: 'Core Differentiators', shortLabel: 'Value' },
       { id: 'apex', label: 'The Last Mile', shortLabel: 'Last Mile' },
+      { id: 'value', label: 'Core Differentiators', shortLabel: 'Value' },
       { id: 'problem', label: 'Why AI Fails', shortLabel: 'Problem' },
       { id: 'demo', label: 'Interactive Demo', shortLabel: 'Demo' },
       { id: 'cta', label: 'Get Started', shortLabel: 'CTA' },
