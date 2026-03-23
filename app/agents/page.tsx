@@ -19,6 +19,7 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { SubNavigation } from '@/components/layout/SubNavigation'
 
 const agents = [
   {
@@ -611,6 +612,9 @@ export default function AgentsPage() {
       <div className="absolute inset-0 bg-grid opacity-20 pointer-events-none z-0" />
       <div className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-radial-accent opacity-10 pointer-events-none z-0" />
       <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-radial-data opacity-10 pointer-events-none z-0" />
+
+      {/* Sub Navigation */}
+      <SubNavigation />
 
       <div className="relative z-10">
         {/* Hero Section */}

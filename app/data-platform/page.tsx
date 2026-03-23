@@ -8,6 +8,7 @@ import {
   Play, ArrowRight, Sparkles
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { SubNavigation } from '@/components/layout/SubNavigation'
 
 // Buzzwords marquee
 const buzzwords = [
@@ -270,23 +271,11 @@ export default function DataPlatformPage() {
         />
       </div>
 
-      {/* Buzzwords ticker */}
-      <div className="relative overflow-hidden py-2 bg-surface-800/50 border-b border-border/30">
-        <motion.div
-          className="flex gap-8 whitespace-nowrap"
-          animate={{ x: [0, -1000] }}
-          transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-        >
-          {[...buzzwords, ...buzzwords].map((word, i) => (
-            <span key={i} className="text-xs font-mono tracking-widest text-accent/60">
-              {word}
-            </span>
-          ))}
-        </motion.div>
-      </div>
+      {/* Sub Navigation */}
+      <SubNavigation />
 
       {/* Main content */}
-      <div className="relative container-main py-12">
+      <div className="relative container-main py-24">
         
         {/* Hero Section - Compact */}
         <div className="grid lg:grid-cols-2 gap-8 items-center mb-16">

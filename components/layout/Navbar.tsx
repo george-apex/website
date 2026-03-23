@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -9,30 +10,76 @@ import { Button } from '@/components/ui/button'
 import { SITE_CONFIG } from '@/lib/constants'
 import { useScrollPosition } from '@/hooks'
 
-const NAV_LINKS = [
+export interface SubTab {
+  id: string
+  label: string
+  shortLabel?: string
+  href?: string
+  icon?: React.ReactNode
+}
+
+export interface NavLink {
+  label: string
+  href?: string
+  subTabs?: SubTab[]
+}
+
+export const NAV_LINKS: NavLink[] = [
+  { 
+    label: 'Home', 
+    href: '/',
+    subTabs: [
+      { id: 'hero', label: 'Chaos to Clarity', shortLabel: 'Hero' },
+      { id: 'value', label: 'Core Differentiators', shortLabel: 'Value' },
+      { id: 'apex', label: 'The Last Mile', shortLabel: 'Last Mile' },
+      { id: 'problem', label: 'Why AI Fails', shortLabel: 'Problem' },
+      { id: 'demo', label: 'Interactive Demo', shortLabel: 'Demo' },
+      { id: 'cta', label: 'Get Started', shortLabel: 'CTA' },
+    ]
+  },
+  { 
+    label: 'Products',
+    subTabs: [
+      { id: 'data-platform', label: 'Data Platform', href: '/data-platform' },
+      { id: 'agents', label: 'Agents', href: '/agents' },
+      { id: 'e3-quant-hub', label: 'E3 Quant Hub', href: '/e3-quant-hub' },
+    ]
+  },
   { label: 'Solutions', href: '/solutions' },
-  { label: 'Platform', href: '/platform' },
-  { label: 'Data Platform', href: '/data-platform' },
-  { label: 'Agents', href: '/agents' },
-  { label: 'E3 Quant Hub', href: '/e3-quant-hub' },
   { label: 'Security', href: '/security' },
   { label: 'Contact', href: '/contact' },
 ]
 
+export function getParentTab(pathname: string): string | null {
+  for (const link of NAV_LINKS) {
+    if (link.href === pathname) return link.label
+    if (link.subTabs) {
+      for (const sub of link.subTabs) {
+        if (sub.href === pathname) return link.label
+      }
+    }
+  }
+  return null
+}
+
 export function Navbar() {
+  const pathname = usePathname()
   const [isScrolled, setIsScrolled] = React.useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
+  const [openDropdown, setOpenDropdown] = React.useState<string | null>(null)
   const scrollPosition = useScrollPosition()
+
+  const activeParent = getParentTab(pathname)
 
   React.useEffect(() => {
     setIsScrolled(scrollPosition.y > 50)
   }, [scrollPosition.y])
 
-  // Close mobile menu on escape key
   React.useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setIsMobileMenuOpen(false)
+        setOpenDropdown(null)
       }
     }
 
@@ -40,7 +87,6 @@ export function Navbar() {
     return () => document.removeEventListener('keydown', handleEscape)
   }, [])
 
-  // Prevent body scroll when mobile menu is open
   React.useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = 'hidden'
@@ -83,17 +129,81 @@ export function Navbar() {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-8">
-              {NAV_LINKS.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-body-sm text-content-secondary hover:text-content-primary transition-colors relative group"
-                >
-                  {link.label}
-                  <span className="absolute -bottom-1 left-0 w-0 h-px bg-accent group-hover:w-full transition-all duration-200 ease-out" />
-                </Link>
-              ))}
+            <div className="hidden lg:flex items-center gap-1">
+              {NAV_LINKS.map((link) => {
+                const hasSubTabs = link.subTabs && link.subTabs.length > 0
+                const isActive = activeParent === link.label
+                const isOpen = openDropdown === link.label
+
+                if (hasSubTabs) {
+                  return (
+                    <div 
+                      key={link.label}
+                      className="relative"
+                      onMouseEnter={() => setOpenDropdown(link.label)}
+                      onMouseLeave={() => setOpenDropdown(null)}
+                    >
+                      <button
+                        className={cn(
+                          'flex items-center gap-1 px-3 py-2 text-body-sm rounded-lg transition-all',
+                          isActive 
+                            ? 'text-accent bg-accent/10' 
+                            : 'text-content-secondary hover:text-content-primary hover:bg-surface-800/50'
+                        )}
+                      >
+                        {link.label}
+                        <ChevronDown className={cn(
+                          'w-3.5 h-3.5 transition-transform duration-200',
+                          isOpen && 'rotate-180'
+                        )} />
+                      </button>
+                      
+                      <AnimatePresence>
+                        {isOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 8, scale: 0.95 }}
+                            transition={{ duration: 0.15 }}
+                            className="absolute top-full left-0 mt-1 min-w-[180px] bg-surface-800 border border-border rounded-xl shadow-xl overflow-hidden"
+                          >
+                            {link.subTabs!.map((sub) => (
+                              <Link
+                                key={sub.id}
+                                href={sub.href || `/${sub.id}`}
+                                className={cn(
+                                  'block px-4 py-2.5 text-body-sm transition-colors',
+                                  pathname === sub.href 
+                                    ? 'text-accent bg-accent/10' 
+                                    : 'text-content-secondary hover:text-content-primary hover:bg-surface-700'
+                                )}
+                                onClick={() => setOpenDropdown(null)}
+                              >
+                                {sub.label}
+                              </Link>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  )
+                }
+
+                return (
+                  <Link
+                    key={link.label}
+                    href={link.href || '#'}
+                    className={cn(
+                      'px-3 py-2 text-body-sm rounded-lg transition-all',
+                      isActive 
+                        ? 'text-accent bg-accent/10' 
+                        : 'text-content-secondary hover:text-content-primary hover:bg-surface-800/50'
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                )
+              })}
             </div>
 
             {/* Desktop CTA */}
@@ -149,23 +259,86 @@ export function Navbar() {
               {/* Top accent line */}
               <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
               
-              <div className="flex flex-col gap-2">
-                {NAV_LINKS.map((link, index) => (
-                  <motion.div
-                    key={link.href}
-                    initial={{ x: -20, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ delay: index * 0.05 }}
-                  >
-                    <Link
-                      href={link.href}
-                      className="block py-3 px-4 text-body-lg text-content-secondary hover:text-accent hover:bg-surface-700 rounded-card transition-colors"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      {link.label}
-                    </Link>
-                  </motion.div>
-                ))}
+              <div className="flex flex-col gap-1">
+                {NAV_LINKS.map((link, index) => {
+                  const hasSubTabs = link.subTabs && link.subTabs.length > 0
+                  const isActive = activeParent === link.label
+                  const isExpanded = openDropdown === link.label
+
+                  return (
+                    <div key={link.label}>
+                      <motion.div
+                        initial={{ x: -20, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ delay: index * 0.05 }}
+                      >
+                        {hasSubTabs ? (
+                          <button
+                            className={cn(
+                              'w-full flex items-center justify-between py-3 px-4 text-body-lg rounded-card transition-colors',
+                              isActive 
+                                ? 'text-accent bg-accent/10' 
+                                : 'text-content-secondary hover:text-accent hover:bg-surface-700'
+                            )}
+                            onClick={() => setOpenDropdown(isExpanded ? null : link.label)}
+                          >
+                            {link.label}
+                            <ChevronDown className={cn(
+                              'w-4 h-4 transition-transform duration-200',
+                              isExpanded && 'rotate-180'
+                            )} />
+                          </button>
+                        ) : (
+                          <Link
+                            href={link.href || '#'}
+                            className={cn(
+                              'block py-3 px-4 text-body-lg rounded-card transition-colors',
+                              isActive 
+                                ? 'text-accent bg-accent/10' 
+                                : 'text-content-secondary hover:text-accent hover:bg-surface-700'
+                            )}
+                            onClick={() => setIsMobileMenuOpen(false)}
+                          >
+                            {link.label}
+                          </Link>
+                        )}
+                      </motion.div>
+
+                      <AnimatePresence>
+                        {hasSubTabs && isExpanded && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="overflow-hidden"
+                          >
+                            <div className="pl-4 pb-1">
+                              {link.subTabs!.map((sub) => (
+                                <Link
+                                  key={sub.id}
+                                  href={sub.href || `/${sub.id}`}
+                                  className={cn(
+                                    'block py-2.5 px-4 text-body rounded-card transition-colors',
+                                    pathname === sub.href 
+                                      ? 'text-accent bg-accent/5' 
+                                      : 'text-content-tertiary hover:text-accent hover:bg-surface-700'
+                                  )}
+                                  onClick={() => {
+                                    setOpenDropdown(null)
+                                    setIsMobileMenuOpen(false)
+                                  }}
+                                >
+                                  {sub.label}
+                                </Link>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  )
+                })}
                 
                 <div className="h-px bg-border my-4" />
                 
@@ -173,7 +346,7 @@ export function Navbar() {
                   className="flex flex-col gap-3"
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.2 }}
+                  transition={{ delay: 0.3 }}
                 >
                   <Button variant="outline" className="w-full">
                     Sign In
