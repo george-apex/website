@@ -11,9 +11,8 @@ import { CTASection } from '@/components/sections/CTASection'
 import { SubNavigation } from '@/components/layout/SubNavigation'
 
 const HOME_SUB_TABS = [
-  { id: 'hero', label: 'Chaos to Clarity', shortLabel: 'Hero' },
-  { id: 'value', label: 'Core Differentiators', shortLabel: 'Value' },
   { id: 'apex', label: 'The Last Mile', shortLabel: 'Last Mile' },
+  { id: 'value', label: 'Core Differentiators', shortLabel: 'Value' },
   { id: 'problem', label: 'Why AI Fails', shortLabel: 'Problem' },
   { id: 'demo', label: 'Interactive Demo', shortLabel: 'Demo' },
   { id: 'cta', label: 'Get Started', shortLabel: 'CTA' },
