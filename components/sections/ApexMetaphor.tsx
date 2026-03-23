@@ -207,6 +207,46 @@ export function ApexMetaphor() {
   const videoRef = React.useRef<HTMLVideoElement>(null)
   const containerRef = React.useRef<HTMLDivElement>(null)
   const isInView = useInView(containerRef, { once: false })
+  const [currentTime, setCurrentTime] = React.useState(0)
+
+  // Slow-mo configuration - adjust these values
+  const SLOWMO_START = 3.5    // When to start slow-mo (seconds)
+  const SLOWMO_END = 4.2      // When to end slow-mo (seconds)
+  const SLOWMO_SPEED = 0.3    // Playback speed during slow-mo (0.3 = 30% speed)
+  const TRANSITION_TIME = 0.4 // Time to transition in/out of slow-mo (seconds)
+
+  // Handle time updates for slow-mo effect with smooth transitions
+  const handleTimeUpdate = React.useCallback(() => {
+    if (!videoRef.current) return
+
+    const time = videoRef.current.currentTime
+    setCurrentTime(time)
+
+    let targetRate = 1.0
+
+    // Transition into slow-mo
+    if (time >= SLOWMO_START - TRANSITION_TIME && time < SLOWMO_START) {
+      // Gradually slow down from 1.0 to SLOWMO_SPEED
+      const progress = (time - (SLOWMO_START - TRANSITION_TIME)) / TRANSITION_TIME
+      targetRate = 1.0 - (1.0 - SLOWMO_SPEED) * progress
+    }
+    // Full slow-mo
+    else if (time >= SLOWMO_START && time < SLOWMO_END) {
+      targetRate = SLOWMO_SPEED
+    }
+    // Transition out of slow-mo
+    else if (time >= SLOWMO_END && time < SLOWMO_END + TRANSITION_TIME) {
+      // Gradually speed up from SLOWMO_SPEED to 1.0
+      const progress = (time - SLOWMO_END) / TRANSITION_TIME
+      targetRate = SLOWMO_SPEED + (1.0 - SLOWMO_SPEED) * progress
+    }
+    // Normal speed
+    else {
+      targetRate = 1.0
+    }
+
+    videoRef.current.playbackRate = targetRate
+  }, [SLOWMO_START, SLOWMO_END, SLOWMO_SPEED, TRANSITION_TIME])
 
   // Play/pause video based on visibility
   React.useEffect(() => {
@@ -232,9 +272,20 @@ export function ApexMetaphor() {
           muted
           loop
           playsInline
+          onTimeUpdate={handleTimeUpdate}
         >
           <source src="/last-mile-f1.mp4" type="video/mp4" />
         </video>
+
+        {/* Time display overlay for tuning slow-mo timestamps */}
+        <div className="absolute bottom-4 right-4 z-20 bg-black/70 px-3 py-2 rounded-lg font-mono text-sm">
+          <div className="text-white">
+            Time: <span className="text-accent">{currentTime.toFixed(2)}s</span>
+          </div>
+          <div className="text-gray-400 text-xs mt-1">
+            Slow-mo: {SLOWMO_START}s - {SLOWMO_END}s
+          </div>
+        </div>
         
         {/* Gradient overlay for readability */}
         <div className="absolute inset-0 bg-gradient-to-r from-surface-900/95 via-surface-900/80 to-surface-900/60" />
