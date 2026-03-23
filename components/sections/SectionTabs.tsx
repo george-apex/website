@@ -20,10 +20,10 @@ interface SectionTab {
 
 const sections: SectionTab[] = [
   { 
-    id: 'hero', 
-    label: 'Chaos to Clarity', 
-    shortLabel: 'Hero',
-    icon: <Sparkles className="w-4 h-4" /> 
+    id: 'apex', 
+    label: 'The Last Mile', 
+    shortLabel: 'Last Mile',
+    icon: <Flag className="w-4 h-4" /> 
   },
   { 
     id: 'value', 
@@ -32,10 +32,10 @@ const sections: SectionTab[] = [
     icon: <Target className="w-4 h-4" /> 
   },
   { 
-    id: 'apex', 
-    label: 'The Last Mile', 
-    shortLabel: 'Last Mile',
-    icon: <Flag className="w-4 h-4" /> 
+    id: 'hero', 
+    label: 'Chaos to Clarity', 
+    shortLabel: 'Hero',
+    icon: <Sparkles className="w-4 h-4" /> 
   },
   { 
     id: 'problem', 

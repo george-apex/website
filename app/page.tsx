@@ -12,7 +12,7 @@ import { CTASection } from '@/components/sections/CTASection'
 import { SectionTabs, sections } from '@/components/sections/SectionTabs'
 
 export default function Home() {
-  const [activeSection, setActiveSection] = React.useState('hero')
+  const [activeSection, setActiveSection] = React.useState('apex')
 
   // Handle tab click - switch to section
   const handleTabClick = React.useCallback((sectionId: string) => {
