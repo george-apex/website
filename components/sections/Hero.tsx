@@ -39,7 +39,7 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.05 }}
             >
-              <span className="text-content-tertiary text-body-sm">From Chaos</span>
+              <span className="text-content-tertiary text-body-sm">Hours of Research</span>
               <motion.div 
                 className="flex items-center gap-1"
                 animate={{ x: [0, 4, 0] }}
@@ -48,7 +48,7 @@ export function Hero() {
                 <div className="w-8 h-px bg-gradient-to-r from-negative/50 via-warning/50 to-accent" />
                 <ArrowRight className="w-3 h-3 text-accent" />
               </motion.div>
-              <span className="text-accent text-body-sm font-medium">Clarity</span>
+              <span className="text-accent text-body-sm font-medium">Seconds of Insight</span>
             </motion.div>
 
             {/* Headline */}

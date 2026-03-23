@@ -879,7 +879,7 @@ export function HeroTransformation() {
           }
         >
           <div className="text-8xl md:text-9xl font-bold text-negative/40 mb-4">?</div>
-          <div className="text-xl md:text-2xl text-negative/60 font-bold tracking-widest uppercase">NO CLEAR PATH</div>
+          <div className="text-xl md:text-2xl text-negative/60 font-bold tracking-widest uppercase">HOURS OF RESEARCH</div>
         </motion.div>
 
         {/* Warning badges - visible during transition */}
@@ -982,7 +982,7 @@ export function HeroTransformation() {
                     : { duration: 3, repeat: Infinity, delay: 1.2 }
                 }
               >
-                <span className="text-base font-bold text-negative">Overwhelmed?</span>
+                <span className="text-base font-bold text-negative">Drowning in data?</span>
               </motion.div>
 
               <motion.div
@@ -1001,7 +1001,7 @@ export function HeroTransformation() {
                     : { duration: 3.5, repeat: Infinity, delay: 1.5 }
                 }
               >
-                <span className="text-base font-bold text-warning">Too much data?</span>
+                <span className="text-base font-bold text-warning">Manual synthesis?</span>
               </motion.div>
             </>
           )}
@@ -1503,7 +1503,7 @@ export function HeroTransformation() {
           whileTap={{ scale: 0.98 }}
         >
           <span className="text-sm text-content-secondary">
-            {isTransformed ? 'Return to Chaos' : 'Experience ALICE'}
+            {isTransformed ? 'See the Process' : 'Experience ALICE'}
           </span>
           <motion.div
             animate={{ rotate: isTransformed ? 180 : 0 }}
@@ -1525,7 +1525,7 @@ export function HeroTransformation() {
           transition={{ delay: 1 }}
         >
           <span className={`text-xs ${isTransformed ? 'text-accent' : 'text-content-tertiary'}`}>
-            {isTransformed ? 'CLARITY' : 'CHAOS'}
+            {isTransformed ? 'INSIGHT' : 'RESEARCH'}
           </span>
         </motion.div>
       </div>
@@ -1541,7 +1541,7 @@ export function HeroTransformation() {
           className="mb-4"
         >
           <span className="text-sm font-medium tracking-widest text-accent uppercase">
-            Enterprise AI Infrastructure
+            Research Efficiency
           </span>
         </motion.div>
         
@@ -1551,8 +1551,8 @@ export function HeroTransformation() {
           transition={{ delay: 0.25, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-4xl md:text-5xl lg:text-6xl font-bold text-content-primary mb-4"
         >
-          From Chaos
-          <span className="text-accent"> to Clarity</span>
+          Hours of Research.
+          <span className="text-accent"> Seconds of Insight.</span>
         </motion.h1>
         
         <motion.p
@@ -1561,7 +1561,7 @@ export function HeroTransformation() {
           transition={{ delay: 0.35, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-lg md:text-xl text-content-secondary max-w-2xl mx-auto"
         >
-          ALICE transforms fragmented information into structured, decision-ready intelligence for institutional finance.
+          The same depth. Fraction of the time.
         </motion.p>
       </div>
     </div>

@@ -572,7 +572,7 @@ const differentiators = [
   },
   {
     icon: Sparkles,
-    title: 'Noise to Signal',
+    title: 'Noise to Conviction',
     tagline: 'From 47 tabs to one decision.',
     accent: 'accent',
     Animation: NoiseToSignalAnimation,

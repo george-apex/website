@@ -32,12 +32,6 @@ const sections: SectionTab[] = [
     icon: <Target className="w-4 h-4" /> 
   },
   { 
-    id: 'hero', 
-    label: 'Chaos to Clarity', 
-    shortLabel: 'Hero',
-    icon: <Sparkles className="w-4 h-4" /> 
-  },
-  { 
     id: 'problem', 
     label: 'Why AI Fails', 
     shortLabel: 'Problem',

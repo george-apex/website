@@ -21,8 +21,12 @@ export default function Home() {
 
   // Section content components mapped by id
   const sectionContent: Record<string, React.ReactNode> = {
-    hero: <HeroTransformation />,
-    value: <ValueProposition />,
+    value: (
+      <>
+        <HeroTransformation />
+        <ValueProposition />
+      </>
+    ),
     apex: <ApexMetaphor />,
     problem: <WhyMostAIFails />,
     demo: <ALICEResponseDemo />,
