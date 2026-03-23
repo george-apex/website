@@ -5,6 +5,67 @@ import { motion, useInView } from 'framer-motion'
 import { Section } from '@/components/ui/section'
 
 // =============================================================================
+// LEGEND - AI Solution Comparison
+// =============================================================================
+
+const competitors = [
+  {
+    id: 'general-ai',
+    name: 'General AI',
+    color: '#10A37F',
+    crashText: 'Spun out under production load',
+  },
+  {
+    id: 'reasoning-ai',
+    name: 'Reasoning AI',
+    color: '#D97706',
+    crashText: 'Hit the wall - no guardrails',
+  },
+  {
+    id: 'search-ai',
+    name: 'Search AI',
+    color: '#1E88E5',
+    crashText: 'Ran off track - no traction',
+  },
+  {
+    id: 'apexe3',
+    name: 'APEX:E3',
+    color: '#306BFF',
+    crashText: null,
+  },
+]
+
+function Legend() {
+  return (
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+      {competitors.map((car) => (
+        <div
+          key={car.id}
+          className="p-3 rounded-lg"
+          style={{
+            background: car.id === 'apexe3'
+              ? 'rgba(48, 107, 255, 0.1)'
+              : 'rgba(255,255,255,0.02)',
+            border: `1px solid ${car.id === 'apexe3' ? 'rgba(48, 107, 255, 0.3)' : 'rgba(255,255,255,0.05)'}`,
+          }}
+        >
+          <div className="flex items-center gap-2">
+            <div
+              className="w-6 h-2.5 rounded-sm"
+              style={{ background: car.color }}
+            />
+            <span className="text-body-sm font-medium text-white/90">{car.name}</span>
+          </div>
+          <div className={`text-label mt-1.5 ${car.crashText ? 'text-[#E74C3C]/70' : 'text-[#2ECC71]/70'}`}>
+            {car.crashText || '✓ Championship winner'}
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+// =============================================================================
 // ANIMATED APEX CURVE - SVG trajectory visualization
 // =============================================================================
 
@@ -312,18 +373,18 @@ export function ApexMetaphor() {
             className="space-y-6"
           >
             <span className="inline-block text-label font-medium text-accent mb-3 tracking-wider">
-              THE APEX PRINCIPLE
+              THE LAST MILE
             </span>
             <h2 className="text-display-lg lg:text-display-xl text-content-primary font-medium max-w-xl">
-              In racing, the apex{' '}
-              <span className="text-content-tertiary">defines the exit.</span>
-              <br />
-              <span className="gradient-accent">In enterprise AI, so does Apexe3.</span>
+              The <span className="text-content-tertiary">Apex</span> corner.
             </h2>
             <p className="text-body-lg text-content-secondary max-w-lg">
-              The apex is the critical point where precision, control, timing, and trajectory converge.
-              Hit it right, and you set up the fastest possible path forward.
+              Championship on the line. Final lap. Four cars enter The Apex.
+              Only one makes it through to claim the title.
             </p>
+            <div className="pt-4">
+              <Legend />
+            </div>
           </motion.div>
         </div>
       </div>

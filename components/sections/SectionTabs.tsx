@@ -5,7 +5,6 @@ import { motion } from 'framer-motion'
 import {
   Sparkles,
   Target,
-  Zap,
   AlertTriangle,
   MessageSquareQuote,
   ArrowRight,
@@ -34,12 +33,6 @@ const sections: SectionTab[] = [
   },
   { 
     id: 'apex', 
-    label: 'The Apex Principle', 
-    shortLabel: 'Apex',
-    icon: <Zap className="w-4 h-4" /> 
-  },
-  { 
-    id: 'lastmile', 
     label: 'The Last Mile', 
     shortLabel: 'Last Mile',
     icon: <Flag className="w-4 h-4" /> 
