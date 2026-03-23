@@ -232,7 +232,6 @@ export function ApexMetaphor() {
           muted
           loop
           playsInline
-          poster="/video-poster.jpg"
         >
           <source src="/last-mile-f1.mp4" type="video/mp4" />
         </video>
