@@ -2267,7 +2267,7 @@ function BestPractices() {
   )
 }
 
-export default function ApexQuantPage() {
+export default function E3QuantHubPage() {
   const [selectedCategory, setSelectedCategory] = React.useState<typeof toolCategories[0] | null>(null)
 
   return (
@@ -2329,7 +2329,7 @@ export default function ApexQuantPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
               >
-                ApexQuant
+                E3 Quant Hub
                 <span className="block text-2xl lg:text-3xl font-medium text-content-secondary mt-2">
                   Production-Grade Econometrics & Backtesting
                 </span>
@@ -2474,7 +2474,7 @@ export default function ApexQuantPage() {
               </h2>
               <p className="text-content-secondary mb-8">
                 Access 79 production-grade econometric tools with natural language queries. 
-                Schedule a consultation to deploy ApexQuant in your infrastructure.
+                Schedule a consultation to deploy E3 Quant Hub in your infrastructure.
               </p>
               <div className="flex flex-wrap justify-center gap-3">
                 <Button size="lg" icon={<ArrowRight className="w-4 h-4" />}>
