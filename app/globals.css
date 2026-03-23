@@ -72,7 +72,7 @@
   body {
     background-color: var(--surface-900);
     color: var(--text-primary);
-    font-family: var(--font-roboto-mono), system-ui, -apple-system, monospace;
+    font-family: var(--font-urbanist), system-ui, -apple-system, sans-serif;
     line-height: 1.6;
     overflow-x: hidden;
   }
@@ -126,7 +126,7 @@
   }
 
   code, pre {
-    font-family: var(--font-roboto-mono), "SF Mono", "Fira Code", monospace;
+    font-family: var(--font-urbanist), "SF Mono", "Fira Code", monospace;
   }
 }
 
@@ -159,7 +159,7 @@
 
   /* Data value display */
   .data-mono {
-    font-family: var(--font-roboto-mono), monospace;
+    font-family: var(--font-urbanist), monospace;
     font-variant-numeric: tabular-nums;
   }
 

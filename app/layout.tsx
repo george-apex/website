@@ -1,13 +1,13 @@
 import type { Metadata } from 'next'
-import { Roboto_Mono } from 'next/font/google'
+import { Urbanist } from 'next/font/google'
 import './globals.css'
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
 import { ScrollProgressIndicator } from '@/components/effects/ScrollAnimations'
 
-const robotoMono = Roboto_Mono({
+const urbanist = Urbanist({
   subsets: ['latin'],
-  variable: '--font-roboto-mono',
+  variable: '--font-urbanist',
   display: 'swap',
   preload: true,
 })
@@ -89,7 +89,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${robotoMono.variable} relative`}>
+    <html lang="en" className={`${urbanist.variable} relative`}>
       <body className="relative min-h-screen bg-bg-primary text-white antialiased">
         {/* Scroll Progress Indicator */}
         <ScrollProgressIndicator />
