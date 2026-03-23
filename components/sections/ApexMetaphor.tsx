@@ -376,8 +376,15 @@ export function ApexMetaphor() {
               THE LAST MILE
             </span>
             <h2 className="text-display-lg lg:text-display-xl text-content-primary font-medium max-w-xl">
-              The <span className="text-content-tertiary">Apex</span> corner.
+              In racing, the apex{' '}
+              <span className="text-content-tertiary">defines the exit.</span>
+              <br />
+              <span className="gradient-accent">In enterprise AI, so does Apexe3.</span>
             </h2>
+            <p className="text-body-lg text-content-secondary max-w-lg">
+              The apex is the critical point where precision, control, timing, and trajectory converge.
+              Hit it right, and you set up the fastest possible path forward.
+            </p>
             <p className="text-body-lg text-content-secondary max-w-lg">
               Championship on the line. Final lap. Four cars enter The Apex.
               Only one makes it through to claim the title.
