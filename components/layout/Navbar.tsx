@@ -12,6 +12,8 @@ import { useScrollPosition } from '@/hooks'
 const NAV_LINKS = [
   { label: 'Solutions', href: '/solutions' },
   { label: 'Platform', href: '/platform' },
+  { label: 'Agents', href: '/agents' },
+  { label: 'ApexQuant', href: '/apex-quant' },
   { label: 'Security', href: '/security' },
   { label: 'Contact', href: '/contact' },
 ]
