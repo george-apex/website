@@ -8,7 +8,8 @@ import {
   Zap, 
   AlertTriangle, 
   MessageSquareQuote, 
-  ArrowRight 
+  ArrowRight,
+  Flag
 } from 'lucide-react'
 
 interface SectionTab {
@@ -36,6 +37,12 @@ const sections: SectionTab[] = [
     label: 'The Apex Principle', 
     shortLabel: 'Apex',
     icon: <Zap className="w-4 h-4" /> 
+  },
+  { 
+    id: 'lastmile', 
+    label: 'The Last Mile', 
+    shortLabel: 'Last Mile',
+    icon: <Flag className="w-4 h-4" /> 
   },
   { 
     id: 'problem', 
