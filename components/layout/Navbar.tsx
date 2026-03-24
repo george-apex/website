@@ -93,6 +93,7 @@ export const NAV_LINKS: NavLink[] = [
   },
   { 
     label: 'Products',
+    href: '/data-platform',
     subTabs: [
       { id: 'data-platform', label: 'Data Platform', href: '/data-platform' },
       { id: 'agents', label: 'Agents', href: '/agents' },
