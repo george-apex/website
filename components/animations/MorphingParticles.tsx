@@ -123,6 +123,7 @@ function SculptureLines() {
   const morphProgressRef = useRef(0)
   const visibleCountRef = useRef(CHAOS_LINE_COUNT)
   const tesseractTimeRef = useRef(0)
+  const dissolveStartTesseractTimeRef = useRef(0)
   
   const chaosLines = useMemo(() => generateChaosLines(), [])
   const targetLines = useMemo(() => generateF1CarWireframe(), [])
@@ -212,16 +213,17 @@ function SculptureLines() {
       setPhase('formed')
       phaseStartRef.current = now
       visibleCountRef.current = CAR_LINE_COUNT
-    } else if (phase === 'formed' && phaseElapsed > 2.5) {
+    } else if (phase === 'formed' && phaseElapsed > 3.5) {
       linesDataRef.current.forEach(data => {
         for (let j = 0; j < POINTS_PER_LINE * 3; j++) {
           data.morphStartPositions[j] = data.currentPositions[j]
         }
       })
+      dissolveStartTesseractTimeRef.current = tesseractTimeRef.current
       setPhase('dissolving')
       phaseStartRef.current = now
       morphProgressRef.current = 0
-    } else if (phase === 'dissolving' && phaseElapsed > 2.5) {
+    } else if (phase === 'dissolving' && phaseElapsed > 2) {
       setPhase('chaos')
       phaseStartRef.current = now
       visibleCountRef.current = CHAOS_LINE_COUNT
@@ -237,8 +239,10 @@ function SculptureLines() {
       visibleCountRef.current = targetVisible
     }
     
-    if (phase === 'chaos' || phase === 'dissolving') {
+    if (phase === 'chaos') {
       tesseractTimeRef.current += 0.015
+    } else if (phase === 'forming') {
+      tesseractTimeRef.current += 0.015 * (1 - morphProgressRef.current * 0.8)
     }
     
     const tesseractTime = tesseractTimeRef.current
@@ -312,13 +316,28 @@ function SculptureLines() {
         morphProgressRef.current = Math.min(1, phaseElapsed / 2.5)
         const t = morphProgressRef.current
         const eased = t < 0.5 
-          ? 4 * t * t * t 
-          : 1 - Math.pow(-2 * t + 2, 3) / 2
+          ? 2 * t * t 
+          : 1 - Math.pow(-2 * t + 2, 2) / 2
         
-        for (let j = 0; j < POINTS_PER_LINE * 3; j++) {
-          const val = data.morphStartPositions[j] + (data.targetPositions[j] - data.morphStartPositions[j]) * eased
-          positionAttr.array[j] = val
-          data.currentPositions[j] = val
+        const nodeA = getNodePosition(data.nodeAIndex, data.nodeAType)
+        const nodeB = getNodePosition(data.nodeBIndex, data.nodeBType)
+        
+        for (let j = 0; j < POINTS_PER_LINE; j++) {
+          const pt = j / (POINTS_PER_LINE - 1)
+          const tesseractX = nodeA.x + (nodeB.x - nodeA.x) * pt
+          const tesseractY = nodeA.y + (nodeB.y - nodeA.y) * pt
+          const tesseractZ = nodeA.z + (nodeB.z - nodeA.z) * pt
+          
+          const x = tesseractX + (data.targetPositions[j * 3] - tesseractX) * eased
+          const y = tesseractY + (data.targetPositions[j * 3 + 1] - tesseractY) * eased
+          const z = tesseractZ + (data.targetPositions[j * 3 + 2] - tesseractZ) * eased
+          
+          positionAttr.array[j * 3] = x
+          positionAttr.array[j * 3 + 1] = y
+          positionAttr.array[j * 3 + 2] = z
+          data.currentPositions[j * 3] = x
+          data.currentPositions[j * 3 + 1] = y
+          data.currentPositions[j * 3 + 2] = z
         }
       } else if (phase === 'formed') {
         for (let j = 0; j < POINTS_PER_LINE * 3; j++) {

@@ -245,10 +245,9 @@ export function Navbar() {
 
             {/* Desktop CTA */}
             <div className="hidden lg:flex items-center gap-3">
-              <Button variant="ghost" size="sm">
-                Sign In
-              </Button>
-              <Button size="sm">Schedule Demo</Button>
+              <Link href="/contact">
+                <Button size="sm">Schedule Demo</Button>
+              </Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -395,10 +394,9 @@ export function Navbar() {
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.3 }}
                 >
-                  <Button variant="outline" className="w-full">
-                    Sign In
-                  </Button>
-                  <Button className="w-full">Schedule Demo</Button>
+                  <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)}>
+                    <Button className="w-full">Schedule Demo</Button>
+                  </Link>
                 </motion.div>
               </div>
             </motion.nav>
