@@ -3,7 +3,7 @@
 import * as React from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { NAV_LINKS, SubTab, HoverContext } from './Navbar'
 
@@ -39,6 +39,8 @@ export function SubNavigation() {
 
   if (!isVisible) return null
 
+  const activeKey = activeNavLink?.label || 'none'
+  
   return (
     <div
       className={cn(
@@ -50,64 +52,73 @@ export function SubNavigation() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-center h-14">
-          <nav className="flex items-center gap-1">
-            {subTabs!.map((sub) => {
-              const isActive = sub.href 
-                ? pathname === sub.href 
-                : isHomePage && activeHomeSection === sub.id
-              
-              return (
-                <React.Fragment key={sub.id}>
-                  {sub.href ? (
-                    <Link
-                      href={sub.href}
-                      className={cn(
-                        'relative px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap',
-                        isActive 
-                          ? 'text-accent' 
-                          : 'text-content-tertiary hover:text-content-secondary hover:bg-surface-800/50'
-                      )}
-                    >
-                      {isActive && (
-                        <motion.div
-                          layoutId="activeSubTab"
-                          className="absolute inset-0 rounded-lg bg-accent/10 border border-accent/30"
-                          transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-                        />
-                      )}
-                      <span className="relative z-10 hidden sm:inline">{sub.label}</span>
-                      <span className="relative z-10 sm:hidden">{sub.shortLabel || sub.label}</span>
-                    </Link>
-                  ) : (
-                    <button
-                      onClick={() => {
-                        if (pathname !== '/') {
-                          router.push('/')
-                        }
-                        setActiveHomeSection(sub.id)
-                      }}
-                      className={cn(
-                        'relative px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap',
-                        isActive 
-                          ? 'text-accent' 
-                          : 'text-content-tertiary hover:text-content-secondary hover:bg-surface-800/50'
-                      )}
-                    >
-                      {isActive && (
-                        <motion.div
-                          layoutId="activeSubTab"
-                          className="absolute inset-0 rounded-lg bg-accent/10 border border-accent/30"
-                          transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-                        />
-                      )}
-                      <span className="relative z-10 hidden sm:inline">{sub.label}</span>
-                      <span className="relative z-10 sm:hidden">{sub.shortLabel || sub.label}</span>
-                    </button>
-                  )}
-                </React.Fragment>
-              )
-            })}
-          </nav>
+          <AnimatePresence mode="wait">
+            <motion.nav
+              key={activeKey}
+              className="flex items-center gap-1"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 8 }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+            >
+              {subTabs!.map((sub) => {
+                const isActive = sub.href 
+                  ? pathname === sub.href 
+                  : isHomePage && activeHomeSection === sub.id
+                
+                return (
+                  <React.Fragment key={sub.id}>
+                    {sub.href ? (
+                      <Link
+                        href={sub.href}
+                        className={cn(
+                          'relative px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap',
+                          isActive 
+                            ? 'text-accent' 
+                            : 'text-content-tertiary hover:text-content-secondary hover:bg-surface-800/50'
+                        )}
+                      >
+                        {isActive && (
+                          <motion.div
+                            layoutId="activeSubTab"
+                            className="absolute inset-0 rounded-lg bg-accent/10 border border-accent/30"
+                            transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                          />
+                        )}
+                        <span className="relative z-10 hidden sm:inline">{sub.label}</span>
+                        <span className="relative z-10 sm:hidden">{sub.shortLabel || sub.label}</span>
+                      </Link>
+                    ) : (
+                      <button
+                        onClick={() => {
+                          if (pathname !== '/') {
+                            router.push('/')
+                          }
+                          setActiveHomeSection(sub.id)
+                        }}
+                        className={cn(
+                          'relative px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap',
+                          isActive 
+                            ? 'text-accent' 
+                            : 'text-content-tertiary hover:text-content-secondary hover:bg-surface-800/50'
+                        )}
+                      >
+                        {isActive && (
+                          <motion.div
+                            layoutId="activeSubTab"
+                            className="absolute inset-0 rounded-lg bg-accent/10 border border-accent/30"
+                            transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                          />
+                        )}
+                        <span className="relative z-10 hidden sm:inline">{sub.label}</span>
+                        <span className="relative z-10 sm:hidden">{sub.shortLabel || sub.label}</span>
+                      </button>
+                    )}
+                  </React.Fragment>
+                )
+              })}
+            </motion.nav>
+          </AnimatePresence>
         </div>
       </div>
       
