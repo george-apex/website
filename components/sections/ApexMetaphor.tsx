@@ -5,63 +5,6 @@ import { motion, useInView } from 'framer-motion'
 import { Section } from '@/components/ui/section'
 import MorphingParticles from '@/components/animations/MorphingParticles'
 
-const competitors = [
-  {
-    id: 'general-ai',
-    name: 'General AI',
-    color: '#10A37F',
-    crashText: 'Spun out under production load',
-  },
-  {
-    id: 'reasoning-ai',
-    name: 'Reasoning AI',
-    color: '#D97706',
-    crashText: 'Hit the wall - no guardrails',
-  },
-  {
-    id: 'search-ai',
-    name: 'Search AI',
-    color: '#1E88E5',
-    crashText: 'Ran off track - no traction',
-  },
-  {
-    id: 'apexe3',
-    name: 'APEX:E3',
-    color: '#306BFF',
-    crashText: null,
-  },
-]
-
-function Legend() {
-  return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-      {competitors.map((car) => (
-        <div
-          key={car.id}
-          className="p-3 rounded-lg"
-          style={{
-            background: car.id === 'apexe3'
-              ? 'rgba(48, 107, 255, 0.1)'
-              : 'rgba(255,255,255,0.02)',
-            border: `1px solid ${car.id === 'apexe3' ? 'rgba(48, 107, 255, 0.3)' : 'rgba(255,255,255,0.05)'}`,
-          }}
-        >
-          <div className="flex items-center gap-2">
-            <div
-              className="w-6 h-2.5 rounded-sm"
-              style={{ background: car.color }}
-            />
-            <span className="text-body-sm font-medium text-white/90">{car.name}</span>
-          </div>
-          <div className={`text-label mt-1.5 ${car.crashText ? 'text-[#E74C3C]/70' : 'text-[#2ECC71]/70'}`}>
-            {car.crashText || '✓ Championship winner'}
-          </div>
-        </div>
-      ))}
-    </div>
-  )
-}
-
 export function ApexMetaphor() {
   const containerRef = React.useRef<HTMLDivElement>(null)
   const isInView = useInView(containerRef, { once: false })
@@ -79,8 +22,8 @@ export function ApexMetaphor() {
       </div>
 
       <div ref={containerRef} className="relative z-10 max-w-6xl mx-auto">
-        <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 items-center min-h-[500px] py-12">
-          <div className="lg:col-span-3">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[500px] py-12">
+          <div className="lg:col-span-1">
           </div>
           
           <motion.div
@@ -88,27 +31,44 @@ export function ApexMetaphor() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:col-span-2 space-y-6"
+            className="lg:col-span-1 space-y-8 ml-16"
           >
-            <span className="inline-block text-label font-medium text-accent mb-3 tracking-wider">
-              THE LAST MILE
-            </span>
-            <h2 className="text-display-lg lg:text-display-xl text-content-primary font-medium max-w-xl">
-              In racing, the apex{' '}
-              <span className="text-content-tertiary">defines the exit.</span>
-              <br />
-              <span className="gradient-accent">In enterprise AI, so does Apexe3.</span>
-            </h2>
-            <p className="text-body-lg text-content-secondary max-w-lg">
-              The apex is the critical point where precision, control, timing, and trajectory converge.
-              Hit it right, and you set up the fastest possible path forward.
-            </p>
-            <p className="text-body-lg text-content-secondary max-w-lg">
-              Championship on the line. Final lap. Four cars enter The Apex.
-              Only one makes it through to claim the title.
-            </p>
-            <div className="pt-4">
-              <Legend />
+            <div className="space-y-4">
+              <span className="inline-block text-label font-semibold text-accent tracking-[0.2em] uppercase">
+                The Last Mile
+              </span>
+              <h2 className="text-display-lg lg:text-display-xl text-content-primary font-semibold leading-tight">
+                Everyone talks about AI.
+                <br />
+                <span className="text-content-tertiary">Few cross the finish line.</span>
+              </h2>
+            </div>
+            
+            <div className="h-px w-24 bg-gradient-to-r from-accent to-transparent" />
+            
+            <div className="space-y-6">
+              <p className="text-body-lg text-content-secondary">
+                Most AI projects never reach production. They stall in pilot purgatory—stuck between 
+                proof-of-concept and deployment with no clear path forward.
+              </p>
+              
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
+                  <span className="text-white/70 font-bold text-lg">80%</span>
+                </div>
+                <p className="text-body-lg text-content-secondary pt-2">
+                  is where other providers stop. They deliver a model, then leave you to handle 
+                  integration, security, and compliance on your own.
+                </p>
+              </div>
+            </div>
+            
+            <div className="p-5 rounded-xl bg-gradient-to-br from-accent/10 to-transparent border border-accent/20">
+              <p className="text-body-lg text-white/90">
+                <span className="gradient-accent font-semibold">APEX:E3 crosses the last mile.</span> We engineer 
+                complete production systems—from data pipelines to deployment, compliance to monitoring. 
+                <span className="text-accent font-medium"> Full implementation. Real results.</span>
+              </p>
             </div>
           </motion.div>
         </div>
