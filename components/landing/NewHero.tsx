@@ -1,11 +1,11 @@
 'use client'
 
 import * as React from 'react'
-import { motion } from 'framer-motion'
-import { ArrowRight, Play } from 'lucide-react'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { ArrowRight, Play, Shield, Zap, Database } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { NeuralSovereigntyBg } from './NeuralSovereigntyBg'
 import { cn } from '@/lib/utils'
+import { PremiumHeroBackground } from '@/components/effects/PremiumHeroEffect'
 
 // =============================================================================
 // BUSINESS SECTORS - Typing animation content
@@ -83,17 +83,46 @@ function TypingText({
 }
 
 // =============================================================================
+// PREMIUM HERO VISUALIZATION - Cinematic light reveal effect
+// =============================================================================
+function PremiumVisualization() {
+  return (
+    <PremiumHeroBackground />
+  )
+}
+
+// =============================================================================
 // NEW HERO COMPONENT
 // =============================================================================
 export function NewHero() {
+  const { scrollYProgress } = useScroll()
+  const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0])
+  const scale = useTransform(scrollYProgress, [0, 0.3], [1, 0.95])
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Animated Background */}
-      <NeuralSovereigntyBg />
+      {/* Deep space background */}
+      <div className="absolute inset-0 bg-surface-950" />
+
+      {/* Premium light reveal visualization background */}
+      <div className="absolute inset-0">
+        <PremiumVisualization />
+      </div>
+
+      {/* Subtle vignette overlay */}
+      <div 
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.4) 100%)',
+        }}
+      />
 
       {/* Content */}
-      <div className="relative z-10 container-main py-20 lg:py-0">
-        <div className="max-w-4xl mx-auto text-center">
+      <motion.div 
+        className="relative z-10 container-main py-20 lg:py-0 pointer-events-none"
+        style={{ opacity, scale }}
+      >
+        <div className="max-w-4xl mx-auto text-center pointer-events-auto">
           {/* Pre-headline badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -101,7 +130,7 @@ export function NewHero() {
             transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="mb-6"
           >
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-sm font-medium">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-sm font-medium backdrop-blur-sm">
               <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
               <span className="text-content-tertiary">Enterprise AI Infrastructure</span>
             </span>
@@ -170,7 +199,7 @@ export function NewHero() {
               size="lg" 
               icon={<Play className="w-4 h-4" />}
               iconPosition="left"
-              className="border-white/20 text-white hover:bg-white/5"
+              className="border-white/20 text-white hover:bg-white/5 backdrop-blur-sm"
             >
               See Platform
             </Button>
@@ -185,21 +214,21 @@ export function NewHero() {
           >
             <div className="flex flex-wrap items-center justify-center gap-8 text-sm text-white/50">
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-positive" />
+                <Shield className="w-4 h-4 text-positive" />
                 <span>SOC 2 Type II</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-accent" />
+                <Database className="w-4 h-4 text-accent" />
                 <span>On-Premise Deploy</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-accent" />
+                <Zap className="w-4 h-4 text-accent" />
                 <span>$500B+ Analyzed</span>
               </div>
             </div>
           </motion.div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Bottom gradient fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-surface-900 to-transparent" />
