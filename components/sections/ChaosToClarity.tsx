@@ -243,7 +243,7 @@ export function ChaosToClarity() {
                 }}
               >
                 <div className={`relative backdrop-blur-[1px] ${
-                  doc.type === 'doc' ? 'w-14 h-16 rounded border border-data/30 bg-surface-700/40' :
+                  doc.type === 'doc' ? 'w-14 h-16 rounded border border-accent/30 bg-surface-700/40' :
                   doc.type === 'tab' ? 'w-16 h-10 rounded-t border border-accent/30 bg-surface-700/40' :
                   doc.type === 'note' ? 'w-12 h-12 rounded border border-warning/30 bg-warning/10 rotate-6' :
                   doc.type === 'chart' ? 'w-16 h-14 rounded border border-negative/30 bg-surface-700/40' :
@@ -251,14 +251,14 @@ export function ChaosToClarity() {
                 }`}>
                   {doc.type === 'doc' && (
                     <div className="p-1.5 space-y-0.5">
-                      <FileText className="w-3 h-3 text-data/50" />
+                      <FileText className="w-3 h-3 text-accent/50" />
                       <div className="w-6 h-0.5 bg-surface-600 rounded" />
                       <div className="w-4 h-0.5 bg-surface-600 rounded" />
                     </div>
                   )}
                   {doc.type === 'tab' && (
                     <div className="flex items-center gap-1 p-1.5">
-                      <div className="w-1.5 h-1.5 rounded-sm bg-data/40" />
+                      <div className="w-1.5 h-1.5 rounded-sm bg-accent/40" />
                       <div className="w-1.5 h-1.5 rounded-sm bg-accent/40" />
                       <div className="w-1.5 h-1.5 rounded-sm bg-warning/40" />
                     </div>
@@ -307,15 +307,15 @@ export function ChaosToClarity() {
             </motion.div>
 
             <motion.div
-              className="absolute bottom-6 left-8 flex items-center gap-2 px-3 py-1.5 rounded-full bg-data/10 border border-data/30"
+              className="absolute bottom-6 left-8 flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/30"
               animate={{ 
                 x: [0, 3, -5, 0],
                 opacity: [0.6, 1, 0.6]
               }}
               transition={{ duration: 4.5, repeat: Infinity, delay: 1 }}
             >
-              <Database className="w-3 h-3 text-data" />
-              <span className="text-xs text-data/80">12 data sources</span>
+              <Database className="w-3 h-3 text-accent" />
+              <span className="text-xs text-accent/80">12 data sources</span>
             </motion.div>
 
             <motion.div
@@ -388,8 +388,8 @@ export function ChaosToClarity() {
                   </div>
                   
                   {/* Connected nodes */}
-                  <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-data/20 border border-data/40 flex items-center justify-center">
-                    <TrendingUp className="w-3 h-3 text-data" />
+                  <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-accent/20 border border-accent/40 flex items-center justify-center">
+                    <TrendingUp className="w-3 h-3 text-accent" />
                   </div>
                   <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-positive/20 border border-positive/40 flex items-center justify-center">
                     <CheckCircle2 className="w-3 h-3 text-positive" />
@@ -397,8 +397,8 @@ export function ChaosToClarity() {
                   <div className="absolute top-1/2 -left-8 -translate-y-1/2 w-6 h-6 rounded-full bg-accent/20 border border-accent/40 flex items-center justify-center">
                     <Zap className="w-3 h-3 text-accent" />
                   </div>
-                  <div className="absolute top-1/2 -right-8 -translate-y-1/2 w-6 h-6 rounded-full bg-data/20 border border-data/40 flex items-center justify-center">
-                    <Sparkles className="w-3 h-3 text-data" />
+                  <div className="absolute top-1/2 -right-8 -translate-y-1/2 w-6 h-6 rounded-full bg-accent/20 border border-accent/40 flex items-center justify-center">
+                    <Sparkles className="w-3 h-3 text-accent" />
                   </div>
 
                   {/* Connection lines */}
@@ -406,7 +406,7 @@ export function ChaosToClarity() {
                     <line x1="50%" y1="50%" x2="50%" y2="15%" stroke="#306BFF" strokeWidth="1" opacity="0.5" />
                     <line x1="50%" y1="50%" x2="50%" y2="85%" stroke="#2ECC71" strokeWidth="1" opacity="0.5" />
                     <line x1="50%" y1="50%" x2="15%" y2="50%" stroke="#306BFF" strokeWidth="1" opacity="0.5" />
-                    <line x1="50%" y1="50%" x2="85%" y2="50%" stroke="#4A90D9" strokeWidth="1" opacity="0.5" />
+                    <line x1="50%" y1="50%" x2="85%" y2="50%" stroke="#306BFF" strokeWidth="1" opacity="0.5" />
                   </svg>
                 </motion.div>
               </div>
@@ -617,7 +617,7 @@ export function ChaosToClarity() {
                   <div className="grid grid-cols-2 gap-4">
                     <div className="p-4 rounded-xl border border-border bg-surface-800/50">
                       <div className="flex items-center gap-2 mb-2">
-                        <Activity className="w-4 h-4 text-data" />
+                        <Activity className="w-4 h-4 text-accent" />
                         <span className="text-xs text-content-tertiary">Signal Quality</span>
                       </div>
                       <div className="text-2xl font-bold text-content-primary">94%</div>
@@ -637,7 +637,7 @@ export function ChaosToClarity() {
                         <span className="text-xs text-content-tertiary">Data Sources</span>
                       </div>
                       <div className="text-2xl font-bold text-content-primary">12</div>
-                      <div className="text-xs text-data">Unified</div>
+                      <div className="text-xs text-accent">Unified</div>
                     </div>
                     <div className="p-4 rounded-xl border border-border bg-surface-800/50">
                       <div className="flex items-center gap-2 mb-2">

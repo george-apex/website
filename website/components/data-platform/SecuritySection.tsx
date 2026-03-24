@@ -139,7 +139,7 @@ function AnimatedLock() {
       animate={{ y: [0, -5, 0] }}
       transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
     >
-      <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-accent to-data flex items-center justify-center">
+      <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-accent to-accent flex items-center justify-center">
         <Lock className="w-8 h-8 text-white" />
       </div>
       

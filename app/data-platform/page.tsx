@@ -87,14 +87,14 @@ function OrbitalVisualization() {
       
       {/* Middle ring */}
       <motion.div
-        className="absolute inset-8 rounded-full border border-data/30"
+        className="absolute inset-8 rounded-full border border-accent/30"
         animate={{ rotate: -360 }}
         transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
       />
 
       {/* Center core */}
       <motion.div
-        className="absolute inset-20 rounded-full bg-gradient-to-br from-accent/20 to-data/20 
+        className="absolute inset-20 rounded-full bg-gradient-to-br from-accent/20 to-accent/20 
                    border border-accent/30 flex items-center justify-center"
         animate={{ scale: [1, 1.08, 1], boxShadow: ['0 0 30px rgba(var(--accent), 0.2)', '0 0 60px rgba(var(--accent), 0.4)', '0 0 30px rgba(var(--accent), 0.2)'] }}
         transition={{ duration: 3, repeat: Infinity }}
@@ -297,7 +297,7 @@ export default function DataPlatformPage() {
 
             <h1 className="text-4xl sm:text-5xl font-bold text-white mb-3">
               Data Into{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-data">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent">
                 Decisions
               </span>
             </h1>
@@ -372,7 +372,7 @@ export default function DataPlatformPage() {
           className="mb-12"
         >
           <div className="flex items-center gap-2 mb-4">
-            <Layers className="w-4 h-4 text-data" />
+            <Layers className="w-4 h-4 text-accent" />
             <h2 className="text-lg font-semibold text-white">Infrastructure</h2>
           </div>
 
@@ -402,7 +402,7 @@ export default function DataPlatformPage() {
 
             {/* Processing */}
             <motion.div
-              className="px-6 py-4 rounded-xl bg-gradient-to-r from-accent/20 to-data/20 border border-accent/30"
+              className="px-6 py-4 rounded-xl bg-gradient-to-r from-accent/20 to-accent/20 border border-accent/30"
               animate={{ boxShadow: ['0 0 20px rgba(var(--accent), 0.2)', '0 0 40px rgba(var(--accent), 0.4)', '0 0 20px rgba(var(--accent), 0.2)'] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
@@ -418,7 +418,7 @@ export default function DataPlatformPage() {
               animate={{ x: [0, 5, 0] }}
               transition={{ duration: 1.5, repeat: Infinity, delay: 0.5 }}
             >
-              <ArrowRight className="w-6 h-6 text-data" />
+              <ArrowRight className="w-6 h-6 text-accent" />
             </motion.div>
 
             {/* Output */}
@@ -426,7 +426,7 @@ export default function DataPlatformPage() {
               {['Signals', 'Models', 'Apps'].map((label, i) => (
                 <motion.div
                   key={label}
-                  className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-accent/20 to-data/20 border border-accent/30 text-xs text-white"
+                  className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-accent/20 to-accent/20 border border-accent/30 text-xs text-white"
                   animate={{ scale: [1, 1.02, 1] }}
                   transition={{ duration: 2, delay: i * 0.3, repeat: Infinity }}
                 >
@@ -461,7 +461,7 @@ export default function DataPlatformPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.6 }}
-          className="text-center p-8 rounded-2xl bg-gradient-to-r from-accent/10 to-data/10 
+          className="text-center p-8 rounded-2xl bg-gradient-to-r from-accent/10 to-accent/10 
                      border border-accent/20"
         >
           <h2 className="text-2xl font-bold text-white mb-2">

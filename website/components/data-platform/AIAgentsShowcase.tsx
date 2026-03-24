@@ -134,7 +134,7 @@ function MiniBarChart() {
       {bars.map((h, i) => (
         <motion.div
           key={i}
-          className="flex-1 bg-gradient-to-t from-accent/50 to-data/50 rounded-t"
+          className="flex-1 bg-gradient-to-t from-accent/50 to-accent/50 rounded-t"
           initial={{ height: 0 }}
           animate={{ height: `${h}%` }}
           transition={{ delay: i * 0.1, duration: 0.5 }}
@@ -330,7 +330,7 @@ export function AIAgentsShowcase() {
       
       {/* Decorative elements */}
       <div className="absolute top-1/4 left-0 w-96 h-96 bg-accent/5 rounded-full blur-[100px]" />
-      <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-data/5 rounded-full blur-[100px]" />
+      <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-accent/5 rounded-full blur-[100px]" />
 
       <div className="container-main relative z-10">
         {/* Header */}

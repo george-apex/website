@@ -121,7 +121,7 @@ export function UseCases() {
       <motion.div
         className="absolute left-0 right-0 h-px top-[10%]"
         style={{ 
-          background: 'linear-gradient(90deg, transparent, rgba(74, 144, 217, 0.15) 30%, rgba(74, 144, 217, 0.2) 50%, rgba(74, 144, 217, 0.15) 70%, transparent)',
+          background: 'linear-gradient(90deg, transparent, rgba(48, 107, 255, 0.15) 30%, rgba(48, 107, 255, 0.2) 50%, rgba(48, 107, 255, 0.15) 70%, transparent)',
         }}
         initial={{ scaleX: 0 }}
         whileInView={{ scaleX: 1 }}
@@ -198,7 +198,7 @@ export function UseCases() {
                     animate={{ x: isHovered ? '100%' : '-100%' }}
                     transition={{ duration: 0.8, ease: 'easeInOut' }}
                     style={{
-                      background: 'linear-gradient(90deg, transparent, rgba(74, 144, 217, 0.05), transparent)',
+                      background: 'linear-gradient(90deg, transparent, rgba(48, 107, 255, 0.05), transparent)',
                       width: '50%'
                     }}
                   />
@@ -226,7 +226,7 @@ export function UseCases() {
                     }}
                     transition={{ duration: 0.4 }}
                     style={{
-                      background: 'linear-gradient(90deg, transparent, rgba(74, 144, 217, 0.4), transparent)',
+                      background: 'linear-gradient(90deg, transparent, rgba(48, 107, 255, 0.4), transparent)',
                     }}
                   />
                   
@@ -320,7 +320,7 @@ export function UseCases() {
                       animate={{ opacity: isHovered ? 1 : 0 }}
                       transition={{ duration: 0.3 }}
                       style={{
-                        background: 'linear-gradient(to top left, rgba(74, 144, 217, 0.08), transparent)',
+                        background: 'linear-gradient(to top left, rgba(48, 107, 255, 0.08), transparent)',
                       }}
                     />
                   </div>
@@ -342,7 +342,7 @@ export function UseCases() {
           <motion.div
             className="absolute left-0 right-0 -top-4 h-px"
             style={{
-              background: 'linear-gradient(90deg, transparent, rgba(74, 144, 217, 0.1) 20%, rgba(74, 144, 217, 0.15) 50%, rgba(74, 144, 217, 0.1) 80%, transparent)',
+              background: 'linear-gradient(90deg, transparent, rgba(48, 107, 255, 0.1) 20%, rgba(48, 107, 255, 0.15) 50%, rgba(48, 107, 255, 0.1) 80%, transparent)',
             }}
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
@@ -357,7 +357,7 @@ export function UseCases() {
               <motion.div
                 className="absolute inset-0"
                 style={{
-                  backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(74, 144, 217, 0.15) 1px, transparent 0)',
+                  backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(48, 107, 255, 0.15) 1px, transparent 0)',
                   backgroundSize: '24px 24px',
                 }}
                 animate={{
@@ -411,7 +411,7 @@ export function UseCases() {
                     y: -2,
                     transition: { duration: 0.2 }
                   }}
-                  className="flex items-center gap-2 px-4 py-2.5 rounded border border-border bg-surface-700 hover:border-data/30 hover:bg-data/5 transition-colors duration-200 cursor-default group relative overflow-hidden"
+                  className="flex items-center gap-2 px-4 py-2.5 rounded border border-border bg-surface-700 hover:border-accent/30 hover:bg-accent/5 transition-colors duration-200 cursor-default group relative overflow-hidden"
                 >
                   {/* Hover shimmer */}
                   <motion.div
@@ -425,7 +425,7 @@ export function UseCases() {
                     }}
                   />
                   <motion.span 
-                    className="text-data text-sm font-mono relative z-10"
+                    className="text-accent text-sm font-mono relative z-10"
                     whileHover={{ scale: 1.1 }}
                     transition={{ duration: 0.2 }}
                   >

@@ -26,14 +26,6 @@ const config: Config = {
           'glow': 'rgba(48, 107, 255, 0.15)',
         },
         
-        // Secondary accent - cool blue for data/tech
-        'data': {
-          'DEFAULT': '#4A90D9',    // Data blue
-          'light': '#6BB3F0',      
-          'dark': '#2E6AB3',       
-          'glow': 'rgba(74, 144, 217, 0.12)',
-        },
-        
         // Success/positive
         'positive': {
           DEFAULT: '#2ECC71',
@@ -186,7 +178,6 @@ const config: Config = {
           linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px)
         `,
         'radial-accent': 'radial-gradient(ellipse at center, rgba(48, 107, 255, 0.08) 0%, transparent 70%)',
-        'radial-data': 'radial-gradient(ellipse at center, rgba(74, 144, 217, 0.06) 0%, transparent 70%)',
         'gradient-fade-b': 'linear-gradient(to bottom, transparent 0%, rgba(10, 11, 13, 0.8) 100%)',
         'gradient-fade-t': 'linear-gradient(to top, transparent 0%, rgba(10, 11, 13, 0.8) 100%)',
       },
@@ -211,7 +202,6 @@ const config: Config = {
           0 0 0 1px rgba(255, 255, 255, 0.06)
         `,
         'glow-accent': '0 0 40px rgba(48, 107, 255, 0.15)',
-        'glow-data': '0 0 40px rgba(74, 144, 217, 0.12)',
         'inner': 'inset 0 2px 4px rgba(0, 0, 0, 0.2)',
       },
       

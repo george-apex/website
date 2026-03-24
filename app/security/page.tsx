@@ -535,7 +535,7 @@ export default function SecurityPage() {
                       whileHover={{ x: '100%' }}
                       transition={{ duration: 0.5 }}
                       style={{
-                        background: 'linear-gradient(90deg, transparent, rgba(74, 144, 217, 0.08), transparent)',
+                        background: 'linear-gradient(90deg, transparent, rgba(48, 107, 255, 0.08), transparent)',
                         width: '50%'
                       }}
                     />
@@ -633,7 +633,7 @@ export default function SecurityPage() {
                     
                     {/* Concentric circles */}
                     <motion.div 
-                      className="absolute w-56 h-56 rounded-full border border-data/20"
+                      className="absolute w-56 h-56 rounded-full border border-accent/20"
                       animate={{ rotate: 360 }}
                       transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
                     />
@@ -643,20 +643,20 @@ export default function SecurityPage() {
                       transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
                     />
                     <motion.div 
-                      className="absolute w-32 h-32 rounded-full border border-data/40"
+                      className="absolute w-32 h-32 rounded-full border border-accent/40"
                       animate={{ rotate: 360 }}
                       transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
                     />
                     
                     {/* Center shield */}
                     <motion.div 
-                      className="w-18 h-18 rounded border border-accent/30 bg-gradient-to-br from-data/20 to-accent/10 flex items-center justify-center"
+                      className="w-18 h-18 rounded border border-accent/30 bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center"
                       style={{ width: '72px', height: '72px' }}
                       animate={{ 
                         boxShadow: [
-                          '0 0 20px rgba(74, 144, 217, 0.2)',
-                          '0 0 30px rgba(74, 144, 217, 0.3)',
-                          '0 0 20px rgba(74, 144, 217, 0.2)',
+                          '0 0 20px rgba(48, 107, 255, 0.2)',
+                          '0 0 30px rgba(48, 107, 255, 0.3)',
+                          '0 0 20px rgba(48, 107, 255, 0.2)',
                         ]
                       }}
                       transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}

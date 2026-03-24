@@ -318,7 +318,7 @@ function AgentCard({ agent, onTryAgent }: { agent: typeof agents[0]; onTryAgent:
       {/* Glow effect */}
       <div 
         className={cn(
-          "absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-accent/20 via-accent/10 to-data/20 opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500",
+          "absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-accent/20 via-accent/10 to-accent/20 opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500",
           isHovered && "opacity-100"
         )}
       />
@@ -327,7 +327,7 @@ function AgentCard({ agent, onTryAgent }: { agent: typeof agents[0]; onTryAgent:
       <div className={cn(
         "absolute -inset-px rounded-2xl transition-all duration-300",
         isHovered 
-          ? "bg-gradient-to-r from-accent via-accent/50 to-data opacity-100" 
+          ? "bg-gradient-to-r from-accent via-accent/50 to-accent opacity-100" 
           : "bg-transparent"
       )}>
         <div className="absolute inset-0 rounded-2xl bg-surface-800" />

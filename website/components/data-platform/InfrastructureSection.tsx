@@ -42,7 +42,7 @@ const infrastructureLayers = [
     subtitle: 'Big Data as a Service',
     description: 'Unified data layer powering agents, models, and products at scale',
     features: ['API Access', 'SDK Libraries', 'Query Engine', 'Data Lake'],
-    color: 'from-accent to-data',
+    color: 'from-accent to-accent',
     bgColor: 'bg-accent/10',
   },
 ]
@@ -81,7 +81,7 @@ function DataFlowDiagram() {
 
       {/* Processing box */}
       <motion.div
-        className="max-w-md mx-auto p-4 rounded-2xl bg-gradient-to-r from-accent/10 to-data/10 
+        className="max-w-md mx-auto p-4 rounded-2xl bg-gradient-to-r from-accent/10 to-accent/10 
                    border border-accent/30 mb-4"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -93,7 +93,7 @@ function DataFlowDiagram() {
             <p className="text-sm font-medium text-content-primary">Processing Layer</p>
             <p className="text-xs text-content-tertiary">Normalization • Validation • Enrichment</p>
           </div>
-          <HardDrive className="w-8 h-8 text-data" />
+          <HardDrive className="w-8 h-8 text-accent" />
         </div>
       </motion.div>
 
@@ -103,7 +103,7 @@ function DataFlowDiagram() {
           animate={{ y: [0, 5, 0], opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 1.5, repeat: Infinity, delay: 0.5 }}
         >
-          <ArrowDown className="w-6 h-6 text-data" />
+          <ArrowDown className="w-6 h-6 text-accent" />
         </motion.div>
       </div>
 
@@ -121,7 +121,7 @@ function DataFlowDiagram() {
             transition={{ delay: 0.6 + i * 0.1 }}
             className="flex flex-col items-center"
           >
-            <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/20 to-data/20 
+            <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/20 to-accent/20 
                            border border-accent/30 flex items-center justify-center">
               <item.icon className="w-6 h-6 text-accent" />
             </div>

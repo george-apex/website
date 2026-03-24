@@ -93,7 +93,7 @@ function CentralOrb() {
       
       {/* Middle ring */}
       <motion.div
-        className="absolute inset-4 rounded-full border border-data/30"
+        className="absolute inset-4 rounded-full border border-accent/30"
         animate={{ rotate: -360 }}
         transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
       />
@@ -107,7 +107,7 @@ function CentralOrb() {
       
       {/* Core */}
       <motion.div
-        className="absolute inset-12 rounded-full bg-gradient-to-br from-accent/20 to-data/20 backdrop-blur-xl
+        className="absolute inset-12 rounded-full bg-gradient-to-br from-accent/20 to-accent/20 backdrop-blur-xl
                    flex items-center justify-center border border-accent/30"
         animate={{ scale: [1, 1.05, 1] }}
         transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
@@ -188,7 +188,7 @@ export function DataPlatformHero() {
             {/* Headline */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-content-primary mb-6 leading-tight">
               Data Into{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-data">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent">
                 Faster Decisions
               </span>
             </h1>

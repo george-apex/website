@@ -153,7 +153,7 @@ const mockResponses: Record<string, StructuredResponse> = {
         type: 'bar',
         title: 'Hyperscaler AI Capex ($B)',
         data: [
-          { label: 'Microsoft', value: 45, color: '#4A90D9' },
+          { label: 'Microsoft', value: 45, color: '#306BFF' },
           { label: 'Google', value: 42, color: '#306BFF' },
           { label: 'Meta', value: 38, color: '#6B8E4E' },
           { label: 'Amazon', value: 33, color: '#8B7355' },
@@ -164,7 +164,7 @@ const mockResponses: Record<string, StructuredResponse> = {
         title: 'Revenue Exposure',
         data: [
           { label: 'Data Center', value: 83, color: '#306BFF' },
-          { label: 'Gaming', value: 10, color: '#4A90D9' },
+          { label: 'Gaming', value: 10, color: '#306BFF' },
           { label: 'Auto', value: 4, color: '#6B8E4E' },
           { label: 'Other', value: 3, color: '#666666' },
         ],
@@ -445,7 +445,7 @@ export function ALICEResponseDemo() {
                           transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
                         >
                           <div className="absolute inset-0 rounded-full border-2 border-dashed border-accent/30" />
-                          <div className="absolute inset-2 rounded-full border-2 border-dashed border-data/30" style={{ animationDirection: 'reverse' }} />
+                          <div className="absolute inset-2 rounded-full border-2 border-dashed border-accent/30" style={{ animationDirection: 'reverse' }} />
                           <div className="absolute inset-4 rounded-full bg-surface-800 flex items-center justify-center">
                             <Zap className="w-6 h-6 text-accent animate-pulse" />
                           </div>

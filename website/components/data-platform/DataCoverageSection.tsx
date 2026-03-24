@@ -96,7 +96,7 @@ function AnimatedBarChart({ isActive }: { isActive: boolean }) {
       {bars.map((height, i) => (
         <motion.div
           key={i}
-          className="w-3 bg-gradient-to-t from-accent to-data rounded-t"
+          className="w-3 bg-gradient-to-t from-accent to-accent rounded-t"
           initial={{ height: 0 }}
           animate={{ height: isActive ? `${height}%` : 0 }}
           transition={{ delay: i * 0.05, duration: 0.5, ease: 'easeOut' }}
@@ -205,7 +205,7 @@ function DataFlowVisual() {
       
       {/* Output node */}
       <motion.div
-        className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent to-data flex items-center justify-center"
+        className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent to-accent flex items-center justify-center"
         animate={{ scale: [1, 1.1, 1] }}
         transition={{ duration: 2, repeat: Infinity }}
       >

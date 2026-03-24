@@ -104,7 +104,7 @@ function ApexCurve() {
       <defs>
         {/* Gradient for optimal path */}
         <linearGradient id="apexGradient" x1="0%" y1="100%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#4A90D9" stopOpacity="0.3" />
+          <stop offset="0%" stopColor="#306BFF" stopOpacity="0.3" />
           <stop offset="50%" stopColor="#306BFF" stopOpacity="1" />
           <stop offset="100%" stopColor="#306BFF" stopOpacity="0.6" />
         </linearGradient>

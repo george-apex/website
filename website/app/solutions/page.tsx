@@ -491,7 +491,7 @@ export default function SolutionsPage() {
                 >
                   <Card variant="interactive" className="p-5 h-[140px] group flex flex-col">
                     <div className="flex items-center gap-3 mb-2">
-                      <span className="text-data text-lg font-mono flex-shrink-0">{industry.icon}</span>
+                      <span className="text-accent text-lg font-mono flex-shrink-0">{industry.icon}</span>
                       <h3 className="font-medium text-content-primary group-hover:text-accent transition-colors leading-tight">
                         {industry.name}
                       </h3>

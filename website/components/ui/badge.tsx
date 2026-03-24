@@ -17,9 +17,9 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
         border border-accent/20
       `,
       data: `
-        bg-data/10 
-        text-data 
-        border border-data/20
+        bg-accent/10 
+        text-accent 
+        border border-accent/20
       `,
       positive: `
         bg-positive/10 

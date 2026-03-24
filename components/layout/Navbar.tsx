@@ -22,13 +22,13 @@ export const HoverContext = React.createContext<HoverContextType>({
   hoveredParent: null,
   setHoveredParent: () => {},
   cancelClear: () => {},
-  activeHomeSection: 'apex',
+  activeHomeSection: 'home',
   setActiveHomeSection: () => {},
 })
 
 export function NavigationProvider({ children }: { children: React.ReactNode }) {
   const [hoveredParent, setHoveredParentState] = React.useState<string | null>(null)
-  const [activeHomeSection, setActiveHomeSection] = React.useState('apex')
+  const [activeHomeSection, setActiveHomeSection] = React.useState('home')
   const clearTimeoutRef = React.useRef<NodeJS.Timeout | null>(null)
 
   const cancelClear = React.useCallback(() => {
@@ -84,9 +84,8 @@ export const NAV_LINKS: NavLink[] = [
     label: 'Home', 
     href: '/',
     subTabs: [
-      { id: 'apex', label: 'The Last Mile', shortLabel: 'Last Mile' },
-      { id: 'value', label: 'Core Differentiators', shortLabel: 'Value' },
-      { id: 'problem', label: 'Why AI Fails', shortLabel: 'Problem' },
+      { id: 'home', label: 'Home', shortLabel: 'Home' },
+      { id: 'last-mile', label: 'The Last Mile', shortLabel: 'Last Mile' },
       { id: 'demo', label: 'Interactive Demo', shortLabel: 'Demo' },
       { id: 'cta', label: 'Get Started', shortLabel: 'CTA' },
     ]

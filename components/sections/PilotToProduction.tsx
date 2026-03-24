@@ -42,7 +42,7 @@ export function PilotToProduction() {
       <motion.div
         className="absolute left-0 right-0 h-px top-[5%]"
         style={{ 
-          background: 'linear-gradient(90deg, transparent, rgba(48, 107, 255, 0.15) 30%, rgba(74, 144, 217, 0.2) 50%, rgba(48, 107, 255, 0.15) 70%, transparent)',
+          background: 'linear-gradient(90deg, transparent, rgba(48, 107, 255, 0.15) 30%, rgba(48, 107, 255, 0.2) 50%, rgba(48, 107, 255, 0.15) 70%, transparent)',
         }}
         initial={{ scaleX: 0 }}
         whileInView={{ scaleX: 1 }}
@@ -118,7 +118,7 @@ export function PilotToProduction() {
                         <span className="text-accent text-sm font-medium uppercase tracking-wider">
                           {step.title}
                         </span>
-                        <span className="text-4xl font-bold font-mono text-data/20 data-mono">
+                        <span className="text-4xl font-bold font-mono text-accent/20 data-mono">
                           {String(step.step).padStart(2, '0')}
                         </span>
                       </div>
@@ -135,7 +135,7 @@ export function PilotToProduction() {
                       className={cn(
                         'w-14 h-14 rounded flex items-center justify-center',
                         'border border-accent/30',
-                        'bg-gradient-to-br from-data/20 to-accent/10'
+                        'bg-gradient-to-br from-accent/20 to-accent/10'
                       )}
                       whileHover={{ scale: 1.1 }}
                       transition={{ duration: 0.2 }}

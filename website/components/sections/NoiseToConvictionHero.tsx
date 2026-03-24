@@ -248,7 +248,7 @@ export function NoiseToConvictionHero() {
               <defs>
                 <linearGradient id="dotGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stopColor="#306BFF" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#4A90D9" stopOpacity="0.4" />
+                  <stop offset="100%" stopColor="#306BFF" stopOpacity="0.4" />
                 </linearGradient>
                 <filter id="dotGlow">
                   <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
@@ -379,7 +379,7 @@ export function NoiseToConvictionHero() {
                         <motion.div 
                           className="h-full rounded-full relative"
                           style={{
-                            background: 'linear-gradient(90deg, #4A90D9, #306BFF)',
+                            background: 'linear-gradient(90deg, #306BFF, #306BFF)',
                             boxShadow: '0 0 12px rgba(48, 107, 255, 0.4)',
                           }}
                           initial={{ width: 0 }}
@@ -462,7 +462,7 @@ export function NoiseToConvictionHero() {
                       <svg className="absolute inset-0 w-full h-full">
                         <defs>
                           <linearGradient id="edgeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stopColor="#4A90D9" stopOpacity="0.2" />
+                            <stop offset="0%" stopColor="#306BFF" stopOpacity="0.2" />
                             <stop offset="50%" stopColor="#306BFF" stopOpacity="0.5" />
                             <stop offset="100%" stopColor="#306BFF" stopOpacity="0.2" />
                           </linearGradient>

@@ -197,7 +197,7 @@ export function PersonaSwitcher({
                 isActive
                   ? persona.color === 'accent'
                     ? 'bg-accent/10 text-accent border-accent/30'
-                    : 'bg-data/10 text-data border-data/30'
+                    : 'bg-accent/10 text-accent border-accent/30'
                   : 'bg-surface-800 text-content-secondary border-border hover:text-content-primary hover:border-content-tertiary'
               )}
             >
@@ -226,13 +226,13 @@ export function PersonaSwitcher({
                 <div
                   className={cn(
                     'p-3 rounded-panel',
-                    currentPersona.color === 'accent' ? 'bg-accent/10' : 'bg-data/10'
+                    currentPersona.color === 'accent' ? 'bg-accent/10' : 'bg-accent/10'
                   )}
                 >
                   <IconComponent
                     className={cn(
                       'w-6 h-6',
-                      currentPersona.color === 'accent' ? 'text-accent' : 'text-data'
+                      currentPersona.color === 'accent' ? 'text-accent' : 'text-accent'
                     )}
                   />
                 </div>
@@ -256,7 +256,7 @@ export function PersonaSwitcher({
                     <div
                       className={cn(
                         'w-1.5 h-1.5 rounded-full',
-                        currentPersona.color === 'accent' ? 'bg-accent' : 'bg-data'
+                        currentPersona.color === 'accent' ? 'bg-accent' : 'bg-accent'
                       )}
                     />
                     {feature}
@@ -304,7 +304,7 @@ export function PersonaSwitcher({
                         <span
                           className={cn(
                             'text-2xl font-medium font-mono',
-                            currentPersona.color === 'accent' ? 'text-accent' : 'text-data'
+                            currentPersona.color === 'accent' ? 'text-accent' : 'text-accent'
                           )}
                         >
                           {metric.value}
@@ -327,7 +327,7 @@ export function PersonaSwitcher({
                         'flex-1 py-2.5 rounded-panel text-body-sm font-medium transition-colors',
                         currentPersona.color === 'accent'
                           ? 'bg-accent text-surface-900 hover:bg-accent/90'
-                          : 'bg-data text-surface-900 hover:bg-data/90'
+                          : 'bg-accent text-surface-900 hover:bg-accent/90'
                       )}
                     >
                       Schedule Demo
@@ -378,7 +378,7 @@ export function PersonaSwitcherCompact({
               isActive
                 ? persona.color === 'accent'
                   ? 'bg-accent/10 text-accent border-accent/30'
-                  : 'bg-data/10 text-data border-data/30'
+                  : 'bg-accent/10 text-accent border-accent/30'
                 : 'bg-surface-800 text-content-secondary border-border hover:text-content-primary'
             )}
           >

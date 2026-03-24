@@ -113,7 +113,7 @@ export function SubNavigation() {
       
       <div className="h-0.5 bg-surface-800">
         <motion.div
-          className="h-full bg-gradient-to-r from-accent to-data"
+          className="h-full bg-gradient-to-r from-accent to-accent"
           initial={{ width: 0 }}
           animate={{ 
             width: `${((subTabs!.findIndex(s => 

@@ -107,7 +107,7 @@ export function SectionTabs({ activeSection, onTabClick }: SectionTabsProps) {
       {/* Progress bar */}
       <div className="h-0.5 bg-surface-800">
         <motion.div
-          className="h-full bg-gradient-to-r from-accent to-data"
+          className="h-full bg-gradient-to-r from-accent to-accent"
           initial={{ width: 0 }}
           animate={{ 
             width: `${((sections.findIndex(s => s.id === activeSection) + 1) / sections.length) * 100}%` 

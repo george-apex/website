@@ -40,7 +40,7 @@ function SelfAssemblingNetwork() {
       <svg className="absolute inset-0 w-full h-full">
         <defs>
           <linearGradient id="edgeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#4A90D9" stopOpacity="0.2" />
+            <stop offset="0%" stopColor="#306BFF" stopOpacity="0.2" />
             <stop offset="50%" stopColor="#306BFF" stopOpacity="0.6" />
             <stop offset="100%" stopColor="#306BFF" stopOpacity="0.2" />
           </linearGradient>
@@ -133,7 +133,7 @@ function SelfAssemblingNetwork() {
                 : 'w-7 h-7 bg-surface-800 border border-border'}
             `}
             style={node.size === 'lg' ? {
-              background: 'linear-gradient(135deg, #4A90D9, #306BFF)',
+              background: 'linear-gradient(135deg, #306BFF, #306BFF)',
               boxShadow: '0 0 24px rgba(48, 107, 255, 0.3)',
             } : {}}
           >
@@ -334,7 +334,7 @@ export function Platform() {
                   {[
                     { name: 'AI Agents & Workflows', color: 'accent', layer: 'Application', icon: Bot },
                     { name: 'Orchestration & Governance', color: 'data', layer: 'Control', icon: GitBranch },
-                    { name: 'Integration Layer', color: 'data-dark', layer: 'Integration', icon: Plug },
+                    { name: 'Integration Layer', color: 'accent-dark', layer: 'Integration', icon: Plug },
                     { name: 'Secure Infrastructure', color: 'positive', layer: 'Foundation', icon: Lock },
                   ].map((layer, index) => {
                     const LayerIcon = layer.icon
@@ -351,8 +351,8 @@ export function Platform() {
                           className={cn(
                             'w-3 h-12 rounded-full relative overflow-hidden',
                             layer.color === 'accent' && 'bg-accent',
-                            layer.color === 'data' && 'bg-data',
-                            layer.color === 'data-dark' && 'bg-data-dark',
+                            layer.color === 'data' && 'bg-accent',
+                            layer.color === 'accent-dark' && 'bg-accent-dark',
                             layer.color === 'positive' && 'bg-positive'
                           )}
                           initial={{ scaleY: 0 }}

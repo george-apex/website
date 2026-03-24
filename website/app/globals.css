@@ -19,11 +19,6 @@
   --accent-light: #6B9FFF;
   --accent-dark: #1E4DB3;
   
-  /* Data accent - Blue */
-  --data: #4A90D9;
-  --data-light: #6BB3F0;
-  --data-dark: #2E6AB3;
-  
   /* Semantic colors */
   --positive: #2ECC71;
   --warning: #F39C12;
@@ -274,9 +269,9 @@
 
   .badge-data {
     @apply badge;
-    background: rgba(74, 144, 217, 0.1);
+    background: rgba(48, 107, 255, 0.1);
     color: var(--data);
-    border-color: rgba(74, 144, 217, 0.2);
+    border-color: rgba(48, 107, 255, 0.2);
   }
 
   .badge-positive {
@@ -418,7 +413,7 @@
   }
 
   .glow-data {
-    box-shadow: 0 0 30px rgba(74, 144, 217, 0.12);
+    box-shadow: 0 0 30px rgba(48, 107, 255, 0.12);
   }
 
   /* Line clamp */

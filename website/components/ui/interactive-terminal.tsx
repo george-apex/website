@@ -196,7 +196,7 @@ export function InteractiveTerminal({
   // Get response type styling
   const getResponseStyle = (type: TerminalResponse['type']) => {
     const styles = {
-      analysis: 'border-data/30 bg-data/5',
+      analysis: 'border-accent/30 bg-accent/5',
       data: 'border-accent/30 bg-accent/5',
       alert: 'border-negative/30 bg-negative/5',
       success: 'border-positive/30 bg-positive/5',

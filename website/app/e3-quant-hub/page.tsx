@@ -2135,7 +2135,7 @@ function FloatingStats() {
           whileHover={{ scale: 1.02 }}
           transition={{ duration: 0.2 }}
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-accent/10 to-data/10 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="absolute inset-0 bg-gradient-to-r from-accent/10 to-accent/10 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <div className="relative bg-surface-800/50 border border-border rounded-xl p-4 text-center">
             <div className="text-2xl md:text-3xl font-bold gradient-accent">
               {stat.value}{stat.suffix}
@@ -2283,7 +2283,7 @@ export default function E3QuantHubPage() {
       
       {/* Animated gradient orbs */}
       <motion.div
-        className="absolute top-20 right-20 w-64 h-64 rounded-full bg-gradient-to-r from-accent/20 to-data/20 blur-3xl pointer-events-none"
+        className="absolute top-20 right-20 w-64 h-64 rounded-full bg-gradient-to-r from-accent/20 to-accent/20 blur-3xl pointer-events-none"
         animate={{
           scale: [1, 1.2, 1],
           opacity: [0.3, 0.5, 0.3],
@@ -2295,7 +2295,7 @@ export default function E3QuantHubPage() {
         }}
       />
       <motion.div
-        className="absolute bottom-40 left-20 w-48 h-48 rounded-full bg-gradient-to-r from-data/20 to-accent/20 blur-3xl pointer-events-none"
+        className="absolute bottom-40 left-20 w-48 h-48 rounded-full bg-gradient-to-r from-accent/20 to-accent/20 blur-3xl pointer-events-none"
         animate={{
           scale: [1.2, 1, 1.2],
           opacity: [0.5, 0.3, 0.5],
@@ -2318,7 +2318,7 @@ export default function E3QuantHubPage() {
               transition={{ duration: 0.6 }}
             >
               <motion.div 
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-accent/10 to-data/10 border border-accent/20 mb-6"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-accent/10 to-accent/10 border border-accent/20 mb-6"
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.4, delay: 0.2 }}

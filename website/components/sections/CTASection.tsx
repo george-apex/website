@@ -20,8 +20,8 @@ function TrajectoryAccelerationLine() {
       <svg className="w-full h-full" preserveAspectRatio="none">
         <defs>
           <linearGradient id="ctaTrajectory" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#4A90D9" stopOpacity="0" />
-            <stop offset="30%" stopColor="#4A90D9" stopOpacity="0.3" />
+            <stop offset="0%" stopColor="#306BFF" stopOpacity="0" />
+            <stop offset="30%" stopColor="#306BFF" stopOpacity="0.3" />
             <stop offset="70%" stopColor="#306BFF" stopOpacity="0.5" />
             <stop offset="100%" stopColor="#306BFF" stopOpacity="0.2" />
           </linearGradient>
@@ -122,7 +122,7 @@ export function CTASection() {
       <motion.div
         className="absolute left-0 right-0 h-px bottom-[15%]"
         style={{ 
-          background: 'linear-gradient(90deg, transparent, rgba(74, 144, 217, 0.15) 30%, rgba(48, 107, 255, 0.2) 50%, rgba(74, 144, 217, 0.15) 70%, transparent)',
+          background: 'linear-gradient(90deg, transparent, rgba(48, 107, 255, 0.15) 30%, rgba(48, 107, 255, 0.2) 50%, rgba(48, 107, 255, 0.15) 70%, transparent)',
         }}
         initial={{ scaleX: 0 }}
         whileInView={{ scaleX: 1 }}

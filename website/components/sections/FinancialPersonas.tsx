@@ -135,7 +135,7 @@ export function FinancialPersonas() {
         {[...Array(4)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 rounded-full bg-data/30"
+            className="absolute w-1 h-1 rounded-full bg-accent/30"
             style={{
               left: `${15 + i * 20}%`,
               top: `${20 + (i % 3) * 25}%`,

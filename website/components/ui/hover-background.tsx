@@ -47,7 +47,7 @@ function FloatingParticle({
     <motion.div
       className={cn(
         "absolute w-1 h-1 rounded-full",
-        color === 'accent' ? 'bg-accent/20' : 'bg-data/20'
+        color === 'accent' ? 'bg-accent/20' : 'bg-accent/20'
       )}
       style={{ left: x, top: y }}
       animate={{
@@ -114,7 +114,7 @@ export function HoverBackground({
   }, [mouseX, mouseY, size])
   
   const colorValue = color === 'accent' 
-    ? 'rgba(74, 144, 217,' 
+    ? 'rgba(48, 107, 255,' 
     : 'rgba(48, 158, 186,'
   
   return (
@@ -214,7 +214,7 @@ export function SectionHoverGlow({
   )
   
   const colorValue = color === 'accent' 
-    ? 'rgba(74, 144, 217,' 
+    ? 'rgba(48, 107, 255,' 
     : 'rgba(48, 158, 186,'
   
   return (

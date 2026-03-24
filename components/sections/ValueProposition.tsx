@@ -629,13 +629,13 @@ export function ValueProposition() {
                 </h3>
 
                 {/* Tagline */}
-                <p className={`text-body-lg font-medium ${isAccent ? 'text-accent' : 'text-data'}`}>
+                <p className={`text-body-lg font-medium ${isAccent ? 'text-accent' : 'text-accent'}`}>
                   {item.tagline}
                 </p>
 
                 {/* Hover Arrow */}
                 <div className={`absolute bottom-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
-                  isAccent ? 'text-accent' : 'text-data'
+                  isAccent ? 'text-accent' : 'text-accent'
                 }`}>
                   <ArrowRight className="w-5 h-5" />
                 </div>

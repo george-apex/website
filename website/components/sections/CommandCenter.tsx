@@ -959,7 +959,7 @@ export function CommandCenter() {
                 {/* Scenario Outputs */}
                 <div className="p-4 bg-surface-900 rounded-lg border border-border">
                   <div className="flex items-center gap-2 mb-3">
-                    <BarChart3 className="w-4 h-4 text-data" />
+                    <BarChart3 className="w-4 h-4 text-accent" />
                     <span className="text-sm font-medium text-content-primary">Scenario Analysis</span>
                   </div>
                   <div className="space-y-3">
@@ -983,7 +983,7 @@ export function CommandCenter() {
                             className={cn(
                               'h-full rounded-full',
                               scenario.name === 'Bull Case' ? 'bg-positive' :
-                              scenario.name === 'Bear Case' ? 'bg-negative' : 'bg-data'
+                              scenario.name === 'Bear Case' ? 'bg-negative' : 'bg-accent'
                             )}
                           />
                         </div>
@@ -1023,7 +1023,7 @@ export function CommandCenter() {
                       >
                         <ExternalLink className="w-3 h-3 text-content-tertiary mt-0.5 opacity-0 group-hover:opacity-100 transition-opacity" />
                         <div>
-                          <span className="text-data font-medium">{citation.source}</span>
+                          <span className="text-accent font-medium">{citation.source}</span>
                           <span className="text-content-tertiary"> · {citation.date}</span>
                           <span className="text-content-tertiary hidden md:inline"> — "{citation.snippet}"</span>
                         </div>
@@ -1036,7 +1036,7 @@ export function CommandCenter() {
                 <div className="p-4 bg-surface-900 rounded-lg border border-border">
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2">
-                      <TrendingUp className="w-4 h-4 text-data" />
+                      <TrendingUp className="w-4 h-4 text-accent" />
                       <span className="text-sm font-medium text-content-primary">KPI Trend Shifts</span>
                     </div>
                     <span className="text-xs text-content-tertiary">QoQ Change</span>
@@ -1090,7 +1090,7 @@ export function CommandCenter() {
                 <div className="p-4 bg-surface-900 rounded-lg border border-border">
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2">
-                      <Building2 className="w-4 h-4 text-data" />
+                      <Building2 className="w-4 h-4 text-accent" />
                       <span className="text-sm font-medium text-content-primary">Peer Comparison</span>
                     </div>
                   </div>
@@ -1217,7 +1217,7 @@ export function CommandCenter() {
                           </span>
                           <span className={cn(
                             'text-xs px-1.5 py-0.5 rounded',
-                            catalyst.type === 'Earnings' ? 'bg-data/10 text-data' :
+                            catalyst.type === 'Earnings' ? 'bg-accent/10 text-accent' :
                             catalyst.type === 'Product' ? 'bg-accent/10 text-accent' :
                             'bg-surface-700 text-content-tertiary'
                           )}>

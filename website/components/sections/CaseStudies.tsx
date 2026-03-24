@@ -51,7 +51,7 @@ export function CaseStudies() {
       <motion.div
         className="absolute left-0 right-0 h-px top-[10%]"
         style={{ 
-          background: 'linear-gradient(90deg, transparent, rgba(48, 107, 255, 0.15) 30%, rgba(74, 144, 217, 0.2) 50%, rgba(48, 107, 255, 0.15) 70%, transparent)',
+          background: 'linear-gradient(90deg, transparent, rgba(48, 107, 255, 0.15) 30%, rgba(48, 107, 255, 0.2) 50%, rgba(48, 107, 255, 0.15) 70%, transparent)',
         }}
         initial={{ scaleX: 0 }}
         whileInView={{ scaleX: 1 }}
@@ -118,7 +118,7 @@ export function CaseStudies() {
               <div className="space-y-4">
                 {/* Company header */}
                 <div className="flex items-center gap-4 mb-4 p-4 rounded bg-surface-800 border border-border">
-                  <div className="w-12 h-12 rounded border border-accent/30 bg-gradient-to-br from-data/20 to-accent/10 flex items-center justify-center text-accent font-bold text-lg font-mono">
+                  <div className="w-12 h-12 rounded border border-accent/30 bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center text-accent font-bold text-lg font-mono">
                     {currentStudy.company.charAt(0)}
                   </div>
                   <div>
@@ -155,7 +155,7 @@ export function CaseStudies() {
 
                 {/* Quote */}
                 <Card variant="default" className="p-5">
-                  <Quote className="w-5 h-5 text-data/40 mb-3" />
+                  <Quote className="w-5 h-5 text-accent/40 mb-3" />
                   <p className="text-content-secondary text-sm italic leading-relaxed mb-3">
                     &ldquo;{currentStudy.quote.text}&rdquo;
                   </p>
@@ -175,7 +175,7 @@ export function CaseStudies() {
                   {currentStudy.results.map((result, index) => (
                     <motion.div
                       key={index}
-                      className="flex items-center gap-4 p-4 rounded border border-data/10 bg-gradient-to-r from-data/5 to-transparent"
+                      className="flex items-center gap-4 p-4 rounded border border-accent/10 bg-gradient-to-r from-accent/5 to-transparent"
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.1 }}

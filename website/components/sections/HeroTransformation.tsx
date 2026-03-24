@@ -320,15 +320,15 @@ export function HeroTransformation() {
           <defs>
             {/* Gradients */}
             <linearGradient id="assemblyGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#4A90D9" stopOpacity="0" />
+              <stop offset="0%" stopColor="#306BFF" stopOpacity="0" />
               <stop offset="50%" stopColor="#306BFF" stopOpacity="0.8" />
-              <stop offset="100%" stopColor="#4A90D9" stopOpacity="0" />
+              <stop offset="100%" stopColor="#306BFF" stopOpacity="0" />
             </linearGradient>
             <linearGradient id="dataFlowGradient" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stopColor="#306BFF" stopOpacity="0" />
               <stop offset="30%" stopColor="#306BFF" stopOpacity="0.6" />
-              <stop offset="70%" stopColor="#4A90D9" stopOpacity="0.6" />
-              <stop offset="100%" stopColor="#4A90D9" stopOpacity="0" />
+              <stop offset="70%" stopColor="#306BFF" stopOpacity="0.6" />
+              <stop offset="100%" stopColor="#306BFF" stopOpacity="0" />
             </linearGradient>
             <radialGradient id="processingCore" cx="50%" cy="50%" r="50%">
               <stop offset="0%" stopColor="#306BFF" stopOpacity="0.4" />
@@ -366,7 +366,7 @@ export function HeroTransformation() {
               cy="50%"
               r="140"
               fill="none"
-              stroke="#4A90D9"
+              stroke="#306BFF"
               strokeWidth="0.5"
               strokeDasharray="2 6"
               style={{
@@ -432,7 +432,7 @@ export function HeroTransformation() {
                 y1={`${pipe.from.y}%`}
                 x2={`${pipe.to.x}%`}
                 y2={`${pipe.to.y}%`}
-                stroke="rgba(74, 144, 217, 0.2)"
+                stroke="rgba(48, 107, 255, 0.2)"
                 strokeWidth="20"
                 strokeLinecap="round"
                 style={{
@@ -591,8 +591,8 @@ export function HeroTransformation() {
               style={{
                 width: 3 + (i % 3),
                 height: 3 + (i % 3),
-                background: i % 2 === 0 ? 'rgba(48, 107, 255, 0.8)' : 'rgba(74, 144, 217, 0.8)',
-                boxShadow: `0 0 ${4 + (i % 4)}px ${i % 2 === 0 ? 'rgba(48, 107, 255, 0.5)' : 'rgba(74, 144, 217, 0.5)'}`,
+                background: i % 2 === 0 ? 'rgba(48, 107, 255, 0.8)' : 'rgba(48, 107, 255, 0.8)',
+                boxShadow: `0 0 ${4 + (i % 4)}px ${i % 2 === 0 ? 'rgba(48, 107, 255, 0.5)' : 'rgba(48, 107, 255, 0.5)'}`,
               }}
               initial={{ 
                 x: `${particle.x}%`,
@@ -847,7 +847,7 @@ export function HeroTransformation() {
                 ${fragment.type === 'ticker' ? 'text-negative bg-negative/20 border-2 border-negative/50 shadow-negative/20' :
                   fragment.type === 'number' ? 'text-warning bg-warning/20 border-2 border-warning/50 shadow-warning/20' :
                   fragment.type === 'snippet' ? 'text-content-secondary bg-surface-800/80 border-2 border-border/60' :
-                  fragment.type === 'signal' ? 'text-data bg-data/20 border-2 border-data/50 shadow-data/20 animate-pulse' :
+                  fragment.type === 'signal' ? 'text-accent bg-accent/20 border-2 border-accent/50 shadow-data/20 animate-pulse' :
                   'text-content-tertiary bg-surface-700/50 border border-border/40'}
                 shadow-xl
               `}>
@@ -927,7 +927,7 @@ export function HeroTransformation() {
               </motion.div>
 
               <motion.div
-                className="absolute bottom-[15%] left-[8%] flex items-center gap-3 px-5 py-3 rounded-xl bg-data/20 border-2 border-data/50 shadow-lg shadow-data/20"
+                className="absolute bottom-[15%] left-[8%] flex items-center gap-3 px-5 py-3 rounded-xl bg-accent/20 border-2 border-accent/50 shadow-lg shadow-data/20"
                 initial={{ opacity: 0, x: -20 }}
                 animate={
                   isTransitioning && transitionDirection === 'toClarity'
@@ -942,8 +942,8 @@ export function HeroTransformation() {
                     : { duration: 2.2, repeat: Infinity, delay: 0.6 }
                 }
               >
-                <Activity className="w-5 h-5 text-data animate-pulse" />
-                <span className="text-lg font-bold text-data">12 data sources</span>
+                <Activity className="w-5 h-5 text-accent animate-pulse" />
+                <span className="text-lg font-bold text-accent">12 data sources</span>
               </motion.div>
 
               <motion.div
@@ -1059,7 +1059,7 @@ export function HeroTransformation() {
         <svg className="absolute inset-0 w-full h-full pointer-events-none z-0">
           <defs>
             <linearGradient id="clarityTrajectory" x1="0%" y1="100%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#4A90D9" stopOpacity="0.1" />
+              <stop offset="0%" stopColor="#306BFF" stopOpacity="0.1" />
               <stop offset="40%" stopColor="#306BFF" stopOpacity="0.4" />
               <stop offset="60%" stopColor="#306BFF" stopOpacity="0.6" />
               <stop offset="100%" stopColor="#306BFF" stopOpacity="0.2" />
@@ -1147,7 +1147,7 @@ export function HeroTransformation() {
                     <motion.div 
                       className="h-full rounded-full relative"
                       style={{
-                        background: 'linear-gradient(90deg, #4A90D9, #306BFF)',
+                        background: 'linear-gradient(90deg, #306BFF, #306BFF)',
                         boxShadow: '0 0 12px rgba(48, 107, 255, 0.4)',
                       }}
                       initial={{ width: 0 }}
@@ -1261,7 +1261,7 @@ export function HeroTransformation() {
                   <svg className="absolute inset-0 w-full h-full">
                     <defs>
                       <linearGradient id="edgeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="#4A90D9" stopOpacity="0.2" />
+                        <stop offset="0%" stopColor="#306BFF" stopOpacity="0.2" />
                         <stop offset="50%" stopColor="#306BFF" stopOpacity="0.5" />
                         <stop offset="100%" stopColor="#306BFF" stopOpacity="0.2" />
                       </linearGradient>
@@ -1384,7 +1384,7 @@ export function HeroTransformation() {
                   animate={{ opacity: isTransformed ? 0.02 : 0 }}
                   transition={{ duration: 0.8, delay: 1.7 }}
                   style={{
-                    background: 'radial-gradient(circle at 70% 30%, rgba(74, 144, 217, 0.2) 0%, transparent 50%)',
+                    background: 'radial-gradient(circle at 70% 30%, rgba(48, 107, 255, 0.2) 0%, transparent 50%)',
                   }}
                 />
                 <div className="relative z-10">

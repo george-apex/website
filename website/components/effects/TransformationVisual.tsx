@@ -24,14 +24,14 @@ export function TransformationVisual({ variant = 'inline' }: TransformationVisua
 
   // Scattered chaos elements
   const chaosItems = [
-    { x: 10, y: 15, rotate: -15, color: '#4A90D9', type: 'doc' },
+    { x: 10, y: 15, rotate: -15, color: '#306BFF', type: 'doc' },
     { x: 70, y: 10, rotate: 12, color: '#E74C3C', type: 'chart' },
     { x: 25, y: 50, rotate: -8, color: '#F39C12', type: 'note' },
-    { x: 80, y: 45, rotate: 20, color: '#4A90D9', type: 'doc' },
+    { x: 80, y: 45, rotate: 20, color: '#306BFF', type: 'doc' },
     { x: 45, y: 25, rotate: 5, color: '#306BFF', type: 'alert' },
     { x: 15, y: 75, rotate: -12, color: '#E74C3C', type: 'chart' },
     { x: 60, y: 70, rotate: 8, color: '#F39C12', type: 'note' },
-    { x: 35, y: 80, rotate: -5, color: '#4A90D9', type: 'doc' },
+    { x: 35, y: 80, rotate: -5, color: '#306BFF', type: 'doc' },
   ]
 
   // Structured clarity elements
@@ -112,7 +112,7 @@ export function TransformationVisual({ variant = 'inline' }: TransformationVisua
             <defs>
               <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#306BFF" stopOpacity="0.6" />
-                <stop offset="100%" stopColor="#4A90D9" stopOpacity="0.3" />
+                <stop offset="100%" stopColor="#306BFF" stopOpacity="0.3" />
               </linearGradient>
             </defs>
             {/* Center to corners */}
@@ -140,7 +140,7 @@ export function TransformationVisual({ variant = 'inline' }: TransformationVisua
                 className={`rounded-full flex items-center justify-center ${
                   item.primary 
                     ? 'bg-gradient-to-br from-accent/20 to-accent/5 border-2 border-accent/50' 
-                    : 'bg-surface-800 border border-data/40'
+                    : 'bg-surface-800 border border-accent/40'
                 }`}
                 style={{ 
                   width: item.size, 
@@ -161,7 +161,7 @@ export function TransformationVisual({ variant = 'inline' }: TransformationVisua
                   />
                 )}
                 {!item.primary && (
-                  <div className="w-2 h-2 rounded-full bg-data/60" />
+                  <div className="w-2 h-2 rounded-full bg-accent/60" />
                 )}
               </div>
             </motion.div>
@@ -183,7 +183,7 @@ export function TransformationVisual({ variant = 'inline' }: TransformationVisua
             <span className="text-xs text-content-tertiary">Chaos</span>
             <div className="w-32 h-1 rounded-full bg-surface-700 overflow-hidden">
               <motion.div 
-                className="h-full bg-gradient-to-r from-data to-accent rounded-full"
+                className="h-full bg-gradient-to-r from-accent to-accent rounded-full"
                 style={{ width: useTransform(progress, v => `${v * 100}%`) }}
               />
             </div>
@@ -244,13 +244,13 @@ export function TransformationVisual({ variant = 'inline' }: TransformationVisua
           {[0, 72, 144, 216, 288].map((angle, i) => (
             <motion.div
               key={i}
-              className="absolute w-8 h-8 rounded-full bg-data/20 border border-data/40 flex items-center justify-center"
+              className="absolute w-8 h-8 rounded-full bg-accent/20 border border-accent/40 flex items-center justify-center"
               style={{
                 left: `calc(50% + ${Math.cos(angle * Math.PI / 180) * 60}px - 16px)`,
                 top: `calc(50% + ${Math.sin(angle * Math.PI / 180) * 60}px - 16px)`,
               }}
             >
-              <div className="w-2 h-2 rounded-full bg-data/60" />
+              <div className="w-2 h-2 rounded-full bg-accent/60" />
             </motion.div>
           ))}
         </div>
