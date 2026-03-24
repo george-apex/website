@@ -320,7 +320,7 @@ function SculptureLines() {
   }, [chaosLines])
   
   return (
-    <group ref={groupRef} position={[-0.2, 1.1, 0]}>
+    <group ref={groupRef} position={[-4.5, 1.35, 0]} scale={0.75}>
       {lineObjects.map((lineObj, i) => (
         <primitive key={i} object={lineObj} />
       ))}
@@ -384,9 +384,10 @@ function CameraRig() {
   useFrame((state) => {
     const t = state.clock.elapsedTime
     camera.position.x = Math.sin(t * 0.08) * 0.5
-    camera.position.y = 1.6 + Math.sin(t * 0.1) * 0.15
+    camera.position.y = 2.6 + Math.sin(t * 0.1) * 0.15
+    camera.position.x = -4.5 + Math.sin(t * 0.08) * 0.3
     camera.position.z = 5 + Math.cos(t * 0.08) * 0.3
-    camera.lookAt(1.2, 1.6, 0)
+    camera.lookAt(-4.5, 1.35, 0)
   })
   
   return null
@@ -400,7 +401,7 @@ export function MorphingParticles({ className = '' }: MorphingParticlesProps) {
   return (
     <div className={`w-full h-full ${className}`}>
       <Canvas
-        camera={{ position: [1.2, 1.6, 5], fov: 45 }}
+        camera={{ position: [-4.5, 2.6, 5], fov: 45 }}
         gl={{ antialias: true, alpha: true }}
         style={{ background: 'transparent' }}
       >

@@ -67,20 +67,15 @@ export function ApexMetaphor() {
   const isInView = useInView(containerRef, { once: false })
 
   return (
-    <Section variant="default" className="relative overflow-hidden min-h-[600px]">
-      <div className="absolute inset-0 bg-surface-900" />
+    <Section variant="default" className="relative overflow-hidden min-h-screen">
       <div 
-        className="absolute inset-0"
+        className="absolute inset-0 bg-black"
         style={{
-          background: 'radial-gradient(ellipse 80% 50% at 30% 50%, rgba(48, 107, 255, 0.15) 0%, transparent 60%)',
+          background: 'radial-gradient(ellipse 80% 60% at 30% 40%, rgba(48, 107, 255, 0.15) 0%, transparent 60%), black',
         }}
       />
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 w-[60%] left-0 -translate-y-8 overflow-visible">
         <MorphingParticles className="w-full h-full" />
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-surface-900/90" />
-        <div className="absolute inset-0 bg-gradient-to-t from-surface-900/90 via-transparent to-surface-900/70" />
-        <div className="absolute inset-0 bg-gradient-to-b from-surface-900/60 via-transparent to-surface-900/80" />
-        <div className="absolute inset-0 bg-accent/5" />
       </div>
 
       <div ref={containerRef} className="relative z-10 max-w-6xl mx-auto">
