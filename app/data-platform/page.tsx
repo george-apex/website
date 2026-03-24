@@ -275,7 +275,7 @@ export default function DataPlatformPage() {
       <SubNavigation />
 
       {/* Main content */}
-      <div className="relative container-main py-24">
+      <div className="relative container-main pt-40 pb-24">
         
         {/* Hero Section - Compact */}
         <div className="grid lg:grid-cols-2 gap-8 items-center mb-16">

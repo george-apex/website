@@ -29,6 +29,11 @@ function generateF1CarWireframe(): THREE.Vector3[][] {
     lines.push(line)
   }
   
+  for (let i = lines.length - 1; i > 0; i--) {
+    const j = Math.floor((i * 2654435761) % (i + 1))
+    ;[lines[i], lines[j]] = [lines[j], lines[i]]
+  }
+  
   return lines
 }
 
@@ -36,12 +41,13 @@ function generateTesseractNodes(): THREE.Vector3[] {
   const nodes: THREE.Vector3[] = []
   const innerSize = 0.7
   const outerSize = 1.2
+  const yOffset = 0.3
   
   for (let x = -1; x <= 1; x += 2) {
     for (let y = -1; y <= 1; y += 2) {
       for (let z = -1; z <= 1; z += 2) {
-        nodes.push(new THREE.Vector3(x * innerSize, y * innerSize, z * innerSize))
-        nodes.push(new THREE.Vector3(x * outerSize, y * outerSize, z * outerSize))
+        nodes.push(new THREE.Vector3(x * innerSize, y * innerSize + yOffset, z * innerSize))
+        nodes.push(new THREE.Vector3(x * outerSize, y * outerSize + yOffset, z * outerSize))
       }
     }
   }
@@ -51,7 +57,7 @@ function generateTesseractNodes(): THREE.Vector3[] {
     const phi = (i % 5) / 5 * Math.PI
     nodes.push(new THREE.Vector3(
       Math.sin(phi) * Math.cos(theta) * 1.0,
-      Math.cos(phi) * 0.8,
+      Math.cos(phi) * 0.8 + yOffset,
       Math.sin(phi) * Math.sin(theta) * 1.0
     ))
   }
@@ -314,7 +320,7 @@ function SculptureLines() {
   }, [chaosLines])
   
   return (
-    <group ref={groupRef}>
+    <group ref={groupRef} position={[-0.2, 1.1, 0]}>
       {lineObjects.map((lineObj, i) => (
         <primitive key={i} object={lineObj} />
       ))}
@@ -378,9 +384,9 @@ function CameraRig() {
   useFrame((state) => {
     const t = state.clock.elapsedTime
     camera.position.x = Math.sin(t * 0.08) * 0.5
-    camera.position.y = 0.8 + Math.sin(t * 0.1) * 0.15
-    camera.position.z = 4 + Math.cos(t * 0.08) * 0.3
-    camera.lookAt(0, 0, 0)
+    camera.position.y = 1.6 + Math.sin(t * 0.1) * 0.15
+    camera.position.z = 5 + Math.cos(t * 0.08) * 0.3
+    camera.lookAt(1.2, 1.6, 0)
   })
   
   return null
@@ -394,7 +400,7 @@ export function MorphingParticles({ className = '' }: MorphingParticlesProps) {
   return (
     <div className={`w-full h-full ${className}`}>
       <Canvas
-        camera={{ position: [0, 0.8, 4], fov: 45 }}
+        camera={{ position: [1.2, 1.6, 5], fov: 45 }}
         gl={{ antialias: true, alpha: true }}
         style={{ background: 'transparent' }}
       >
