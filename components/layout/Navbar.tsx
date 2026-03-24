@@ -199,7 +199,8 @@ export function Navbar() {
                       onMouseEnter={() => setHoveredParent(link.label)}
                       onMouseLeave={() => setHoveredParent(null)}
                     >
-                      <button
+                      <Link
+                        href={link.href || '#'}
                         className={cn(
                           'flex items-center gap-1 px-3 py-2 text-body-sm rounded-lg transition-all',
                           isActive 
@@ -213,7 +214,7 @@ export function Navbar() {
                             <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-accent rounded-full" />
                           )}
                         </span>
-                      </button>
+                      </Link>
                     </div>
                   )
                 }

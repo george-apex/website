@@ -52,35 +52,15 @@ export function SubNavigation() {
         <div className="flex items-center justify-center h-14">
           <nav className="flex items-center gap-1">
             {subTabs!.map((sub) => {
-              const isActive = isHomePage 
-                ? activeHomeSection === sub.id 
-                : pathname === sub.href
+              const isActive = sub.href 
+                ? pathname === sub.href 
+                : isHomePage && activeHomeSection === sub.id
               
               return (
                 <React.Fragment key={sub.id}>
-                  {isHomePage && !sub.href ? (
-                    <button
-                      onClick={() => setActiveHomeSection(sub.id)}
-                      className={cn(
-                        'relative px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap',
-                        isActive 
-                          ? 'text-accent' 
-                          : 'text-content-tertiary hover:text-content-secondary hover:bg-surface-800/50'
-                      )}
-                    >
-                      {isActive && (
-                        <motion.div
-                          layoutId="activeSubTab"
-                          className="absolute inset-0 rounded-lg bg-accent/10 border border-accent/30"
-                          transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-                        />
-                      )}
-                      <span className="relative z-10 hidden sm:inline">{sub.label}</span>
-                      <span className="relative z-10 sm:hidden">{sub.shortLabel || sub.label}</span>
-                    </button>
-                  ) : (
+                  {sub.href ? (
                     <Link
-                      href={sub.href || `/${sub.id}`}
+                      href={sub.href}
                       className={cn(
                         'relative px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap',
                         isActive 
@@ -98,6 +78,31 @@ export function SubNavigation() {
                       <span className="relative z-10 hidden sm:inline">{sub.label}</span>
                       <span className="relative z-10 sm:hidden">{sub.shortLabel || sub.label}</span>
                     </Link>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        if (pathname !== '/') {
+                          router.push('/')
+                        }
+                        setActiveHomeSection(sub.id)
+                      }}
+                      className={cn(
+                        'relative px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap',
+                        isActive 
+                          ? 'text-accent' 
+                          : 'text-content-tertiary hover:text-content-secondary hover:bg-surface-800/50'
+                      )}
+                    >
+                      {isActive && (
+                        <motion.div
+                          layoutId="activeSubTab"
+                          className="absolute inset-0 rounded-lg bg-accent/10 border border-accent/30"
+                          transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                        />
+                      )}
+                      <span className="relative z-10 hidden sm:inline">{sub.label}</span>
+                      <span className="relative z-10 sm:hidden">{sub.shortLabel || sub.label}</span>
+                    </button>
                   )}
                 </React.Fragment>
               )
