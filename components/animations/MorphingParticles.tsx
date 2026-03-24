@@ -107,6 +107,7 @@ interface LineData {
   currentPositions: Float32Array
   chaosPositions: Float32Array
   targetPositions: Float32Array
+  morphStartPositions: Float32Array
   visible: boolean
   nodeAIndex: number
   nodeBIndex: number
@@ -172,10 +173,13 @@ function SculptureLines() {
       const connIdx = i % connections.length
       const conn = connections[connIdx]
       
+      const morphStartPositions = new Float32Array(POINTS_PER_LINE * 3)
+      
       linesDataRef.current.push({
         currentPositions,
         chaosPositions,
         targetPositions,
+        morphStartPositions,
         visible: i < CHAOS_LINE_COUNT,
         nodeAIndex: conn.a,
         nodeBIndex: conn.b,
@@ -196,6 +200,11 @@ function SculptureLines() {
     const phaseElapsed = (now - phaseStartRef.current) / 1000
     
     if (phase === 'chaos' && phaseElapsed > 4) {
+      linesDataRef.current.forEach(data => {
+        for (let j = 0; j < POINTS_PER_LINE * 3; j++) {
+          data.morphStartPositions[j] = data.currentPositions[j]
+        }
+      })
       setPhase('forming')
       phaseStartRef.current = now
       morphProgressRef.current = 0
@@ -204,6 +213,11 @@ function SculptureLines() {
       phaseStartRef.current = now
       visibleCountRef.current = CAR_LINE_COUNT
     } else if (phase === 'formed' && phaseElapsed > 2.5) {
+      linesDataRef.current.forEach(data => {
+        for (let j = 0; j < POINTS_PER_LINE * 3; j++) {
+          data.morphStartPositions[j] = data.currentPositions[j]
+        }
+      })
       setPhase('dissolving')
       phaseStartRef.current = now
       morphProgressRef.current = 0
@@ -284,24 +298,39 @@ function SculptureLines() {
         
         for (let j = 0; j < POINTS_PER_LINE; j++) {
           const pt = j / (POINTS_PER_LINE - 1)
-          positionAttr.array[j * 3] = nodeA.x + (nodeB.x - nodeA.x) * pt
-          positionAttr.array[j * 3 + 1] = nodeA.y + (nodeB.y - nodeA.y) * pt
-          positionAttr.array[j * 3 + 2] = nodeA.z + (nodeB.z - nodeA.z) * pt
+          const x = nodeA.x + (nodeB.x - nodeA.x) * pt
+          const y = nodeA.y + (nodeB.y - nodeA.y) * pt
+          const z = nodeA.z + (nodeB.z - nodeA.z) * pt
+          positionAttr.array[j * 3] = x
+          positionAttr.array[j * 3 + 1] = y
+          positionAttr.array[j * 3 + 2] = z
+          data.currentPositions[j * 3] = x
+          data.currentPositions[j * 3 + 1] = y
+          data.currentPositions[j * 3 + 2] = z
         }
       } else if (phase === 'forming') {
         morphProgressRef.current = Math.min(1, phaseElapsed / 2.5)
-        const eased = 1 - Math.pow(1 - morphProgressRef.current, 3)
+        const t = morphProgressRef.current
+        const eased = t < 0.5 
+          ? 4 * t * t * t 
+          : 1 - Math.pow(-2 * t + 2, 3) / 2
         
         for (let j = 0; j < POINTS_PER_LINE * 3; j++) {
-          positionAttr.array[j] = data.chaosPositions[j] + (data.targetPositions[j] - data.chaosPositions[j]) * eased
+          const val = data.morphStartPositions[j] + (data.targetPositions[j] - data.morphStartPositions[j]) * eased
+          positionAttr.array[j] = val
+          data.currentPositions[j] = val
         }
       } else if (phase === 'formed') {
         for (let j = 0; j < POINTS_PER_LINE * 3; j++) {
           positionAttr.array[j] = data.targetPositions[j]
+          data.currentPositions[j] = data.targetPositions[j]
         }
       } else if (phase === 'dissolving') {
         morphProgressRef.current = Math.min(1, phaseElapsed / 2)
-        const eased = 1 - Math.pow(1 - morphProgressRef.current, 2)
+        const t = morphProgressRef.current
+        const eased = t < 0.5 
+          ? 4 * t * t * t 
+          : 1 - Math.pow(-2 * t + 2, 3) / 2
         
         const nodeA = getNodePosition(data.nodeAIndex, data.nodeAType)
         const nodeB = getNodePosition(data.nodeBIndex, data.nodeBType)
@@ -312,9 +341,16 @@ function SculptureLines() {
           const targetY = nodeA.y + (nodeB.y - nodeA.y) * pt
           const targetZ = nodeA.z + (nodeB.z - nodeA.z) * pt
           
-          positionAttr.array[j * 3] = data.targetPositions[j * 3] + (targetX - data.targetPositions[j * 3]) * eased
-          positionAttr.array[j * 3 + 1] = data.targetPositions[j * 3 + 1] + (targetY - data.targetPositions[j * 3 + 1]) * eased
-          positionAttr.array[j * 3 + 2] = data.targetPositions[j * 3 + 2] + (targetZ - data.targetPositions[j * 3 + 2]) * eased
+          const x = data.morphStartPositions[j * 3] + (targetX - data.morphStartPositions[j * 3]) * eased
+          const y = data.morphStartPositions[j * 3 + 1] + (targetY - data.morphStartPositions[j * 3 + 1]) * eased
+          const z = data.morphStartPositions[j * 3 + 2] + (targetZ - data.morphStartPositions[j * 3 + 2]) * eased
+          
+          positionAttr.array[j * 3] = x
+          positionAttr.array[j * 3 + 1] = y
+          positionAttr.array[j * 3 + 2] = z
+          data.currentPositions[j * 3] = x
+          data.currentPositions[j * 3 + 1] = y
+          data.currentPositions[j * 3 + 2] = z
         }
       }
       
