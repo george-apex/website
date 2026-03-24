@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -118,11 +118,12 @@ export function getParentTab(pathname: string): string | null {
 
 export function Navbar() {
   const pathname = usePathname()
+  const router = useRouter()
   const [isScrolled, setIsScrolled] = React.useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
   const [openDropdown, setOpenDropdown] = React.useState<string | null>(null)
   const scrollPosition = useScrollPosition()
-  const { hoveredParent, setHoveredParent, cancelClear } = React.useContext(HoverContext)
+  const { hoveredParent, setHoveredParent, cancelClear, setActiveHomeSection } = React.useContext(HoverContext)
 
   const activeParent = getParentTab(pathname)
   const displayParent = hoveredParent || activeParent
@@ -201,6 +202,11 @@ export function Navbar() {
                     >
                       <Link
                         href={link.href || '#'}
+                        onClick={() => {
+                          if (link.label === 'Home') {
+                            setActiveHomeSection('home')
+                          }
+                        }}
                         className={cn(
                           'flex items-center gap-1 px-3 py-2 text-body-sm rounded-lg transition-all',
                           isActive 
@@ -316,7 +322,15 @@ export function Navbar() {
                                 ? 'text-accent font-semibold' 
                                 : 'text-content-secondary hover:text-accent hover:bg-surface-700'
                             )}
-                            onClick={() => setOpenDropdown(isExpanded ? null : link.label)}
+                            onClick={() => {
+                              if (link.label === 'Home') {
+                                setActiveHomeSection('home')
+                                router.push('/')
+                                setIsMobileMenuOpen(false)
+                              } else {
+                                setOpenDropdown(isExpanded ? null : link.label)
+                              }
+                            }}
                           >
                             <span className="relative">
                               {link.label}
