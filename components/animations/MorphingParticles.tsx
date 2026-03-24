@@ -37,37 +37,10 @@ function generateF1CarWireframe(): THREE.Vector3[][] {
   return lines
 }
 
-function generateTesseractNodes(): THREE.Vector3[] {
-  const nodes: THREE.Vector3[] = []
-  const innerSize = 0.7
-  const outerSize = 1.2
-  const yOffset = 0.3
-  
-  for (let x = -1; x <= 1; x += 2) {
-    for (let y = -1; y <= 1; y += 2) {
-      for (let z = -1; z <= 1; z += 2) {
-        nodes.push(new THREE.Vector3(x * innerSize, y * innerSize + yOffset, z * innerSize))
-        nodes.push(new THREE.Vector3(x * outerSize, y * outerSize + yOffset, z * outerSize))
-      }
-    }
-  }
-  
-  for (let i = 0; i < 20; i++) {
-    const theta = (i / 20) * Math.PI * 2
-    const phi = (i % 5) / 5 * Math.PI
-    nodes.push(new THREE.Vector3(
-      Math.sin(phi) * Math.cos(theta) * 1.0,
-      Math.cos(phi) * 0.8 + yOffset,
-      Math.sin(phi) * Math.sin(theta) * 1.0
-    ))
-  }
-  
-  return nodes
-}
-
 function generateChaosLines(): THREE.Vector3[][] {
   const lines: THREE.Vector3[][] = []
-  const nodes = generateTesseractNodes()
+  const { inner, outer, extra } = generateTesseractBaseNodes()
+  const nodes = [...inner, ...outer, ...extra]
   
   const connections: [number, number][] = []
   for (let i = 0; i < nodes.length; i++) {
@@ -100,47 +73,45 @@ function generateChaosLines(): THREE.Vector3[][] {
   return lines
 }
 
-function generateDissolveTargets(): THREE.Vector3[][] {
-  const lines: THREE.Vector3[][] = []
-  const nodes = generateTesseractNodes()
+function generateTesseractBaseNodes(): { inner: THREE.Vector3[], outer: THREE.Vector3[], extra: THREE.Vector3[] } {
+  const inner: THREE.Vector3[] = []
+  const outer: THREE.Vector3[] = []
+  const extra: THREE.Vector3[] = []
+  const innerSize = 0.7
+  const outerSize = 1.2
+  const yOffset = 0.3
   
-  const connections: [number, number][] = []
-  for (let i = 0; i < nodes.length; i++) {
-    for (let j = i + 1; j < nodes.length; j++) {
-      const dist = nodes[i].distanceTo(nodes[j])
-      if (dist < 1.5 && dist > 0.2) {
-        connections.push([i, j])
+  for (let x = -1; x <= 1; x += 2) {
+    for (let y = -1; y <= 1; y += 2) {
+      for (let z = -1; z <= 1; z += 2) {
+        inner.push(new THREE.Vector3(x * innerSize, y * innerSize + yOffset, z * innerSize))
+        outer.push(new THREE.Vector3(x * outerSize, y * outerSize + yOffset, z * outerSize))
       }
     }
   }
   
-  for (let i = 0; i < CHAOS_LINE_COUNT; i++) {
-    const connIdx = (i * 7 + 3) % connections.length
-    const [nodeAIdx, nodeBIdx] = connections[connIdx]
-    const nodeA = nodes[nodeAIdx]
-    const nodeB = nodes[nodeBIdx]
-    
-    const line: THREE.Vector3[] = []
-    for (let j = 0; j < POINTS_PER_LINE; j++) {
-      const t = j / (POINTS_PER_LINE - 1)
-      line.push(new THREE.Vector3(
-        nodeA.x + (nodeB.x - nodeA.x) * t,
-        nodeA.y + (nodeB.y - nodeA.y) * t,
-        nodeA.z + (nodeB.z - nodeA.z) * t
-      ))
-    }
-    lines.push(line)
+  for (let i = 0; i < 20; i++) {
+    const theta = (i / 20) * Math.PI * 2
+    const phi = (i % 5) / 5 * Math.PI
+    extra.push(new THREE.Vector3(
+      Math.sin(phi) * Math.cos(theta) * 1.0,
+      Math.cos(phi) * 0.8 + yOffset,
+      Math.sin(phi) * Math.sin(theta) * 1.0
+    ))
   }
   
-  return lines
+  return { inner, outer, extra }
 }
 
 interface LineData {
   currentPositions: Float32Array
   chaosPositions: Float32Array
   targetPositions: Float32Array
-  dissolvePositions: Float32Array
   visible: boolean
+  nodeAIndex: number
+  nodeBIndex: number
+  nodeAType: 'inner' | 'outer' | 'extra'
+  nodeBType: 'inner' | 'outer' | 'extra'
 }
 
 function SculptureLines() {
@@ -150,23 +121,38 @@ function SculptureLines() {
   const phaseStartRef = useRef(0)
   const morphProgressRef = useRef(0)
   const visibleCountRef = useRef(CHAOS_LINE_COUNT)
-
+  const tesseractTimeRef = useRef(0)
   
   const chaosLines = useMemo(() => generateChaosLines(), [])
   const targetLines = useMemo(() => generateF1CarWireframe(), [])
-  const dissolveLines = useMemo(() => generateDissolveTargets(), [])
   
   useEffect(() => {
     linesDataRef.current = []
     
+    const { inner, outer, extra } = generateTesseractBaseNodes()
+    const nodes = [...inner, ...outer, ...extra]
+    
+    const connections: { a: number, b: number, aType: 'inner' | 'outer' | 'extra', bType: 'inner' | 'outer' | 'extra' }[] = []
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dist = nodes[i].distanceTo(nodes[j])
+        if (dist < 1.5 && dist > 0.2) {
+          const getType = (idx: number): 'inner' | 'outer' | 'extra' => {
+            if (idx < inner.length) return 'inner'
+            if (idx < inner.length + outer.length) return 'outer'
+            return 'extra'
+          }
+          connections.push({ a: i, b: j, aType: getType(i), bType: getType(j) })
+        }
+      }
+    }
+    
     for (let i = 0; i < CAR_LINE_COUNT; i++) {
       const chaosLine = chaosLines[i % CHAOS_LINE_COUNT]
       const targetLine = targetLines[i] || chaosLine
-      const dissolveLine = dissolveLines[i % CHAOS_LINE_COUNT] || chaosLine
       const currentPositions = new Float32Array(POINTS_PER_LINE * 3)
       const chaosPositions = new Float32Array(POINTS_PER_LINE * 3)
       const targetPositions = new Float32Array(POINTS_PER_LINE * 3)
-      const dissolvePositions = new Float32Array(POINTS_PER_LINE * 3)
       
       chaosLine.forEach((p, j) => {
         currentPositions[j * 3] = p.x
@@ -183,24 +169,24 @@ function SculptureLines() {
         targetPositions[j * 3 + 2] = p.z
       })
       
-      dissolveLine.forEach((p, j) => {
-        dissolvePositions[j * 3] = p.x
-        dissolvePositions[j * 3 + 1] = p.y
-        dissolvePositions[j * 3 + 2] = p.z
-      })
+      const connIdx = i % connections.length
+      const conn = connections[connIdx]
       
       linesDataRef.current.push({
         currentPositions,
         chaosPositions,
         targetPositions,
-        dissolvePositions,
         visible: i < CHAOS_LINE_COUNT,
+        nodeAIndex: conn.a,
+        nodeBIndex: conn.b,
+        nodeAType: conn.aType,
+        nodeBType: conn.bType,
       })
     }
     
     visibleCountRef.current = CHAOS_LINE_COUNT
     phaseStartRef.current = performance.now()
-  }, [chaosLines, targetLines, dissolveLines])
+  }, [chaosLines, targetLines])
   
   useFrame((state) => {
     if (!groupRef.current) return
@@ -209,39 +195,74 @@ function SculptureLines() {
     const now = performance.now()
     const phaseElapsed = (now - phaseStartRef.current) / 1000
     
-    if (phase === 'chaos' && phaseElapsed > 3) {
+    if (phase === 'chaos' && phaseElapsed > 4) {
       setPhase('forming')
       phaseStartRef.current = now
       morphProgressRef.current = 0
-    } else if (phase === 'forming' && phaseElapsed > 4) {
+    } else if (phase === 'forming' && phaseElapsed > 3) {
       setPhase('formed')
       phaseStartRef.current = now
       visibleCountRef.current = CAR_LINE_COUNT
-    } else if (phase === 'formed' && phaseElapsed > 3) {
+    } else if (phase === 'formed' && phaseElapsed > 2.5) {
       setPhase('dissolving')
       phaseStartRef.current = now
       morphProgressRef.current = 0
-    } else if (phase === 'dissolving' && phaseElapsed > 3) {
+    } else if (phase === 'dissolving' && phaseElapsed > 2.5) {
       setPhase('chaos')
       phaseStartRef.current = now
       visibleCountRef.current = CHAOS_LINE_COUNT
-      
-      linesDataRef.current.forEach((data, i) => {
-        data.visible = i < CHAOS_LINE_COUNT
-        for (let j = 0; j < POINTS_PER_LINE * 3; j++) {
-          data.currentPositions[j] = data.chaosPositions[j]
-        }
-      })
     }
     
     if (phase === 'forming') {
-      const progress = Math.min(1, phaseElapsed / 3.5)
+      const progress = Math.min(1, phaseElapsed / 2.5)
       const targetVisible = CHAOS_LINE_COUNT + Math.floor((CAR_LINE_COUNT - CHAOS_LINE_COUNT) * progress)
       visibleCountRef.current = targetVisible
     } else if (phase === 'dissolving') {
-      const progress = Math.min(1, phaseElapsed / 2.5)
+      const progress = Math.min(1, phaseElapsed / 2)
       const targetVisible = CAR_LINE_COUNT - Math.floor((CAR_LINE_COUNT - CHAOS_LINE_COUNT) * progress)
       visibleCountRef.current = targetVisible
+    }
+    
+    if (phase === 'chaos' || phase === 'dissolving') {
+      tesseractTimeRef.current += 0.015
+    }
+    
+    const tesseractTime = tesseractTimeRef.current
+    const innerSize = 0.7
+    const outerSize = 1.2
+    const yOffset = 0.3
+    const t = (Math.sin(tesseractTime) + 1) * 0.5
+    const innerScale = innerSize + (outerSize - innerSize) * t
+    const outerScale = outerSize - (outerSize - innerSize) * t
+    
+    const getNodePosition = (nodeIndex: number, nodeType: 'inner' | 'outer' | 'extra'): THREE.Vector3 => {
+      const innerIdx = nodeIndex
+      const outerIdx = nodeIndex - 8
+      const extraIdx = nodeIndex - 16
+      
+      if (nodeType === 'inner') {
+        const cornerIdx = innerIdx
+        const x = (cornerIdx & 1 ? 1 : -1)
+        const y = (cornerIdx & 2 ? 1 : -1)
+        const z = (cornerIdx & 4 ? 1 : -1)
+        return new THREE.Vector3(x * innerScale, y * innerScale + yOffset, z * innerScale)
+      } else if (nodeType === 'outer') {
+        const cornerIdx = outerIdx
+        const x = (cornerIdx & 1 ? 1 : -1)
+        const y = (cornerIdx & 2 ? 1 : -1)
+        const z = (cornerIdx & 4 ? 1 : -1)
+        return new THREE.Vector3(x * outerScale, y * outerScale + yOffset, z * outerScale)
+      } else {
+        const extraIdxActual = extraIdx
+        const theta = (extraIdxActual / 20) * Math.PI * 2
+        const phi = (extraIdxActual % 5) / 5 * Math.PI
+        const radius = 1.0 + Math.sin(tesseractTime + extraIdxActual * 0.3) * 0.12
+        return new THREE.Vector3(
+          Math.sin(phi) * Math.cos(theta) * radius,
+          Math.cos(phi) * 0.8 + yOffset,
+          Math.sin(phi) * Math.sin(theta) * radius
+        )
+      }
     }
     
     groupRef.current.children.forEach((child, i) => {
@@ -258,11 +279,17 @@ function SculptureLines() {
       if (!isVisible) return
       
       if (phase === 'chaos') {
-        for (let j = 0; j < POINTS_PER_LINE * 3; j++) {
-          positionAttr.array[j] = data.chaosPositions[j]
+        const nodeA = getNodePosition(data.nodeAIndex, data.nodeAType)
+        const nodeB = getNodePosition(data.nodeBIndex, data.nodeBType)
+        
+        for (let j = 0; j < POINTS_PER_LINE; j++) {
+          const pt = j / (POINTS_PER_LINE - 1)
+          positionAttr.array[j * 3] = nodeA.x + (nodeB.x - nodeA.x) * pt
+          positionAttr.array[j * 3 + 1] = nodeA.y + (nodeB.y - nodeA.y) * pt
+          positionAttr.array[j * 3 + 2] = nodeA.z + (nodeB.z - nodeA.z) * pt
         }
       } else if (phase === 'forming') {
-        morphProgressRef.current = Math.min(1, phaseElapsed / 3.5)
+        morphProgressRef.current = Math.min(1, phaseElapsed / 2.5)
         const eased = 1 - Math.pow(1 - morphProgressRef.current, 3)
         
         for (let j = 0; j < POINTS_PER_LINE * 3; j++) {
@@ -273,11 +300,21 @@ function SculptureLines() {
           positionAttr.array[j] = data.targetPositions[j]
         }
       } else if (phase === 'dissolving') {
-        morphProgressRef.current = Math.min(1, phaseElapsed / 2.5)
+        morphProgressRef.current = Math.min(1, phaseElapsed / 2)
         const eased = 1 - Math.pow(1 - morphProgressRef.current, 2)
         
-        for (let j = 0; j < POINTS_PER_LINE * 3; j++) {
-          positionAttr.array[j] = data.targetPositions[j] + (data.dissolvePositions[j] - data.targetPositions[j]) * eased
+        const nodeA = getNodePosition(data.nodeAIndex, data.nodeAType)
+        const nodeB = getNodePosition(data.nodeBIndex, data.nodeBType)
+        
+        for (let j = 0; j < POINTS_PER_LINE; j++) {
+          const pt = j / (POINTS_PER_LINE - 1)
+          const targetX = nodeA.x + (nodeB.x - nodeA.x) * pt
+          const targetY = nodeA.y + (nodeB.y - nodeA.y) * pt
+          const targetZ = nodeA.z + (nodeB.z - nodeA.z) * pt
+          
+          positionAttr.array[j * 3] = data.targetPositions[j * 3] + (targetX - data.targetPositions[j * 3]) * eased
+          positionAttr.array[j * 3 + 1] = data.targetPositions[j * 3 + 1] + (targetY - data.targetPositions[j * 3 + 1]) * eased
+          positionAttr.array[j * 3 + 2] = data.targetPositions[j * 3 + 2] + (targetZ - data.targetPositions[j * 3 + 2]) * eased
         }
       }
       
