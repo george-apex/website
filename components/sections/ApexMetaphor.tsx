@@ -11,12 +11,9 @@ export function ApexMetaphor() {
 
   return (
     <Section variant="default" className="relative overflow-hidden min-h-screen">
-      <div 
-        className="absolute inset-0 bg-black"
-        style={{
-          background: 'radial-gradient(ellipse 80% 60% at 30% 40%, rgba(48, 107, 255, 0.15) 0%, transparent 60%), black',
-        }}
-      />
+      <div className="absolute inset-0 bg-surface-950" />
+      <div className="absolute inset-0 bg-gradient-to-b from-surface-900/50 via-transparent to-surface-900/50" />
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(48,107,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(48,107,255,0.02)_1px,transparent_1px)] bg-[size:80px_80px]" />
       <div className="absolute inset-0 z-0 w-[60%] left-0 -translate-y-8 overflow-visible">
         <MorphingParticles className="w-full h-full" />
       </div>
