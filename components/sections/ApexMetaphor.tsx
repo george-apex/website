@@ -25,7 +25,7 @@ export function ApexMetaphor() {
       </div>
 
       <div ref={containerRef} className="relative z-10 max-w-6xl mx-auto">
-        <div className="grid lg:grid-cols-3 gap-8 lg:gap-12 items-center min-h-[500px] py-12">
+        <div className="grid lg:grid-cols-3 gap-8 lg:gap-12 items-center min-h-[500px] pt-12 pb-4">
           <div className="lg:col-span-1">
           </div>
           
@@ -34,7 +34,7 @@ export function ApexMetaphor() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:col-span-2 space-y-8 ml-64 mt-32 -mr-12"
+            className="lg:col-span-2 space-y-8 ml-72 mt-32 -mr-12"
           >
             <div className="space-y-4">
               <span className="inline-block text-label font-semibold text-accent tracking-[0.2em] uppercase">
