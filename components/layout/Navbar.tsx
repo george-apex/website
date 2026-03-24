@@ -201,13 +201,18 @@ export function Navbar() {
                     >
                       <button
                         className={cn(
-                          'flex items-center gap-1 px-3 py-2 text-body-sm rounded-lg transition-all font-mono',
+                          'flex items-center gap-1 px-3 py-2 text-body-sm rounded-lg transition-all',
                           isActive 
-                            ? 'text-accent bg-accent/10' 
+                            ? 'text-accent font-semibold' 
                             : 'text-content-secondary hover:text-content-primary hover:bg-surface-800/50'
                         )}
                       >
-                        {isHovered || isActive ? `[${link.label}]` : link.label}
+                        <span className="relative">
+                          {link.label}
+                          {(isHovered || isActive) && (
+                            <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-accent rounded-full" />
+                          )}
+                        </span>
                       </button>
                     </div>
                   )
@@ -218,15 +223,20 @@ export function Navbar() {
                     key={link.label}
                     href={link.href || '#'}
                     className={cn(
-                      'px-3 py-2 text-body-sm rounded-lg transition-all font-mono',
+                      'px-3 py-2 text-body-sm rounded-lg transition-all',
                       isActive 
-                        ? 'text-accent bg-accent/10' 
+                        ? 'text-accent font-semibold' 
                         : 'text-content-secondary hover:text-content-primary hover:bg-surface-800/50'
                     )}
                     onMouseEnter={() => setHoveredParent(link.label)}
                     onMouseLeave={() => setHoveredParent(null)}
                   >
-                    {isHovered || isActive ? `[${link.label}]` : link.label}
+                    <span className="relative">
+                      {link.label}
+                      {(isHovered || isActive) && (
+                        <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-accent rounded-full" />
+                      )}
+                    </span>
                   </Link>
                 )
               })}
@@ -301,14 +311,19 @@ export function Navbar() {
                         {hasSubTabs ? (
                           <button
                             className={cn(
-                              'w-full flex items-center justify-between py-3 px-4 text-body-lg rounded-card transition-colors font-mono',
+                              'w-full flex items-center justify-between py-3 px-4 text-body-lg rounded-card transition-colors',
                               isActive 
-                                ? 'text-accent bg-accent/10' 
+                                ? 'text-accent font-semibold' 
                                 : 'text-content-secondary hover:text-accent hover:bg-surface-700'
                             )}
                             onClick={() => setOpenDropdown(isExpanded ? null : link.label)}
                           >
-                            {isActive ? `[${link.label}]` : link.label}
+                            <span className="relative">
+                              {link.label}
+                              {isActive && (
+                                <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-accent rounded-full" />
+                              )}
+                            </span>
                             <ChevronDown className={cn(
                               'w-4 h-4 transition-transform duration-200',
                               isExpanded && 'rotate-180'
@@ -318,14 +333,19 @@ export function Navbar() {
                           <Link
                             href={link.href || '#'}
                             className={cn(
-                              'block py-3 px-4 text-body-lg rounded-card transition-colors font-mono',
+                              'block py-3 px-4 text-body-lg rounded-card transition-colors',
                               isActive 
-                                ? 'text-accent bg-accent/10' 
+                                ? 'text-accent font-semibold' 
                                 : 'text-content-secondary hover:text-accent hover:bg-surface-700'
                             )}
                             onClick={() => setIsMobileMenuOpen(false)}
                           >
-                            {isActive ? `[${link.label}]` : link.label}
+                            <span className="relative">
+                              {link.label}
+                              {isActive && (
+                                <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-accent rounded-full" />
+                              )}
+                            </span>
                           </Link>
                         )}
                       </motion.div>
