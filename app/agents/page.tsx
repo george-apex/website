@@ -20,6 +20,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { SubNavigation } from '@/components/layout/SubNavigation'
+import { ApexActivation, ApexActivationButton } from '@/components/effects/ApexActivation'
 
 const agents = [
   {
@@ -32,8 +33,9 @@ const agents = [
     whenToUse: 'Use for overnight or intra-day analysis of how news and macro factors may affect sovereign yields, spreads, and volatility.',
     howToUse: 'Select the countries or regions of interest and the agent will summarise the most relevant news items, weighted by sentiment and market impact. Visual maps and tables highlight trends and event intensity.',
     examplePrompts: [
-      '"Russia conflict."',
-      '"Pakistan"'
+      '"Analyse the impact of Middle East tensions on European sovereign bonds."',
+      '"What is the current sentiment score for UK gilts?"',
+      '"Show geopolitical events affecting emerging market debt."'
     ],
     userBenefit: 'Quickly connects bond market movements with underlying geopolitical drivers, enabling faster reaction and better-informed trading decisions.',
     features: ['Country Map & Bond View', 'GDELT News View', 'Uncertainty Indexes', 'Sentiment Scoring'],
@@ -64,9 +66,9 @@ const agents = [
     whenToUse: 'Use when reviewing new issues, secondary offerings, or for comparing bond terms across issuers.',
     howToUse: 'Upload prospectus documents or query existing ones. The agent returns structured key details such as issuer, ranking, coupon type, maturity, and events of default.',
     examplePrompts: [
-      '"Summarise the key covenants for Comcast Corp."',
-      '"Does L\'Oréal 2025 have a change-of-control clause?"',
-      '"List all EUR bonds maturing after 2030."'
+      '"Summarise the key covenants for this bond prospectus."',
+      '"Does this issuer have a change-of-control clause?"',
+      '"Extract all bonds maturing after 2030 from these documents."'
     ],
     userBenefit: 'Removes manual review of long legal documents by extracting critical details in seconds, allowing faster due diligence and covenant comparison.',
     features: ['Covenant Analysis', 'Coupon Structures', 'Maturity Tracking', 'Redemption Features'],
@@ -100,9 +102,9 @@ const agents = [
     whenToUse: 'Ideal for risk teams and portfolio managers assessing credit quality, spread movement, or counterparty exposure.',
     howToUse: 'Input an issuer, bond, or portfolio and receive a detailed breakdown of risk metrics, spread history, and sentiment indicators derived from market and fundamental data.',
     examplePrompts: [
-      '"Show credit spread changes for Vodafone."',
-      '"Highlight issuers with increased downgrade probability."',
-      '"Compare CDS spreads for Barclays and HSBC."'
+      '"Show credit spread changes for investment grade issuers."',
+      '"Which issuers had negative rating actions this month?"',
+      '"Compare CDS spreads across the banking sector."'
     ],
     userBenefit: 'Delivers instant, explainable credit insights that improve portfolio monitoring and support proactive risk management.',
     features: ['Live Market Pricing', 'Spread Analysis', 'Credit Indicators', 'News Integration'],
@@ -139,9 +141,9 @@ const agents = [
     whenToUse: 'Use when analysing proprietary data within a controlled environment where privacy and governance are essential.',
     howToUse: 'Upload or connect to your database. Query using natural language and review results in structured tables, with optional SQL visibility.',
     examplePrompts: [
-      '"List the top 5 ETFs by 1-year total return."',
-      '"What is Vanguard\'s net cash flow for Q1 2025?"',
-      '"Show all funds with AUM above £1bn."'
+      '"Show the top 10 ETFs by assets under management."',
+      '"List all funds with a Sharpe ratio above 1.5."',
+      '"What is my total exposure to the technology sector?"'
     ],
     userBenefit: 'Transforms private data analysis into a secure, low-code workflow—enhancing productivity without compromising compliance.',
     features: ['Natural Language to SQL', 'Data Governance', 'Audit Trails', 'Secure Environments'],
@@ -177,9 +179,9 @@ LIMIT 5;
     whenToUse: 'Use for market analysis, performance comparison, or quick visualisation of time-series data.',
     howToUse: 'Type a query and the agent fetches and visualises the data. Users can customise chart type, date range, and export results.',
     examplePrompts: [
-      '"Show the S&P 500 and add Nvidia and Tesla."',
-      '"Add the 10-year Treasury yield and normalise to 100."',
-      '"Plot UK GDP growth against inflation."'
+      '"Show me the S&P 500 for the last 12 months."',
+      '"Compare Apple and Microsoft, normalised to 100."',
+      '"Add the 10-year Treasury yield to my chart."'
     ],
     userBenefit: 'Removes the need for manual charting tools, instantly turning data into clear, presentation-ready visuals.',
     features: ['Multi-Asset Support', 'Custom Chart Types', 'Data Export', 'Time-Series Analysis'],
@@ -219,9 +221,9 @@ LIMIT 5;
     whenToUse: 'Use for researching company performance, peer comparison, or pre-trade analysis.',
     howToUse: 'Query company names or metrics such as revenue, profit, or valuation. Results appear in tables and can be exported or visualised as charts.',
     examplePrompts: [
-      '"Show Apple\'s quarterly revenue and net income."',
-      '"List technology companies with >10% revenue growth."',
-      '"Compare balance sheets for BP and Shell."'
+      '"Show Tesla\'s revenue and net income for the last 4 quarters."',
+      '"Compare P/E ratios across the Magnificent Seven."',
+      '"What is Nvidia\'s gross margin trend?"'
     ],
     userBenefit: 'Delivers instant, accurate financial metrics and standardised data, reducing research time and improving consistency across teams.',
     features: ['Financial Statements', 'Valuation Metrics', 'Peer Comparison', 'Chart Generation'],
@@ -259,9 +261,9 @@ LIMIT 5;
     whenToUse: 'Use during reporting seasons to analyse large volumes of earnings transcripts quickly.',
     howToUse: 'Select a company and quarter, then ask questions. The agent links commentary with financial data and highlights sentiment.',
     examplePrompts: [
-      '"Summarise management commentary for Apple\'s Q1 2025 earnings call."',
-      '"Extract mentions of inflation from top 10 holdings\' earnings calls."',
-      '"Compare tone and sentiment between Microsoft and Google."'
+      '"Summarise management commentary from Apple\'s latest earnings call."',
+      '"What was the overall sentiment in Tesla\'s Q4 call?"',
+      '"Extract all mentions of AI from recent tech earnings."'
     ],
     userBenefit: 'Reduces manual transcript review, identifies key insights instantly, and supports faster reporting and investment analysis.',
     features: ['Transcript Parsing', 'Sentiment Analysis', 'Quarterly Filtering', 'Management Commentary'],
@@ -318,14 +320,14 @@ function AgentCard({ agent, onTryAgent }: { agent: typeof agents[0]; onTryAgent:
       {/* Glow effect */}
       <div 
         className={cn(
-          "absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-accent/20 via-accent/10 to-accent/20 opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500",
+          "absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-accent/20 via-accent/10 to-accent/20 opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500 pointer-events-none",
           isHovered && "opacity-100"
         )}
       />
       
       {/* Animated border */}
       <div className={cn(
-        "absolute -inset-px rounded-2xl transition-all duration-300",
+        "absolute -inset-px rounded-2xl transition-all duration-300 pointer-events-none",
         isHovered 
           ? "bg-gradient-to-r from-accent via-accent/50 to-accent opacity-100" 
           : "bg-transparent"
@@ -340,13 +342,13 @@ function AgentCard({ agent, onTryAgent }: { agent: typeof agents[0]; onTryAgent:
       )}>
         {/* Top accent line */}
         <div className={cn(
-          "absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent transition-opacity duration-300",
+          "absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent transition-opacity duration-300 pointer-events-none",
           isHovered ? "opacity-100" : "opacity-0"
         )} />
 
         {/* Icon glow */}
         <div className={cn(
-          "absolute top-6 left-6 w-12 h-12 rounded-xl transition-all duration-300",
+          "absolute top-6 left-6 w-12 h-12 rounded-xl transition-all duration-300 pointer-events-none",
           isHovered && "bg-accent/20"
         )}>
           <div className={cn(
@@ -396,8 +398,9 @@ function AgentCard({ agent, onTryAgent }: { agent: typeof agents[0]; onTryAgent:
 
           {/* Action Buttons */}
           <div className="flex gap-2 pt-2">
-            <button
+            <ApexActivationButton
               onClick={onTryAgent}
+              isHovered={isHovered}
               className={cn(
                 "flex-1 py-2.5 px-4 rounded-lg text-sm font-medium transition-all duration-300 flex items-center justify-center gap-2",
                 isHovered 
@@ -407,13 +410,13 @@ function AgentCard({ agent, onTryAgent }: { agent: typeof agents[0]; onTryAgent:
             >
               <Play className="w-4 h-4" />
               Try Agent
-            </button>
+            </ApexActivationButton>
           </div>
         </div>
 
         {/* Bottom gradient on hover */}
         <div className={cn(
-          "absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-accent/5 to-transparent transition-opacity duration-300",
+          "absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-accent/5 to-transparent transition-opacity duration-300 pointer-events-none",
           isHovered ? "opacity-100" : "opacity-0"
         )} />
       </div>
@@ -441,6 +444,13 @@ function AgentDemoModal({
       inputRef.current.focus()
     }
   }, [isOpen])
+
+  // Reset state when agent changes
+  React.useEffect(() => {
+    setResponse('')
+    setPrompt('')
+    setIsLoading(false)
+  }, [agent?.id])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
