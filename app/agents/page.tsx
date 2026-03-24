@@ -39,22 +39,30 @@ const agents = [
     ],
     userBenefit: 'Quickly connects bond market movements with underlying geopolitical drivers, enabling faster reaction and better-informed trading decisions.',
     features: ['Country Map & Bond View', 'GDELT News View', 'Uncertainty Indexes', 'Sentiment Scoring'],
-    demoResponse: `**Geopolitical Analysis: Russia Conflict**
+    demoResponse: `**Geopolitical Analysis: Middle East Tensions Impact on European Sovereigns**
 
 **Market Impact Assessment:**
-- **Sentiment Score:** Negative (-0.72)
-- **Relevance:** High (0.89)
-- **Affected Markets:** EUR Bonds, USD Treasuries, Emerging Market Debt
+- **Sentiment Score:** Risk-Off (-0.58)
+- **Relevance:** High (0.91)
+- **Affected Markets:** German Bunds, French OATs, Italian BTPs, UK Gilts
 
 **Key Developments:**
-1. **Energy Sector:** Continued pressure on European gas prices, +12% MoM
-2. **Sanctions Impact:** Secondary sanctions affecting EUR 2.3B in trade flows
-3. **Risk Premium:** Russian bond spreads widened by 45bps
+1. **Energy Markets:** Brent crude +8% on supply disruption fears, European natural gas +15%
+2. **Flight to Quality:** German 10Y yields down 12bps to 2.38%, Bund futures rallying
+3. **Peripheral Spreads:** Italy-Germany spread widened 8bps to 145bps on risk aversion
+
+**European Sovereign Impact:**
+| Country | 10Y Yield | 1D Change | Spread to Bund |
+|---------|-----------|-----------|----------------|
+| Germany | 2.38% | -12bps | — |
+| France | 2.89% | -8bps | 51bps |
+| Italy | 3.83% | -4bps | 145bps |
+| UK Gilts | 4.12% | -6bps | 174bps |
 
 **Recommended Actions:**
-- Monitor EUR sovereign spreads for widening
-- Review EM exposure to Russia-adjacent economies
-- Consider flight-to-quality positioning in US Treasuries`
+- Consider long duration positioning in core European bonds
+- Monitor peripheral spread widening for opportunities
+- Watch energy price transmission to inflation expectations`
   },
   {
     id: 'prospectus-analyser',
@@ -108,28 +116,35 @@ const agents = [
     ],
     userBenefit: 'Delivers instant, explainable credit insights that improve portfolio monitoring and support proactive risk management.',
     features: ['Live Market Pricing', 'Spread Analysis', 'Credit Indicators', 'News Integration'],
-    demoResponse: `**Credit Analysis: Vodafone**
+    demoResponse: `**Credit Spread Analysis: Investment Grade Issuers**
 
-**Credit Metrics Summary:**
+**5-Year CDS Spread Movement (30-Day Change):**
 
-| Metric | Current | 30D Change | Signal |
-|--------|---------|------------|--------|
-| CDS Spread | 85bps | +12bps | ⚠️ Widening |
-| OAS | 92bps | +8bps | ⚠️ Watch |
-| Liquidity Score | 8.2/10 | -0.3 | ✓ Stable |
-| Recovery Rate | 42% | - | Benchmark |
+| Issuer | Sector | CDS Spread | 30D Δ | Signal |
+|--------|--------|------------|-------|--------|
+| Microsoft | Technology | 42bps | -3bps | ✓ Tightening |
+| Apple | Technology | 38bps | -2bps | ✓ Stable |
+| Johnson & Johnson | Healthcare | 35bps | — | ✓ Stable |
+| Procter & Gamble | Consumer | 48bps | +4bps | ⚠️ Watch |
+| Verizon | Telecom | 85bps | +12bps | ⚠️ Widening |
+| Pfizer | Healthcare | 62bps | +6bps | ⚠️ Widening |
+| Goldman Sachs | Financial | 95bps | +8bps | ⚠️ Watch |
+| Boeing | Industrials | 145bps | +22bps | ⚠️ Widening |
 
-**Rating Outlook:**
-- **S&P:** BBB+ (Stable)
-- **Moody's:** Baa1 (Negative Watch)
-- **Fitch:** BBB+ (Stable)
+**Sector Summary:**
+- **Technology:** Spreads tightening (-2bps avg) on strong earnings
+- **Healthcare:** Mixed, with Pfizer widening on guidance concerns
+- **Financials:** Slight widening (+5bps avg) on rate uncertainty
+- **Industrials:** Boeing pressure from 737 MAX delivery delays
 
-**Recent News:**
-1. Q3 earnings beat expectations (+3.2%)
-2. Spectrum auction costs higher than guided
-3. Leverage ratio trending toward covenant threshold
+**Investment Grade Index:**
+- CDX IG Index: 72bps (+4bps MoM)
+- High Yield correlation: 0.42 (elevated)
 
-**Risk Assessment:** MODERATE - Monitor leverage metrics`
+**Recommended Actions:**
+- Monitor Verizon spread widening for entry opportunity
+- Consider short duration in sectors showing stability
+- Watch Boeing for potential downgrade risk`
   },
   {
     id: 'private-data-analyser',
@@ -147,25 +162,28 @@ const agents = [
     ],
     userBenefit: 'Transforms private data analysis into a secure, low-code workflow—enhancing productivity without compromising compliance.',
     features: ['Natural Language to SQL', 'Data Governance', 'Audit Trails', 'Secure Environments'],
-    demoResponse: `**Query Results: Top 5 ETFs by 1-Year Return**
+    demoResponse: `**Query Results: Top 10 ETFs by Assets Under Management**
 
-| Rank | ETF Name | Ticker | 1Y Return | AUM (£M) |
-|------|----------|--------|-----------|----------|
-| 1 | iShares Tech Growth | ITEC | +42.3% | 2,450 |
-| 2 | Vanguard US Growth | VUGL | +38.7% | 1,890 |
-| 3 | Invesco AI & Robotics | AIRO | +35.2% | 890 |
-| 4 | HSBC Emerging Tech | HMET | +31.8% | 567 |
-| 5 | BlackRock Clean Energy | IBCL | +28.4% | 1,234 |
+| Rank | ETF Name | Ticker | AUM (£B) | Asset Class | Expense Ratio |
+|------|----------|--------|----------|-------------|---------------|
+| 1 | iShares Core S&P 500 UCITS | CSSPX | £48.2 | Equity | 0.07% |
+| 2 | Vanguard S&P 500 UCITS | VUSA | £42.8 | Equity | 0.07% |
+| 3 | iShares Core MSCI World | SWDA | £38.5 | Equity | 0.20% |
+| 4 | Vanguard FTSE All-World | VWRL | £31.2 | Equity | 0.22% |
+| 5 | iShares Core UK Gilts | IGLT | £18.4 | Fixed Income | 0.10% |
+| 6 | Vanguard US Equity | VUAE | £16.9 | Equity | 0.10% |
+| 7 | iShares MSCI Emerging Markets | IEEM | £14.3 | Equity | 0.18% |
+| 8 | SPDR S&P 500 UCITS | SPY5 | £12.7 | Equity | 0.05% |
+| 9 | iShares Global Corp Bond | LQDE | £11.2 | Fixed Income | 0.20% |
+| 10 | Vanguard UK Investment Grade | VUKG | £9.8 | Fixed Income | 0.15% |
 
 **Generated SQL:**
-\`\`\`sql
-SELECT etf_name, ticker, 
-       return_1y, aum_gbp
-FROM etf_performance
-WHERE return_1y IS NOT NULL
-ORDER BY return_1y DESC
-LIMIT 5;
-\`\`\`
+SELECT etf_name, ticker, aum_gbp,
+       asset_class, expense_ratio
+FROM etf_universe
+WHERE aum_gbp IS NOT NULL
+ORDER BY aum_gbp DESC
+LIMIT 10;
 
 **Governance:** ✓ Query logged | ✓ User verified | ✓ Data scope approved`
   },
@@ -185,29 +203,20 @@ LIMIT 5;
     ],
     userBenefit: 'Removes the need for manual charting tools, instantly turning data into clear, presentation-ready visuals.',
     features: ['Multi-Asset Support', 'Custom Chart Types', 'Data Export', 'Time-Series Analysis'],
-    demoResponse: `**Chart Generated: S&P 500, Nvidia, Tesla (Normalized)**
+    demoResponse: `**Chart Generated: S&P 500 Index - 12 Month Performance**
 
-\`\`\`
-                    Performance Comparison (Rebased to 100)
-    ┌────────────────────────────────────────────────────────────────┐
-240 │                                          ▲ Nvidia              │
-    │                                        ╱                       │
-200 │                                      ╱                         │
-    │                                    ╱    ◆ Tesla               │
-160 │                                  ╱   ╱                        │
-    │                                ╱   ╱                          │
-120 │             ─── S&P 500 ───╱───╱                             │
-    │           ╱──────────────╱                                   │
- 80 │         ╱                                                   │
-    │───────╱─────────────────────────────────────────────────────│
-    └────────────────────────────────────────────────────────────────┘
-      Jan   Feb   Mar   Apr   May   Jun   Jul   Aug   Sep   Oct
-\`\`\`
+**Key Statistics:**
+- **Starting Price:** 4,321 (Jan)
+- **Current Price:** 5,214 (Dec)
+- **YTD Return:** +20.7%
+- **52-Week High:** 5,321 (Mar)
+- **52-Week Low:** 4,118 (Jan)
+- **Volatility:** 14.2% annualized
 
-**Performance Metrics:**
-- S&P 500: +12.4%
-- Nvidia: +142.8%
-- Tesla: +68.3%
+**Technical Indicators:**
+- 50-Day SMA: 5,089 (above current)
+- 200-Day SMA: 4,812 (above current)
+- RSI: 58.3 (neutral)
 
 **Export Options:** PNG | SVG | CSV | Excel`
   },
@@ -227,29 +236,38 @@ LIMIT 5;
     ],
     userBenefit: 'Delivers instant, accurate financial metrics and standardised data, reducing research time and improving consistency across teams.',
     features: ['Financial Statements', 'Valuation Metrics', 'Peer Comparison', 'Chart Generation'],
-    demoResponse: `**Apple Inc. (AAPL) - Quarterly Financials**
+    demoResponse: `**Tesla, Inc. (TSLA) - Quarterly Financials**
 
 **Income Statement (USD Billions):**
 
 | Metric | Q4 2024 | Q3 2024 | Q4 2023 | YoY Δ |
 |--------|---------|---------|---------|-------|
-| Revenue | $94.3B | $81.8B | $89.5B | +5.4% |
-| Gross Profit | $42.1B | $36.0B | $39.8B | +5.8% |
-| Net Income | $22.9B | $19.9B | $22.9B | — |
-| EPS | $1.46 | $1.26 | $1.46 | — |
+| Revenue | $25.2B | $23.4B | $24.3B | +3.7% |
+| Gross Profit | $4.3B | $3.9B | $4.2B | +2.4% |
+| Net Income | $2.1B | $1.9B | $2.5B | -16.0% |
+| EPS | $0.66 | $0.58 | $0.71 | -7.0% |
 
 **Key Metrics:**
-- **Gross Margin:** 44.6%
-- **Operating Margin:** 29.8%
-- **P/E Ratio:** 28.4x
-- **Market Cap:** $2.89T
+- **Gross Margin:** 17.1%
+- **Operating Margin:** 8.2%
+- **P/E Ratio:** 45.2x
+- **Market Cap:** $812B
+
+**Quarterly Revenue Trend:**
+- Q1 2024: $21.3B
+- Q2 2024: $24.9B
+- Q3 2024: $23.4B
+- Q4 2024: $25.2B
 
 **Segment Revenue:**
-- iPhone: $46.2B (49%)
-- Services: $22.3B (24%)
-- Mac: $11.5B (12%)
-- iPad: $8.4B (9%)
-- Wearables: $5.9B (6%)`
+- Automotive: $20.8B (82%)
+- Energy Generation: $3.1B (12%)
+- Services: $1.3B (6%)
+
+**Key Highlights:**
+- Vehicle deliveries: 495K in Q4
+- Energy storage deployments: 6.9 GWh (+52% YoY)
+- Supercharger network: 58,000+ stalls globally`
   },
   {
     id: 'earnings-calls-analyser',
@@ -267,37 +285,38 @@ LIMIT 5;
     ],
     userBenefit: 'Reduces manual transcript review, identifies key insights instantly, and supports faster reporting and investment analysis.',
     features: ['Transcript Parsing', 'Sentiment Analysis', 'Quarterly Filtering', 'Management Commentary'],
-    demoResponse: `**Apple Q1 2025 Earnings Call Summary**
+    demoResponse: `**Apple Q1 2025 Earnings Call - Management Commentary Summary**
 
-**Overall Sentiment:** Positive (0.72)
+**Overall Sentiment:** Cautiously Optimistic (0.68)
 
-**Key Themes Identified:**
+**Executive Commentary Highlights:**
 
-1. **AI Integration** (↑ Positive)
-   - "Excited about Apple Intelligence rollout"
-   - "Seeing strong adoption across devices"
-   - 23 mentions of AI/ML capabilities
+**Tim Cook (CEO):**
+> "We're seeing strong momentum in Services, reaching an all-time revenue record of $24.2 billion. Apple Intelligence is now available on all our latest devices, and we're excited about the developer response."
 
-2. **China Market** (↓ Cautious)
-   - "Headwinds in Greater China region"
-   - Revenue down 8% YoY
-   - Competition intensifying
+*Key themes mentioned:* Innovation (12x), Opportunity (8x), Customers (15x), AI (9x)
 
-3. **Services Growth** (↑ Positive)
-   - Services revenue up 14% to $24.2B
-   - 900M+ paid subscriptions
-   - Strong App Store momentum
+**Luca Maestri (CFO):**
+> "Gross margin came in at 44.6%, reflecting a favorable mix despite currency headwinds. We returned $32 billion to shareholders during the quarter through dividends and buybacks."
 
-**Management Tone Analysis:**
-| Speaker | Sentiment | Key Words |
-|---------|-----------|-----------|
-| Tim Cook | 0.78 | opportunity, excited, innovation |
-| Luca Maestri | 0.65 | growth, margin, confidence |
+*Key themes mentioned:* Margin (6x), Capital return (4x), Efficiency (5x)
 
-**Q&A Highlights:**
-- AI monetization timeline addressed
-- Capital allocation strategy affirmed
-- No major guidance changes`
+**Strategic Focus Areas:**
+1. **AI/ML Investment:** R&D spend up 18% YoY, focused on on-device AI
+2. **China Recovery:** "Stabilizing" - down only 2% vs 8% prior quarter
+3. **Services Expansion:** 900M+ paid subscriptions, double-digit growth expected
+4. **Capital Allocation:** $90B buyback authorization renewed
+
+**Q&A Key Takeaways:**
+- No pricing commentary despite inflation concerns
+- Vision Pro adoption "exceeding expectations"
+- India identified as major growth market
+- AI monetization remains "long-term opportunity"
+
+**Risk Flags Mentioned:**
+- Foreign exchange headwinds persist
+- Supply chain costs slightly elevated
+- Regulatory scrutiny in EU and UK`
   }
 ]
 
