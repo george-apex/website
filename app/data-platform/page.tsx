@@ -284,6 +284,7 @@ export default function DataPlatformPage() {
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
+            className="ml-8"
           >
             <motion.div
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 
