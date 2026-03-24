@@ -5,18 +5,19 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
-import { NAV_LINKS, SubTab } from './Navbar'
+import { NAV_LINKS, SubTab, HoverContext } from './Navbar'
 
-interface SubNavigationProps {
-  activeSubTab?: string
-  onSubTabClick?: (subTabId: string) => void
-}
-
-export function SubNavigation({ activeSubTab, onSubTabClick }: SubNavigationProps) {
+export function SubNavigation() {
   const pathname = usePathname()
   const router = useRouter()
+  const { hoveredParent, setHoveredParent, cancelClear, activeHomeSection, setActiveHomeSection } = React.useContext(HoverContext)
+  const [mounted, setMounted] = React.useState(false)
   
-  const currentNavLink = React.useMemo(() => {
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
+  
+  const currentNavByPath = React.useMemo(() => {
     return NAV_LINKS.find(link => {
       if (link.href === pathname) return true
       if (link.subTabs) {
@@ -26,26 +27,40 @@ export function SubNavigation({ activeSubTab, onSubTabClick }: SubNavigationProp
     })
   }, [pathname])
 
-  const subTabs = currentNavLink?.subTabs
-  const isHomePage = pathname === '/'
+  const navByHover = React.useMemo(() => {
+    if (!hoveredParent) return null
+    return NAV_LINKS.find(link => link.label === hoveredParent)
+  }, [hoveredParent])
 
-  if (!subTabs || subTabs.length === 0) return null
+  const activeNavLink = navByHover || currentNavByPath
+  const subTabs = activeNavLink?.subTabs
+  const isHomePage = pathname === '/'
+  const isVisible = subTabs && subTabs.length > 0
+
+  if (!isVisible) return null
 
   return (
-    <div className="fixed top-20 left-0 right-0 z-40 bg-surface-950/95 backdrop-blur-xl border-b border-border/30">
+    <div
+      className={cn(
+        "fixed top-20 left-0 right-0 z-40 bg-surface-950/95 backdrop-blur-xl border-b border-border/30 transition-all duration-200",
+        mounted ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"
+      )}
+      onMouseEnter={() => activeNavLink && cancelClear()}
+      onMouseLeave={() => setHoveredParent(null)}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-center h-14">
           <nav className="flex items-center gap-1">
-            {subTabs.map((sub) => {
+            {subTabs!.map((sub) => {
               const isActive = isHomePage 
-                ? activeSubTab === sub.id 
+                ? activeHomeSection === sub.id 
                 : pathname === sub.href
               
               return (
                 <React.Fragment key={sub.id}>
                   {isHomePage && !sub.href ? (
                     <button
-                      onClick={() => onSubTabClick?.(sub.id)}
+                      onClick={() => setActiveHomeSection(sub.id)}
                       className={cn(
                         'relative px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap',
                         isActive 
@@ -96,9 +111,9 @@ export function SubNavigation({ activeSubTab, onSubTabClick }: SubNavigationProp
           className="h-full bg-gradient-to-r from-accent to-data"
           initial={{ width: 0 }}
           animate={{ 
-            width: `${((subTabs.findIndex(s => 
-              isHomePage ? s.id === activeSubTab : s.href === pathname
-            ) + 1) / subTabs.length) * 100}%` 
+            width: `${((subTabs!.findIndex(s => 
+              isHomePage ? s.id === activeHomeSection : s.href === pathname
+            ) + 1) / subTabs!.length) * 100}%` 
           }}
           transition={{ duration: 0.3, ease: 'easeOut' }}
         />

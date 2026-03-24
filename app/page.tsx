@@ -8,7 +8,7 @@ import { ApexMetaphor } from '@/components/sections/ApexMetaphor'
 import { WhyMostAIFails } from '@/components/sections/WhyMostAIFails'
 import { ALICEResponseDemo } from '@/components/sections/ALICEResponseDemo'
 import { CTASection } from '@/components/sections/CTASection'
-import { SubNavigation } from '@/components/layout/SubNavigation'
+import { HoverContext } from '@/components/layout/Navbar'
 
 const HOME_SUB_TABS = [
   { id: 'apex', label: 'The Last Mile', shortLabel: 'Last Mile' },
@@ -19,11 +19,7 @@ const HOME_SUB_TABS = [
 ]
 
 export default function Home() {
-  const [activeSection, setActiveSection] = React.useState('apex')
-
-  const handleTabClick = React.useCallback((sectionId: string) => {
-    setActiveSection(sectionId)
-  }, [])
+  const { activeHomeSection } = React.useContext(HoverContext)
 
   const sectionContent: Record<string, React.ReactNode> = {
     value: (
@@ -44,12 +40,10 @@ export default function Home() {
       <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-radial-accent opacity-20 pointer-events-none z-0" />
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-radial-data opacity-15 pointer-events-none z-0" />
 
-      <SubNavigation activeSubTab={activeSection} onSubTabClick={handleTabClick} />
-
       <div className="relative z-10 pt-28">
         <AnimatePresence mode="wait">
           {HOME_SUB_TABS.map((section) => (
-            activeSection === section.id && (
+            activeHomeSection === section.id && (
               <motion.div
                 key={section.id}
                 initial={{ opacity: 0, y: 20 }}

@@ -151,8 +151,8 @@ export function NoiseToConvictionHero() {
   const [isMounted, setIsMounted] = React.useState(false)
   
   // Generate dots only on client
-  const [noiseDots, setNoiseDots] = React.useState<typeof generateNoiseDots>([])
-  const [cardTargets, setCardTargets] = React.useState<typeof generateCardTargets>([])
+  const [noiseDots, setNoiseDots] = React.useState<ReturnType<typeof generateNoiseDots>>([])
+  const [cardTargets, setCardTargets] = React.useState<ReturnType<typeof generateCardTargets>>([])
   
   React.useEffect(() => {
     setNoiseDots(generateNoiseDots(150))

@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import { Urbanist } from 'next/font/google'
 import './globals.css'
-import { Navbar } from '@/components/layout/Navbar'
+import { Navbar, NavigationProvider } from '@/components/layout/Navbar'
+import { SubNavigation } from '@/components/layout/SubNavigation'
 import { Footer } from '@/components/layout/Footer'
 import { ScrollProgressIndicator } from '@/components/effects/ScrollAnimations'
 
@@ -91,24 +92,29 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${urbanist.variable} relative`}>
       <body className="relative min-h-screen bg-bg-primary text-white antialiased">
-        {/* Scroll Progress Indicator */}
-        <ScrollProgressIndicator />
-        
-        {/* Skip to main content for accessibility */}
-        <a href="#main-content" className="skip-link">
-          Skip to main content
-        </a>
-        
-        {/* Navigation */}
-        <Navbar />
-        
-        {/* Main content */}
-        <main id="main-content" className="relative">
-          {children}
-        </main>
-        
-        {/* Footer */}
-        <Footer />
+        <NavigationProvider>
+          {/* Scroll Progress Indicator */}
+          <ScrollProgressIndicator />
+          
+          {/* Skip to main content for accessibility */}
+          <a href="#main-content" className="skip-link">
+            Skip to main content
+          </a>
+          
+          {/* Navigation */}
+          <Navbar />
+          
+          {/* Sub Navigation */}
+          <SubNavigation />
+          
+          {/* Main content */}
+          <main id="main-content" className="relative">
+            {children}
+          </main>
+          
+          {/* Footer */}
+          <Footer />
+        </NavigationProvider>
       </body>
     </html>
   )

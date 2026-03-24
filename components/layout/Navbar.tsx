@@ -10,6 +10,61 @@ import { Button } from '@/components/ui/button'
 import { SITE_CONFIG } from '@/lib/constants'
 import { useScrollPosition } from '@/hooks'
 
+interface HoverContextType {
+  hoveredParent: string | null
+  setHoveredParent: (parent: string | null) => void
+  cancelClear: () => void
+  activeHomeSection: string
+  setActiveHomeSection: (section: string) => void
+}
+
+export const HoverContext = React.createContext<HoverContextType>({
+  hoveredParent: null,
+  setHoveredParent: () => {},
+  cancelClear: () => {},
+  activeHomeSection: 'apex',
+  setActiveHomeSection: () => {},
+})
+
+export function NavigationProvider({ children }: { children: React.ReactNode }) {
+  const [hoveredParent, setHoveredParentState] = React.useState<string | null>(null)
+  const [activeHomeSection, setActiveHomeSection] = React.useState('apex')
+  const clearTimeoutRef = React.useRef<NodeJS.Timeout | null>(null)
+
+  const cancelClear = React.useCallback(() => {
+    if (clearTimeoutRef.current) {
+      clearTimeout(clearTimeoutRef.current)
+      clearTimeoutRef.current = null
+    }
+  }, [])
+
+  const setHoveredParent = React.useCallback((parent: string | null) => {
+    cancelClear()
+    
+    if (parent === null) {
+      clearTimeoutRef.current = setTimeout(() => {
+        setHoveredParentState(null)
+      }, 150)
+    } else {
+      setHoveredParentState(parent)
+    }
+  }, [cancelClear])
+
+  React.useEffect(() => {
+    return () => {
+      if (clearTimeoutRef.current) {
+        clearTimeout(clearTimeoutRef.current)
+      }
+    }
+  }, [])
+
+  return (
+    <HoverContext.Provider value={{ hoveredParent, setHoveredParent, cancelClear, activeHomeSection, setActiveHomeSection }}>
+      {children}
+    </HoverContext.Provider>
+  )
+}
+
 export interface SubTab {
   id: string
   label: string
@@ -67,8 +122,10 @@ export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
   const [openDropdown, setOpenDropdown] = React.useState<string | null>(null)
   const scrollPosition = useScrollPosition()
+  const { hoveredParent, setHoveredParent, cancelClear } = React.useContext(HoverContext)
 
   const activeParent = getParentTab(pathname)
+  const displayParent = hoveredParent || activeParent
 
   React.useEffect(() => {
     setIsScrolled(scrollPosition.y > 50)
@@ -131,59 +188,27 @@ export function Navbar() {
             <div className="hidden lg:flex items-center gap-1">
               {NAV_LINKS.map((link) => {
                 const hasSubTabs = link.subTabs && link.subTabs.length > 0
-                const isActive = activeParent === link.label
-                const isOpen = openDropdown === link.label
+                const isActive = displayParent === link.label
+                const isHovered = hoveredParent === link.label
 
                 if (hasSubTabs) {
                   return (
                     <div 
                       key={link.label}
                       className="relative"
-                      onMouseEnter={() => setOpenDropdown(link.label)}
-                      onMouseLeave={() => setOpenDropdown(null)}
+                      onMouseEnter={() => setHoveredParent(link.label)}
+                      onMouseLeave={() => setHoveredParent(null)}
                     >
                       <button
                         className={cn(
-                          'flex items-center gap-1 px-3 py-2 text-body-sm rounded-lg transition-all',
+                          'flex items-center gap-1 px-3 py-2 text-body-sm rounded-lg transition-all font-mono',
                           isActive 
                             ? 'text-accent bg-accent/10' 
                             : 'text-content-secondary hover:text-content-primary hover:bg-surface-800/50'
                         )}
                       >
-                        {link.label}
-                        <ChevronDown className={cn(
-                          'w-3.5 h-3.5 transition-transform duration-200',
-                          isOpen && 'rotate-180'
-                        )} />
+                        {isHovered || isActive ? `[${link.label}]` : link.label}
                       </button>
-                      
-                      <AnimatePresence>
-                        {isOpen && (
-                          <motion.div
-                            initial={{ opacity: 0, y: 8, scale: 0.95 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: 8, scale: 0.95 }}
-                            transition={{ duration: 0.15 }}
-                            className="absolute top-full left-0 mt-1 min-w-[180px] bg-surface-800 border border-border rounded-xl shadow-xl overflow-hidden"
-                          >
-                            {link.subTabs!.map((sub) => (
-                              <Link
-                                key={sub.id}
-                                href={sub.href || `/${sub.id}`}
-                                className={cn(
-                                  'block px-4 py-2.5 text-body-sm transition-colors',
-                                  pathname === sub.href 
-                                    ? 'text-accent bg-accent/10' 
-                                    : 'text-content-secondary hover:text-content-primary hover:bg-surface-700'
-                                )}
-                                onClick={() => setOpenDropdown(null)}
-                              >
-                                {sub.label}
-                              </Link>
-                            ))}
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
                     </div>
                   )
                 }
@@ -193,13 +218,15 @@ export function Navbar() {
                     key={link.label}
                     href={link.href || '#'}
                     className={cn(
-                      'px-3 py-2 text-body-sm rounded-lg transition-all',
+                      'px-3 py-2 text-body-sm rounded-lg transition-all font-mono',
                       isActive 
                         ? 'text-accent bg-accent/10' 
                         : 'text-content-secondary hover:text-content-primary hover:bg-surface-800/50'
                     )}
+                    onMouseEnter={() => setHoveredParent(link.label)}
+                    onMouseLeave={() => setHoveredParent(null)}
                   >
-                    {link.label}
+                    {isHovered || isActive ? `[${link.label}]` : link.label}
                   </Link>
                 )
               })}
@@ -261,7 +288,7 @@ export function Navbar() {
               <div className="flex flex-col gap-1">
                 {NAV_LINKS.map((link, index) => {
                   const hasSubTabs = link.subTabs && link.subTabs.length > 0
-                  const isActive = activeParent === link.label
+                  const isActive = displayParent === link.label
                   const isExpanded = openDropdown === link.label
 
                   return (
@@ -274,14 +301,14 @@ export function Navbar() {
                         {hasSubTabs ? (
                           <button
                             className={cn(
-                              'w-full flex items-center justify-between py-3 px-4 text-body-lg rounded-card transition-colors',
+                              'w-full flex items-center justify-between py-3 px-4 text-body-lg rounded-card transition-colors font-mono',
                               isActive 
                                 ? 'text-accent bg-accent/10' 
                                 : 'text-content-secondary hover:text-accent hover:bg-surface-700'
                             )}
                             onClick={() => setOpenDropdown(isExpanded ? null : link.label)}
                           >
-                            {link.label}
+                            {isActive ? `[${link.label}]` : link.label}
                             <ChevronDown className={cn(
                               'w-4 h-4 transition-transform duration-200',
                               isExpanded && 'rotate-180'
@@ -291,14 +318,14 @@ export function Navbar() {
                           <Link
                             href={link.href || '#'}
                             className={cn(
-                              'block py-3 px-4 text-body-lg rounded-card transition-colors',
+                              'block py-3 px-4 text-body-lg rounded-card transition-colors font-mono',
                               isActive 
                                 ? 'text-accent bg-accent/10' 
                                 : 'text-content-secondary hover:text-accent hover:bg-surface-700'
                             )}
                             onClick={() => setIsMobileMenuOpen(false)}
                           >
-                            {link.label}
+                            {isActive ? `[${link.label}]` : link.label}
                           </Link>
                         )}
                       </motion.div>
