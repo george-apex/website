@@ -259,7 +259,7 @@ export function ALICEResponseDemo() {
   }, [])
 
   return (
-    <section className="relative pt-32 pb-24 md:pt-40 md:pb-32 overflow-hidden">
+    <section className="relative pt-32 pb-24 md:pt-40 lg:pt-44 md:pb-32 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-surface-950" />
       <div className="absolute inset-0 bg-gradient-to-b from-surface-900/50 via-transparent to-surface-900/50" />

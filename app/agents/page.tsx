@@ -647,7 +647,7 @@ export default function AgentsPage() {
 
       <div className="relative z-10">
         {/* Hero Section */}
-        <section className="pt-28 pb-12 lg:pt-36 lg:pb-16">
+        <section className="pt-28 pb-12 min-[800px]:pt-48 lg:pb-16">
           <div className="container-main">
             <motion.div 
               className="max-w-3xl mx-auto text-center"

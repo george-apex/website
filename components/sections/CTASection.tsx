@@ -98,7 +98,7 @@ export function CTASection() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
 
   return (
-    <section id="contact" className="section-main relative overflow-hidden bg-surface-800">
+    <section id="contact" className="relative overflow-hidden bg-surface-800 pt-28 min-[1032px]:pt-44">
       {/* Background grid */}
       <div className="absolute inset-0 bg-grid opacity-30" />
       

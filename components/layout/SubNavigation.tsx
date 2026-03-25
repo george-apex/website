@@ -32,7 +32,9 @@ export function SubNavigation() {
     return NAV_LINKS.find(link => link.label === hoveredParent)
   }, [hoveredParent])
 
-  const activeNavLink = navByHover || currentNavByPath
+  const activeNavLink = (navByHover?.subTabs && navByHover.subTabs.length > 0) 
+    ? navByHover 
+    : currentNavByPath
   const subTabs = activeNavLink?.subTabs
   const isHomePage = pathname === '/'
   const isVisible = subTabs && subTabs.length > 0
@@ -44,7 +46,7 @@ export function SubNavigation() {
   return (
     <div
       className={cn(
-        "hidden lg:block max-[393px]:hidden fixed top-20 left-0 right-0 z-40 bg-surface-950/95 backdrop-blur-xl border-b border-border/30 transition-all duration-200",
+        "hidden min-[800px]:block max-[393px]:hidden fixed top-20 left-0 right-0 z-40 bg-surface-950/95 backdrop-blur-xl border-b border-border/30 transition-all duration-200",
         mounted ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"
       )}
       onMouseEnter={() => activeNavLink && cancelClear()}

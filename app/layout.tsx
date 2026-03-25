@@ -1,10 +1,12 @@
 import type { Metadata } from 'next'
 import { Urbanist } from 'next/font/google'
+import { Suspense } from 'react'
 import './globals.css'
 import { Navbar, NavigationProvider } from '@/components/layout/Navbar'
 import { SubNavigation } from '@/components/layout/SubNavigation'
 import { MobileFloatingNav } from '@/components/layout/MobileFloatingNav'
 import { Footer } from '@/components/layout/Footer'
+import { MainContent } from '@/components/layout/MainContent'
 import { ScrollProgressIndicator } from '@/components/effects/ScrollAnimations'
 
 const urbanist = Urbanist({
@@ -93,27 +95,29 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${urbanist.variable} relative`}>
       <body className="relative min-h-screen bg-bg-primary text-white antialiased">
-        <NavigationProvider>
-          {/* Scroll Progress Indicator */}
-          <ScrollProgressIndicator />
-          
-          {/* Navigation */}
-          <Navbar />
-          
-          {/* Sub Navigation */}
-          <SubNavigation />
-          
-          {/* Main content */}
-          <main id="main-content" className="relative">
-            {children}
-          </main>
-          
-          {/* Mobile Floating Navigation */}
-          <MobileFloatingNav />
-          
-          {/* Footer */}
-          <Footer />
-        </NavigationProvider>
+        <Suspense fallback={<div className="min-h-screen" />}>
+          <NavigationProvider>
+            {/* Scroll Progress Indicator */}
+            <ScrollProgressIndicator />
+            
+            {/* Navigation */}
+            <Navbar />
+            
+            {/* Sub Navigation */}
+            <SubNavigation />
+            
+            {/* Main content */}
+            <MainContent>
+              {children}
+            </MainContent>
+            
+            {/* Mobile Floating Navigation */}
+            <MobileFloatingNav />
+            
+            {/* Footer */}
+            <Footer />
+          </NavigationProvider>
+        </Suspense>
       </body>
     </html>
   )

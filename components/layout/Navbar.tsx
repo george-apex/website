@@ -10,61 +10,6 @@ import { Button } from '@/components/ui/button'
 import { SITE_CONFIG } from '@/lib/constants'
 import { useScrollPosition } from '@/hooks'
 
-interface HoverContextType {
-  hoveredParent: string | null
-  setHoveredParent: (parent: string | null) => void
-  cancelClear: () => void
-  activeHomeSection: string
-  setActiveHomeSection: (section: string) => void
-}
-
-export const HoverContext = React.createContext<HoverContextType>({
-  hoveredParent: null,
-  setHoveredParent: () => {},
-  cancelClear: () => {},
-  activeHomeSection: 'home',
-  setActiveHomeSection: () => {},
-})
-
-export function NavigationProvider({ children }: { children: React.ReactNode }) {
-  const [hoveredParent, setHoveredParentState] = React.useState<string | null>(null)
-  const [activeHomeSection, setActiveHomeSection] = React.useState('home')
-  const clearTimeoutRef = React.useRef<NodeJS.Timeout | null>(null)
-
-  const cancelClear = React.useCallback(() => {
-    if (clearTimeoutRef.current) {
-      clearTimeout(clearTimeoutRef.current)
-      clearTimeoutRef.current = null
-    }
-  }, [])
-
-  const setHoveredParent = React.useCallback((parent: string | null) => {
-    cancelClear()
-    
-    if (parent === null) {
-      clearTimeoutRef.current = setTimeout(() => {
-        setHoveredParentState(null)
-      }, 150)
-    } else {
-      setHoveredParentState(parent)
-    }
-  }, [cancelClear])
-
-  React.useEffect(() => {
-    return () => {
-      if (clearTimeoutRef.current) {
-        clearTimeout(clearTimeoutRef.current)
-      }
-    }
-  }, [])
-
-  return (
-    <HoverContext.Provider value={{ hoveredParent, setHoveredParent, cancelClear, activeHomeSection, setActiveHomeSection }}>
-      {children}
-    </HoverContext.Provider>
-  )
-}
-
 export interface SubTab {
   id: string
   label: string
@@ -103,6 +48,82 @@ export const NAV_LINKS: NavLink[] = [
   { label: 'Security', href: '/security' },
   { label: 'Contact', href: '/contact' },
 ]
+
+interface HoverContextType {
+  hoveredParent: string | null
+  setHoveredParent: (parent: string | null) => void
+  cancelClear: () => void
+  activeHomeSection: string
+  setActiveHomeSection: (section: string) => void
+  isSubNavVisible: boolean
+  currentPageHasSubNav: boolean
+}
+
+export const HoverContext = React.createContext<HoverContextType>({
+  hoveredParent: null,
+  setHoveredParent: () => {},
+  cancelClear: () => {},
+  activeHomeSection: 'home',
+  setActiveHomeSection: () => {},
+  isSubNavVisible: false,
+  currentPageHasSubNav: false,
+})
+
+export function NavigationProvider({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname()
+  const [hoveredParent, setHoveredParentState] = React.useState<string | null>(null)
+  const [activeHomeSection, setActiveHomeSection] = React.useState('home')
+  const clearTimeoutRef = React.useRef<NodeJS.Timeout | null>(null)
+
+  const cancelClear = React.useCallback(() => {
+    if (clearTimeoutRef.current) {
+      clearTimeout(clearTimeoutRef.current)
+      clearTimeoutRef.current = null
+    }
+  }, [])
+
+  const setHoveredParent = React.useCallback((parent: string | null) => {
+    cancelClear()
+    
+    if (parent === null) {
+      clearTimeoutRef.current = setTimeout(() => {
+        setHoveredParentState(null)
+      }, 150)
+    } else {
+      setHoveredParentState(parent)
+    }
+  }, [cancelClear])
+
+  const isSubNavVisible = React.useMemo(() => {
+    const navWithSubTabs = NAV_LINKS.find(link => link.label === hoveredParent)
+    return !!(navWithSubTabs?.subTabs && navWithSubTabs.subTabs.length > 0)
+  }, [hoveredParent])
+
+  const currentPageHasSubNav = React.useMemo(() => {
+    const currentNav = NAV_LINKS.find(link => {
+      if (link.href === pathname) return true
+      if (link.subTabs) {
+        return link.subTabs.some(sub => sub.href === pathname)
+      }
+      return false
+    })
+    return !!(currentNav?.subTabs && currentNav.subTabs.length > 0)
+  }, [pathname])
+
+  React.useEffect(() => {
+    return () => {
+      if (clearTimeoutRef.current) {
+        clearTimeout(clearTimeoutRef.current)
+      }
+    }
+  }, [])
+
+  return (
+    <HoverContext.Provider value={{ hoveredParent, setHoveredParent, cancelClear, activeHomeSection, setActiveHomeSection, isSubNavVisible, currentPageHasSubNav }}>
+      {children}
+    </HoverContext.Provider>
+  )
+}
 
 export function getParentTab(pathname: string): string | null {
   for (const link of NAV_LINKS) {
@@ -186,7 +207,7 @@ export function Navbar() {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-1">
+            <div className="hidden min-[800px]:flex items-center gap-1">
               {NAV_LINKS.map((link) => {
                 const hasSubTabs = link.subTabs && link.subTabs.length > 0
                 const isActive = displayParent === link.label
@@ -250,15 +271,15 @@ export function Navbar() {
             </div>
 
             {/* Desktop CTA */}
-            <div className="hidden lg:flex items-center gap-3">
+            <div className="hidden min-[800px]:flex items-center gap-3">
               <Link href="/contact">
                 <Button size="sm">Schedule Demo</Button>
               </Link>
             </div>
 
-            {/* Mobile Menu Button - visible between 394px and 1023px */}
+            {/* Mobile Menu Button - visible between 394px and 799px */}
             <button
-              className="lg:hidden max-[393px]:hidden p-2 text-content-secondary hover:text-content-primary transition-colors"
+              className="min-[800px]:hidden max-[393px]:hidden p-2 text-content-secondary hover:text-content-primary transition-colors"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
             >
@@ -276,7 +297,7 @@ export function Navbar() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            className="fixed inset-0 z-50 lg:hidden max-[393px]:hidden"
+            className="fixed inset-0 z-50 min-[800px]:hidden max-[393px]:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
