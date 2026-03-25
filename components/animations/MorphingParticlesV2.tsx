@@ -10,27 +10,34 @@ import { BAR_CHART_WIREFRAME_DATA } from './barChartWireframeData'
 import { PADLOCK_WIREFRAME_DATA } from './padlockWireframeData'
 import { VAULTDOOR_WIREFRAME_DATA } from './vaultDoorWireframeData'
 
-const CAR_LINE_COUNT = 4000
+const MAX_LINE_COUNT = 4000
 const CHAOS_LINE_COUNT = 500
 const POINTS_PER_LINE = 32
 const CAR_SCALE = 2.5
 
 const MODELS = [
-  { name: 'lightbulb', data: LIGHTBULB_WIREFRAME_DATA, scale: 1.6, useNormalBlending: false },
-  { name: 'padlock', data: PADLOCK_WIREFRAME_DATA, scale: 1.8, useNormalBlending: true },
-  { name: 'folder', data: FOLDER_WIREFRAME_DATA, scale: 1.8, useNormalBlending: false },
-  { name: 'barChart', data: BAR_CHART_WIREFRAME_DATA, scale: 2.0, useNormalBlending: true },
-  { name: 'vaultDoor', data: VAULTDOOR_WIREFRAME_DATA, scale: 1.5, useNormalBlending: true },
-  { name: 'f1', data: F1_WIREFRAME_DATA, scale: CAR_SCALE, useNormalBlending: false },
+  { name: 'lightbulb', data: LIGHTBULB_WIREFRAME_DATA, scale: 1.6 },
+  { name: 'padlock', data: PADLOCK_WIREFRAME_DATA, scale: 1.8 },
+  { name: 'folder', data: FOLDER_WIREFRAME_DATA, scale: 1.8 },
+  { name: 'barChart', data: BAR_CHART_WIREFRAME_DATA, scale: 2.0 },
+  { name: 'vaultDoor', data: VAULTDOOR_WIREFRAME_DATA, scale: 1.5 },
+  { name: 'f1', data: F1_WIREFRAME_DATA, scale: CAR_SCALE },
 ]
 
-function generateModelWireframe(modelIndex: number): THREE.Vector3[][] {
+function getModelLineCount(modelIndex: number): number {
+  return Math.min(MODELS[modelIndex].data.length, MAX_LINE_COUNT)
+}
+
+function generateModelWireframe(modelIndex: number, maxLines?: number): THREE.Vector3[][] {
   const model = MODELS[modelIndex]
   const lines: THREE.Vector3[][] = []
-  const step = Math.max(1, Math.floor(model.data.length / CAR_LINE_COUNT))
+  const edgeCount = model.data.length
+  const targetCount = maxLines ? Math.min(maxLines, edgeCount) : edgeCount
+  const step = edgeCount / targetCount
   
-  for (let i = 0; i < model.data.length && lines.length < CAR_LINE_COUNT; i += step) {
-    const edge = model.data[i]
+  for (let i = 0; i < targetCount; i++) {
+    const edgeIndex = Math.floor(i * step) % edgeCount
+    const edge = model.data[edgeIndex]
     const line: THREE.Vector3[] = []
     const [p1, p2] = edge
     for (let j = 0; j < POINTS_PER_LINE; j++) {
@@ -77,8 +84,9 @@ function SculptureLines() {
   const modelShowDurationRef = useRef(3.5)
   const idleDurationRef = useRef(4)
   const currentModelIndexRef = useRef(0)
+  const currentLineCountRef = useRef(getModelLineCount(0))
   
-  const targetLines = useMemo(() => generateModelWireframe(0), [])
+  const targetLines = useMemo(() => generateModelWireframe(0, MAX_LINE_COUNT), [])
   
   const getTesseractNodePosition = (
     nodeIndex: number, 
@@ -198,8 +206,8 @@ function SculptureLines() {
   useEffect(() => {
     linesDataRef.current = []
     
-    for (let i = 0; i < CAR_LINE_COUNT; i++) {
-      const targetLine = targetLines[i] || targetLines[0]
+    for (let i = 0; i < MAX_LINE_COUNT; i++) {
+      const targetLine = targetLines[i % targetLines.length]
       const currentPositions = new Float32Array(POINTS_PER_LINE * 3)
       const targetPositions = new Float32Array(POINTS_PER_LINE * 3)
       const morphStartPositions = new Float32Array(POINTS_PER_LINE * 3)
@@ -246,9 +254,10 @@ function SculptureLines() {
           }
         })
         
-        const newTargetLines = generateModelWireframe(currentModelIndexRef.current)
+        const newTargetLines = generateModelWireframe(currentModelIndexRef.current, MAX_LINE_COUNT)
+        currentLineCountRef.current = newTargetLines.length
         linesDataRef.current.forEach((data, i) => {
-          const targetLine = newTargetLines[i] || newTargetLines[0]
+          const targetLine = newTargetLines[i % newTargetLines.length]
           targetLine.forEach((p, j) => {
             data.targetPositions[j * 3] = p.x
             data.targetPositions[j * 3 + 1] = p.y
@@ -267,10 +276,10 @@ function SculptureLines() {
       if (phaseElapsed > morphDurationRef.current) {
         setPhase('showing_model')
         phaseStartRef.current = now
-        visibleCountRef.current = CAR_LINE_COUNT
+        visibleCountRef.current = currentLineCountRef.current
       } else {
         const progress = morphProgressRef.current
-        const targetVisible = CHAOS_LINE_COUNT + Math.floor((CAR_LINE_COUNT - CHAOS_LINE_COUNT) * progress)
+        const targetVisible = CHAOS_LINE_COUNT + Math.floor((currentLineCountRef.current - CHAOS_LINE_COUNT) * progress)
         visibleCountRef.current = targetVisible
       }
     } else if (phase === 'showing_model') {
@@ -297,7 +306,7 @@ function SculptureLines() {
         visibleCountRef.current = CHAOS_LINE_COUNT
       } else {
         const progress = morphProgressRef.current
-        const targetVisible = CAR_LINE_COUNT - Math.floor((CAR_LINE_COUNT - CHAOS_LINE_COUNT) * progress)
+        const targetVisible = currentLineCountRef.current - Math.floor((currentLineCountRef.current - CHAOS_LINE_COUNT) * progress)
         visibleCountRef.current = targetVisible
       }
     }
@@ -328,10 +337,6 @@ function SculptureLines() {
       
       const material = line.material as THREE.LineBasicMaterial
       material.color.copy(targetColor)
-      
-      const currentModel = MODELS[currentModelIndexRef.current]
-      const useNormalBlending = currentModel?.useNormalBlending && phase !== 'idle'
-      material.blending = useNormalBlending ? THREE.NormalBlending : THREE.AdditiveBlending
       
       const isVisible = i < visibleCountRef.current
       line.visible = isVisible
@@ -427,7 +432,7 @@ function SculptureLines() {
   const lineObjects = useMemo(() => {
     const objects: THREE.Line[] = []
     
-    for (let i = 0; i < CAR_LINE_COUNT; i++) {
+    for (let i = 0; i < MAX_LINE_COUNT; i++) {
       const geometry = new THREE.BufferGeometry()
       const positions = new Float32Array(POINTS_PER_LINE * 3)
       
