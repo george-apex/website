@@ -13,13 +13,13 @@ import { VAULTDOOR_WIREFRAME_DATA } from './vaultDoorWireframeData'
 const MAX_LINE_COUNT = 4000
 const CHAOS_LINE_COUNT = 500
 const POINTS_PER_LINE = 32
-const CAR_SCALE = 2.5
+const CAR_SCALE = 2.7
 
 const MODELS = [
   { name: 'lightbulb', data: LIGHTBULB_WIREFRAME_DATA, scale: 1.6 },
   { name: 'padlock', data: PADLOCK_WIREFRAME_DATA, scale: 1.8 },
-  { name: 'folder', data: FOLDER_WIREFRAME_DATA, scale: 1.8 },
-  { name: 'barChart', data: BAR_CHART_WIREFRAME_DATA, scale: 2.0 },
+  { name: 'folder', data: FOLDER_WIREFRAME_DATA, scale: 1.5 },
+  { name: 'barChart', data: BAR_CHART_WIREFRAME_DATA, scale: 1.7 },
   { name: 'vaultDoor', data: VAULTDOOR_WIREFRAME_DATA, scale: 1.5 },
   { name: 'f1', data: F1_WIREFRAME_DATA, scale: CAR_SCALE },
 ]
@@ -453,7 +453,7 @@ function SculptureLines() {
   }, [])
   
   return (
-    <group ref={groupRef} position={[-4.5, 1.35, 0]} scale={0.75}>
+    <group ref={groupRef} position={[-4.5, 1.35, 0]} scale={0.5}>
       {lineObjects.map((lineObj, i) => (
         <primitive key={i} object={lineObj} />
       ))}
