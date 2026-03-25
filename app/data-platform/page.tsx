@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   Database, Brain, Shield, Zap, Globe, TrendingUp, 
@@ -18,22 +19,25 @@ const buzzwords = [
 
 // Data types with interactive hover
 const dataTypes = [
-  { icon: Activity, label: 'Market', value: '50+ Exchanges', color: '#22c55e' },
-  { icon: Building2, label: 'Fundamentals', value: '100K+ Companies', color: '#3b82f6' },
-  { icon: Globe, label: 'Macro', value: '200+ Countries', color: '#a855f7' },
-  { icon: TrendingUp, label: 'Sentiment', value: '1M+ Sources', color: '#f59e0b' },
-  { icon: Leaf, label: 'ESG', value: '40K+ Issuers', color: '#14b8a6' },
-  { icon: FileText, label: 'Documents', value: '10M+ Files', color: '#ec4899' },
+  { icon: Activity, label: 'Market', color: '#22c55e' },
+  { icon: Building2, label: 'Fundamentals', color: '#3b82f6' },
+  { icon: Globe, label: 'Macro', color: '#a855f7' },
+  { icon: TrendingUp, label: 'Sentiment', color: '#f59e0b' },
+  { icon: Leaf, label: 'ESG', color: '#14b8a6' },
+  { icon: FileText, label: 'Documents', color: '#ec4899' },
 ]
 
 // AI Agents
 const agents = [
-  { icon: Globe, label: 'Macro Portfolio', color: '#a855f7' },
-  { icon: FileText, label: 'Prospectus AI', color: '#3b82f6' },
-  { icon: Lock, label: 'Credit Risk', color: '#ef4444' },
-  { icon: Leaf, label: 'ESG Analysis', color: '#22c55e' },
-  { icon: Building2, label: 'Earnings', color: '#f59e0b' },
-  { icon: Database, label: 'Private Data', color: '#64748b' },
+  { icon: Globe, label: 'Global Macro Portfolio Agent', color: '#a855f7' },
+  { icon: FileText, label: 'Prospecter Analyser Agent', color: '#3b82f6' },
+  { icon: Shield, label: 'Credit Risk Analysis Agent', color: '#ef4444' },
+  { icon: Leaf, label: 'ESG Agent', color: '#22c55e' },
+  { icon: TrendingUp, label: 'Fundamental & Earnings Agent', color: '#f59e0b' },
+  { icon: Database, label: 'Fundamental Search Agent', color: '#06b6d4' },
+  { icon: Lock, label: 'Private Data Analyst', color: '#64748b' },
+  { icon: Activity, label: 'Multi Asset Chart Builder', color: '#ec4899' },
+  { icon: Brain, label: 'Chart & Data Analyser', color: '#8b5cf6' },
 ]
 
 // Security features
@@ -134,20 +138,7 @@ function OrbitalVisualization() {
               <span className="text-xs font-medium text-white">{node.label}</span>
             </motion.div>
             
-            {/* Tooltip */}
-            <AnimatePresence>
-              {activeNode === i && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  className="absolute top-full mt-2 left-1/2 -translate-x-1/2 px-3 py-1.5 
-                             bg-surface-800 border border-border rounded-lg whitespace-nowrap z-50"
-                >
-                  <span className="text-xs font-mono" style={{ color: node.color }}>{node.value}</span>
-                </motion.div>
-              )}
-            </AnimatePresence>
+
           </motion.div>
         )
       })}
@@ -193,7 +184,7 @@ function PulsingMetric({ label, value, color, delay }: {
         style={{ background: `radial-gradient(circle at center, ${color}10 0%, transparent 70%)` }}
       />
       <div className="text-2xl font-mono font-bold" style={{ color }}>{value}</div>
-      <div className="text-xs text-content-tertiary mt-1">{label}</div>
+      <div className="text-xs text-sky-300 mt-1">{label}</div>
     </motion.div>
   )
 }
@@ -297,15 +288,14 @@ export default function DataPlatformPage() {
             </motion.div>
 
             <h1 className="text-4xl sm:text-5xl font-bold text-white mb-3">
-              Data Into{' '}
+              Faster Signals. Better Decisions.{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent">
-                Decisions
+                Stronger Performance.
               </span>
             </h1>
 
             <p className="text-content-secondary mb-6 max-w-lg">
-              Real-time financial data infrastructure powering AI agents, trading signals, 
-              and portfolio decisions.
+              Institutional-grade, point-in-time financial data powering trading signals, portfolio decisions, and AI-driven research.
             </p>
 
             <div className="flex gap-3 mb-8">
@@ -313,19 +303,15 @@ export default function DataPlatformPage() {
                 Request Demo
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button variant="outline">
-                <Play className="w-4 h-4 mr-2" />
-                Watch
-              </Button>
+              <Link href="/agents">
+                <Button variant="outline">
+                  <Play className="w-4 h-4 mr-2" />
+                  Explore our Agents
+                </Button>
+              </Link>
             </div>
 
-            {/* Quick metrics */}
-            <div className="grid grid-cols-4 gap-3">
-              <PulsingMetric label="Sources" value="50+" color="rgb(var(--accent))" delay={0.2} />
-              <PulsingMetric label="Latency" value="&lt;100ms" color="#22c55e" delay={0.3} />
-              <PulsingMetric label="Uptime" value="99.9%" color="#3b82f6" delay={0.4} />
-              <PulsingMetric label="Quality" value="100%" color="#a855f7" delay={0.5} />
-            </div>
+
           </motion.div>
 
           {/* Right - Orbital visualization */}
@@ -346,115 +332,373 @@ export default function DataPlatformPage() {
           transition={{ duration: 3, repeat: Infinity }}
         />
 
-        {/* AI Agents Grid - Compact */}
+        {/* Core Pillars - Speed, Accuracy, Privacy */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="mb-12"
+        >
+          <div className="flex flex-wrap justify-center gap-12 md:gap-20">
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Zap className="w-5 h-5 text-accent" />
+                <span className="text-base font-semibold text-white">Low Latency</span>
+              </div>
+              <p className="text-sm text-sky-300">Real-time data-to-signal delivery</p>
+            </div>
+            
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Shield className="w-5 h-5 text-green-500" />
+                <span className="text-base font-semibold text-white">Point-in-Time Accuracy</span>
+              </div>
+              <p className="text-sm text-sky-300">No lookahead bias</p>
+            </div>
+            
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Lock className="w-5 h-5 text-purple-500" />
+                <span className="text-base font-semibold text-white">Privacy</span>
+              </div>
+              <p className="text-sm text-sky-300">Your data stays yours</p>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Better Decisions Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.35, duration: 0.6 }}
+          className="mb-12"
+        >
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-semibold text-white mb-2">Better Decisions Start With Better Data</h2>
+            <p className="text-sky-300 max-w-2xl mx-auto">In fast-moving markets, performance depends on the speed, accuracy, and integrity of data.</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="p-6 rounded-xl bg-surface-800/40 border border-border/30">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 rounded-lg bg-accent/20 flex items-center justify-center">
+                  <Zap className="w-5 h-5 text-accent" />
+                </div>
+                <h3 className="text-base font-semibold text-white">Execution Edge</h3>
+              </div>
+              <p className="text-sm text-sky-300 mb-4">Reduce latency from data to execution-critical signals</p>
+              <ul className="space-y-2 text-sm text-sky-300">
+                <li>• Real-time data-to-signal pipelines</li>
+                <li>• Low-latency delivery across datasets</li>
+                <li>• Streaming-first architecture</li>
+              </ul>
+            </div>
+
+            <div className="p-6 rounded-xl bg-surface-800/40 border border-border/30">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center">
+                  <Activity className="w-5 h-5 text-green-500" />
+                </div>
+                <h3 className="text-base font-semibold text-white">Continuous Signal Availability</h3>
+              </div>
+              <p className="text-sm text-sky-300 mb-4">Maintain uninterrupted signal generation during market volatility</p>
+              <ul className="space-y-2 text-sm text-sky-300">
+                <li>• Multi-source data validation and cross-checking</li>
+                <li>• Continuous validation and anomaly detection</li>
+                <li>• Resilient systems for uninterrupted data access</li>
+              </ul>
+            </div>
+
+            <div className="p-6 rounded-xl bg-surface-800/40 border border-border/30">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
+                  <Shield className="w-5 h-5 text-purple-500" />
+                </div>
+                <h3 className="text-base font-semibold text-white">Signal Integrity</h3>
+              </div>
+              <p className="text-sm text-sky-300 mb-4">Bias-free, point-in-time data you can trust in production models</p>
+              <ul className="space-y-2 text-sm text-sky-300">
+                <li>• No lookahead bias</li>
+                <li>• Anomaly detection</li>
+                <li>• Survivorship bias eliminated</li>
+              </ul>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Data Coverage Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.6 }}
           className="mb-12"
         >
-          <div className="flex items-center gap-2 mb-4">
-            <Sparkles className="w-4 h-4 text-accent" />
-            <h2 className="text-lg font-semibold text-white">AI Agents</h2>
-            <span className="text-xs text-content-tertiary ml-2">Click to explore</span>
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-semibold text-white mb-2">Data That Drives Investment Decisions</h2>
+            <p className="text-sky-300 max-w-2xl mx-auto">From macro positioning to single-name analysis — all delivered with point-in-time accuracy.</p>
           </div>
-          
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-            {agents.map((agent, i) => (
-              <AgentCard key={agent.label} agent={agent} index={i} />
-            ))}
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+            <div className="p-5 rounded-xl bg-surface-800/40 border border-border/30">
+              <h3 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
+                <Activity className="w-4 h-4 text-accent" />
+                Market Data
+              </h3>
+              <ul className="space-y-1.5 text-sm text-sky-300">
+                <li>• Real-time & historical prices</li>
+                <li>• Tick-level & OHLCV data</li>
+                <li>• Exchange coverage</li>
+                <li>• Corporate actions</li>
+              </ul>
+            </div>
+
+            <div className="p-5 rounded-xl bg-surface-800/40 border border-border/30">
+              <h3 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
+                <Building2 className="w-4 h-4 text-blue-500" />
+                Fundamental Data
+              </h3>
+              <ul className="space-y-1.5 text-sm text-sky-300">
+                <li>• Company financials (quarterly/annual)</li>
+                <li>• Earnings estimates & revisions</li>
+                <li>• Segment-level breakdowns</li>
+                <li>• Industry classifications</li>
+              </ul>
+            </div>
+
+            <div className="p-5 rounded-xl bg-surface-800/40 border border-border/30">
+              <h3 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
+                <Globe className="w-4 h-4 text-purple-500" />
+                Economic & Macro Data
+              </h3>
+              <ul className="space-y-1.5 text-sm text-sky-300">
+                <li>• Inflation & rates</li>
+                <li>• Labour market</li>
+                <li>• Wages</li>
+                <li>• Sector/regional</li>
+              </ul>
+            </div>
+
+            <div className="p-5 rounded-xl bg-surface-800/40 border border-border/30">
+              <h3 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
+                <TrendingUp className="w-4 h-4 text-amber-500" />
+                Alternative & Sentiment Data
+              </h3>
+              <ul className="space-y-1.5 text-sm text-sky-300">
+                <li>• News & social sentiment</li>
+                <li>• Geopolitical news</li>
+              </ul>
+            </div>
+
+            <div className="p-5 rounded-xl bg-surface-800/40 border border-border/30">
+              <h3 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
+                <Leaf className="w-4 h-4 text-green-500" />
+                ESG & Risk Data
+              </h3>
+              <ul className="space-y-1.5 text-sm text-sky-300">
+                <li>• ESG scores and sustainability profiles</li>
+                <li>• Governance and oversight signals</li>
+                <li>• Controversy and reputational risk</li>
+                <li>• Peer-relative ESG positioning</li>
+              </ul>
+            </div>
+
+            <div className="p-5 rounded-xl bg-surface-800/40 border border-border/30">
+              <h3 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
+                <FileText className="w-4 h-4 text-pink-500" />
+                Documents & Filings
+              </h3>
+              <ul className="space-y-1.5 text-sm text-sky-300">
+                <li>• SEC filings</li>
+                <li>• Earnings call transcripts</li>
+                <li>• Prospectuses & IPO docs</li>
+                <li>• Insider trading reports</li>
+              </ul>
+            </div>
+          </div>
+
+          <p className="text-xs text-sky-300 text-center italic">
+            All datasets are delivered with point-in-time accuracy to eliminate lookahead bias.
+          </p>
+        </motion.div>
+
+        {/* Data & AI Access Layer */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.45, duration: 0.6 }}
+          className="mb-12"
+        >
+          <div className="flex items-center gap-2 mb-6">
+            <Layers className="w-4 h-4 text-accent" />
+            <h2 className="text-lg font-semibold text-white">Data & AI Access Layer</h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {/* BDAaS */}
+            <div className="p-6 rounded-xl bg-surface-800/40 border border-border/30">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg bg-accent/20 flex items-center justify-center">
+                  <Database className="w-5 h-5 text-accent" />
+                </div>
+                <h3 className="text-base font-semibold text-white">BDAaS</h3>
+              </div>
+              <p className="text-sm text-sky-300 mb-4">A unified data layer that ingests, processes, and distributes structured and unstructured datasets — powering agents, models, and products with consistent, high-quality data.</p>
+              <ul className="space-y-2 text-sm text-sky-300">
+                <li>• <span className="text-white">Real-time & Batch</span> — Live feeds and historical datasets</li>
+                <li>• <span className="text-white">Fast Distribution</span> — APIs, websockets, and caching</li>
+                <li>• <span className="text-white">Audit & Compliance</span> — Full lineage and traceability</li>
+              </ul>
+            </div>
+
+            {/* MCP Server */}
+            <div className="p-6 rounded-xl bg-surface-800/40 border border-border/30">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
+                  <Brain className="w-5 h-5 text-purple-500" />
+                </div>
+                <h3 className="text-base font-semibold text-white">MCP Server</h3>
+              </div>
+              <p className="text-sm text-sky-300 mb-4">Model Context Protocol — standardized AI agent connectivity.</p>
+              <ul className="space-y-2 text-sm text-sky-300">
+                <li>• RAG-ready context injection for AI-native workflows</li>
+                <li>• Schema-enforced, type-safe data delivery</li>
+                <li>• Secure, access-controlled endpoints for model interaction</li>
+                <li>• Low-latency execution with intelligent caching and rate limiting</li>
+              </ul>
+            </div>
+
+            {/* AI Agents */}
+            <div className="p-6 rounded-xl bg-surface-800/40 border border-border/30">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center">
+                  <Sparkles className="w-5 h-5 text-green-500" />
+                </div>
+                <h3 className="text-base font-semibold text-white">AI Agents</h3>
+              </div>
+              <p className="text-sm text-sky-300 mb-4">Production-ready AI agents built on top of institutional-grade data and secure model access.</p>
+              <ul className="space-y-2 text-sm text-sky-300">
+                <li>• Pre-built workflows for macro, fundamental, and multi-asset analysis.</li>
+                <li>• Seamless integration with the underlying data and access layer.</li>
+                <li>• Secure, access-controlled execution across sensitive financial data.</li>
+              </ul>
+              <Link href="/agents" className="inline-block mt-4">
+                <Button variant="outline" size="sm">
+                  Explore our Agents
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
+            </div>
           </div>
         </motion.div>
 
-        {/* Infrastructure Visual - Compact */}
+        {/* Data Quality Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.6 }}
           className="mb-12"
         >
-          <div className="flex items-center gap-2 mb-4">
-            <Layers className="w-4 h-4 text-accent" />
-            <h2 className="text-lg font-semibold text-white">Infrastructure</h2>
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-semibold text-white mb-2">Data Quality Determines Outcomes</h2>
+            <p className="text-sky-300 max-w-2xl mx-auto">Data quality drives model reliability — directly impacting signal quality and investment decisions.</p>
           </div>
 
-          {/* Visual flow diagram */}
-          <div className="flex items-center justify-center gap-4 p-6 rounded-2xl bg-surface-800/30 border border-border/30">
-            {/* Input */}
-            <div className="flex flex-col gap-2">
-              {['Market', 'Fund', 'Macro'].map((label, i) => (
-                <motion.div
-                  key={label}
-                  className="px-3 py-1.5 rounded-lg bg-surface-700 border border-border/50 text-xs text-content-tertiary"
-                  animate={{ opacity: [0.5, 1, 0.5] }}
-                  transition={{ duration: 2, delay: i * 0.3, repeat: Infinity }}
-                >
-                  {label}
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Arrow */}
-            <motion.div
-              animate={{ x: [0, 5, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            >
-              <ArrowRight className="w-6 h-6 text-accent" />
-            </motion.div>
-
-            {/* Processing */}
-            <motion.div
-              className="px-6 py-4 rounded-xl bg-gradient-to-r from-accent/20 to-accent/20 border border-accent/30"
-              animate={{ boxShadow: ['0 0 20px rgba(var(--accent), 0.2)', '0 0 40px rgba(var(--accent), 0.4)', '0 0 20px rgba(var(--accent), 0.2)'] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              <div className="flex items-center gap-2">
-                <Brain className="w-5 h-5 text-accent" />
-                <span className="text-sm font-medium text-white">AI Layer</span>
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Data Risks */}
+            <div className="p-6 rounded-xl bg-surface-800/40 border border-red-500/20">
+              <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+                <Shield className="w-5 h-5 text-red-500" />
+                Data Risks
+              </h3>
+              <p className="text-sm text-sky-300 mb-6">Inaccurate, delayed, or incomplete data introduces risk at every stage of decision-making.</p>
+              
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <div className="w-2 h-2 rounded-full bg-red-500 mt-2 flex-shrink-0"></div>
+                  <div>
+                    <span className="text-sm text-white">Incomplete datasets</span>
+                    <span className="text-sm text-red-400"> → Gaps in analysis and missed opportunities</span>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-2 h-2 rounded-full bg-red-500 mt-2 flex-shrink-0"></div>
+                  <div>
+                    <span className="text-sm text-white">Inconsistent schemas</span>
+                    <span className="text-sm text-red-400"> → Model instability and integration issues</span>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-2 h-2 rounded-full bg-red-500 mt-2 flex-shrink-0"></div>
+                  <div>
+                    <span className="text-sm text-white">Lookahead bias</span>
+                    <span className="text-sm text-red-400"> → Distorted backtesting and unreliable signals</span>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-2 h-2 rounded-full bg-red-500 mt-2 flex-shrink-0"></div>
+                  <div>
+                    <span className="text-sm text-white">Stale data</span>
+                    <span className="text-sm text-red-400"> → Delayed responses in fast-moving markets</span>
+                  </div>
+                </div>
               </div>
-              <div className="text-xs text-content-tertiary mt-1">MCP • Pipelines • BDAaS</div>
-            </motion.div>
-
-            {/* Arrow */}
-            <motion.div
-              animate={{ x: [0, 5, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, delay: 0.5 }}
-            >
-              <ArrowRight className="w-6 h-6 text-accent" />
-            </motion.div>
-
-            {/* Output */}
-            <div className="flex flex-col gap-2">
-              {['Signals', 'Models', 'Apps'].map((label, i) => (
-                <motion.div
-                  key={label}
-                  className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-accent/20 to-accent/20 border border-accent/30 text-xs text-white"
-                  animate={{ scale: [1, 1.02, 1] }}
-                  transition={{ duration: 2, delay: i * 0.3, repeat: Infinity }}
-                >
-                  {label}
-                </motion.div>
-              ))}
             </div>
-          </div>
-        </motion.div>
 
-        {/* Security - Compact */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.6 }}
-          className="mb-12"
-        >
-          <div className="flex items-center gap-2 mb-4">
-            <Shield className="w-4 h-4 text-green-500" />
-            <h2 className="text-lg font-semibold text-white">Enterprise Security</h2>
-          </div>
-
-          <div className="flex flex-wrap gap-3">
-            {securityFeatures.map((feature, i) => (
-              <SecurityBadge key={feature.label} feature={feature} index={i} />
-            ))}
+            {/* Data Integrity Standards */}
+            <div className="p-6 rounded-xl bg-surface-800/40 border border-green-500/20">
+              <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+                <Shield className="w-5 h-5 text-green-500" />
+                Data Integrity Standards
+              </h3>
+              <p className="text-sm text-sky-300 mb-6">Datasets are engineered to meet institutional-grade requirements for analysis and model development.</p>
+              
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
+                    <svg className="w-3 h-3 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <div className="flex-1">
+                    <span className="text-sm text-white">Coverage</span>
+                    <span className="text-xs text-sky-300 ml-2">Comprehensive and complete</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
+                    <svg className="w-3 h-3 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <div className="flex-1">
+                    <span className="text-sm text-white">Temporal Accuracy</span>
+                    <span className="text-xs text-sky-300 ml-2">Point-in-time alignment</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
+                    <svg className="w-3 h-3 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <div className="flex-1">
+                    <span className="text-sm text-white">Standardisation</span>
+                    <span className="text-xs text-sky-300 ml-2">Consistent schemas</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
+                    <svg className="w-3 h-3 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <div className="flex-1">
+                    <span className="text-sm text-white">Data Quality</span>
+                    <span className="text-xs text-sky-300 ml-2">Continuous validation</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </motion.div>
 
@@ -472,10 +716,12 @@ export default function DataPlatformPage() {
           <p className="text-content-secondary mb-4">
             Join institutions using AI-powered data infrastructure
           </p>
-          <Button size="lg" className="group">
-            Get Started
-            <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-          </Button>
+          <Link href="/contact">
+            <Button size="lg" className="group">
+              Get Started
+              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </Link>
         </motion.div>
 
       </div>
