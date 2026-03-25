@@ -9,6 +9,7 @@ import { LIGHTBULB_WIREFRAME_DATA } from './lightbulbWireframeData'
 import { BAR_CHART_WIREFRAME_DATA } from './barChartWireframeData'
 import { PADLOCK_WIREFRAME_DATA } from './padlockWireframeData'
 import { VAULTDOOR_WIREFRAME_DATA } from './vaultDoorWireframeData'
+import { PRISM_WIREFRAME_DATA } from './prismWireframeData'
 
 const MAX_LINE_COUNT = 4000
 const CHAOS_LINE_COUNT = 500
@@ -16,12 +17,13 @@ const POINTS_PER_LINE = 32
 const CAR_SCALE = 2.7
 
 const MODELS = [
+  { name: 'prism', data: PRISM_WIREFRAME_DATA, scale: 1.8 },
   { name: 'lightbulb', data: LIGHTBULB_WIREFRAME_DATA, scale: 1.6 },
-  { name: 'padlock', data: PADLOCK_WIREFRAME_DATA, scale: 1.8 },
-  { name: 'folder', data: FOLDER_WIREFRAME_DATA, scale: 1.5 },
-  { name: 'barChart', data: BAR_CHART_WIREFRAME_DATA, scale: 1.7 },
-  { name: 'vaultDoor', data: VAULTDOOR_WIREFRAME_DATA, scale: 1.5 },
   { name: 'f1', data: F1_WIREFRAME_DATA, scale: CAR_SCALE },
+  { name: 'vaultDoor', data: VAULTDOOR_WIREFRAME_DATA, scale: 1.5 },
+  { name: 'barChart', data: BAR_CHART_WIREFRAME_DATA, scale: 1.7 },
+  { name: 'folder', data: FOLDER_WIREFRAME_DATA, scale: 1.5 },
+  { name: 'padlock', data: PADLOCK_WIREFRAME_DATA, scale: 1.8 },
 ]
 
 function getModelLineCount(modelIndex: number): number {
