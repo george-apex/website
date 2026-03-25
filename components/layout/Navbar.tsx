@@ -300,7 +300,7 @@ export function Navbar() {
 
             {/* Mobile Menu Button - visible between 394px and 799px */}
             <button
-              className="min-[800px]:hidden max-[393px]:hidden p-2 text-content-secondary hover:text-content-primary transition-colors"
+              className="hidden min-[394px]:flex min-[800px]:hidden p-2 text-content-secondary hover:text-content-primary transition-colors items-center justify-center"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
             >
