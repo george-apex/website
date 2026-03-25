@@ -84,10 +84,10 @@ export const NAV_LINKS: NavLink[] = [
     label: 'Home', 
     href: '/',
     subTabs: [
-      { id: 'home', label: 'Home', shortLabel: 'Home' },
+      { id: 'home', label: 'APEX:E3', shortLabel: 'APEX:E3' },
       { id: 'last-mile', label: 'The Last Mile', shortLabel: 'Last Mile' },
-      { id: 'demo', label: 'Interactive Demo', shortLabel: 'Demo' },
-      { id: 'cta', label: 'Get Started', shortLabel: 'CTA' },
+      { id: 'demo', label: 'Interactive Demo', shortLabel: 'Live Demo' },
+      { id: 'cta', label: 'Get Started', shortLabel: 'Ready?' },
     ]
   },
   { 
@@ -96,7 +96,7 @@ export const NAV_LINKS: NavLink[] = [
     subTabs: [
       { id: 'data-platform', label: 'Data Platform', href: '/data-platform' },
       { id: 'agents', label: 'Agents', href: '/agents' },
-      { id: 'e3-quant-hub', label: 'E3 Quant Hub', href: '/e3-quant-hub' },
+      { id: 'e3-quant-hub', label: 'E3 Quant Hub', shortLabel: 'E3 Quant Hub', href: '/e3-quant-hub' },
     ]
   },
   { label: 'Solutions', href: '/solutions' },
@@ -156,7 +156,7 @@ export function Navbar() {
     <>
       <motion.header
         className={cn(
-          'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+          'fixed top-0 left-0 right-0 z-50 transition-all duration-300 max-[393px]:hidden',
           isScrolled
             ? 'bg-surface-900/95 backdrop-blur-xl border-b border-border'
             : 'bg-transparent'
@@ -256,9 +256,9 @@ export function Navbar() {
               </Link>
             </div>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Button - visible between 394px and 1023px */}
             <button
-              className="lg:hidden p-2 text-content-secondary hover:text-content-primary transition-colors"
+              className="lg:hidden max-[393px]:hidden p-2 text-content-secondary hover:text-content-primary transition-colors"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
             >
@@ -272,11 +272,11 @@ export function Navbar() {
         </nav>
       </motion.header>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - hidden at 393px and below (uses MobileFloatingNav) */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            className="fixed inset-0 z-40 lg:hidden"
+            className="fixed inset-0 z-50 lg:hidden max-[393px]:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

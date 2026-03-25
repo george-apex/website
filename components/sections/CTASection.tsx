@@ -336,7 +336,7 @@ export function CTASection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-20"
+          className="mt-20 max-[393px]:mt-0"
         >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[

@@ -105,7 +105,7 @@ export function NewHero() {
       <div className="absolute inset-0 bg-surface-950" />
 
       {/* Premium light reveal visualization background */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 max-[393px]:hidden">
         <PremiumVisualization />
       </div>
 

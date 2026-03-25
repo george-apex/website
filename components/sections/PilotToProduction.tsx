@@ -198,7 +198,7 @@ export function PilotToProduction() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mt-20"
+          className="mt-20 max-[393px]:mt-0"
         >
           <div className="grid md:grid-cols-3 gap-4 max-w-3xl mx-auto">
             {[

@@ -163,7 +163,7 @@ export function DataPlatformHero() {
   }, [])
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 max-[393px]:pt-0">
       <DataStream />
       
       <div className="container-main relative z-10">

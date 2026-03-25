@@ -3,6 +3,7 @@ import { Urbanist } from 'next/font/google'
 import './globals.css'
 import { Navbar, NavigationProvider } from '@/components/layout/Navbar'
 import { SubNavigation } from '@/components/layout/SubNavigation'
+import { MobileFloatingNav } from '@/components/layout/MobileFloatingNav'
 import { Footer } from '@/components/layout/Footer'
 import { ScrollProgressIndicator } from '@/components/effects/ScrollAnimations'
 
@@ -96,11 +97,6 @@ export default function RootLayout({
           {/* Scroll Progress Indicator */}
           <ScrollProgressIndicator />
           
-          {/* Skip to main content for accessibility */}
-          <a href="#main-content" className="skip-link">
-            Skip to main content
-          </a>
-          
           {/* Navigation */}
           <Navbar />
           
@@ -111,6 +107,9 @@ export default function RootLayout({
           <main id="main-content" className="relative">
             {children}
           </main>
+          
+          {/* Mobile Floating Navigation */}
+          <MobileFloatingNav />
           
           {/* Footer */}
           <Footer />

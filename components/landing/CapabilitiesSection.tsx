@@ -258,7 +258,7 @@ export function CapabilitiesSection() {
           initial={{ opacity: 0 }}
           animate={isSectionInView ? { opacity: 1 } : {}}
           transition={{ duration: 1, delay: 0.8 }}
-          className="mt-20 flex justify-center"
+          className="mt-20 max-[393px]:mt-0 flex justify-center"
         >
           <div className="relative">
             {/* Central glow */}

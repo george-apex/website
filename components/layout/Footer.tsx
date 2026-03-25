@@ -24,7 +24,7 @@ export function Footer() {
       {/* Top accent line */}
       <div className="absolute top-0 left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
 
-      <div className="container-main relative z-10 py-16 lg:py-20">
+      <div className="container-main relative z-10 py-8 max-[393px]:py-6 lg:py-20">
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 lg:gap-12">
           {/* Brand Column */}
           <div className="col-span-2">
@@ -63,7 +63,7 @@ export function Footer() {
           </div>
 
           {/* Product Links */}
-          <div>
+          <div className="max-[393px]:hidden">
             <h3 className="text-label font-medium text-accent mb-4 uppercase tracking-wider">
               Product
             </h3>
@@ -82,7 +82,7 @@ export function Footer() {
           </div>
 
           {/* Company Links */}
-          <div>
+          <div className="max-[393px]:hidden">
             <h3 className="text-label font-medium text-accent mb-4 uppercase tracking-wider">
               Company
             </h3>
@@ -101,7 +101,7 @@ export function Footer() {
           </div>
 
           {/* Resources Links */}
-          <div>
+          <div className="max-[393px]:hidden">
             <h3 className="text-label font-medium text-accent mb-4 uppercase tracking-wider">
               Resources
             </h3>
@@ -120,7 +120,7 @@ export function Footer() {
           </div>
 
           {/* Legal Links */}
-          <div>
+          <div className="max-[393px]:hidden">
             <h3 className="text-label font-medium text-accent mb-4 uppercase tracking-wider">
               Legal
             </h3>
@@ -140,7 +140,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-border">
+        <div className="mt-8 max-[393px]:mt-6 pt-6 max-[393px]:pt-4 border-t border-border">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-body-sm text-content-tertiary">
               © {currentYear} {SITE_CONFIG.legalName}. All rights reserved.
