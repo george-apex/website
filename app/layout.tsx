@@ -94,7 +94,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${urbanist.variable} relative`}>
-      <body className="relative min-h-screen bg-bg-primary text-white antialiased">
+      <body className="relative min-h-screen bg-surface-900 text-white antialiased">
         <Suspense fallback={<div className="min-h-screen" />}>
           <NavigationProvider>
             {/* Scroll Progress Indicator */}

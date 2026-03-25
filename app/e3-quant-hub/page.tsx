@@ -32,7 +32,7 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { SubNavigation } from '@/components/layout/SubNavigation'
+
 
 // Types
 interface MetricCard {
@@ -2278,9 +2278,6 @@ export default function E3QuantHubPage() {
       <div className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-radial-accent opacity-10 pointer-events-none z-0" />
       <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-radial-data opacity-10 pointer-events-none z-0" />
 
-      {/* Sub Navigation */}
-      <SubNavigation />
-      
       {/* Animated gradient orbs */}
       <motion.div
         className="absolute top-20 right-20 w-64 h-64 rounded-full bg-gradient-to-r from-accent/20 to-accent/20 blur-3xl pointer-events-none"

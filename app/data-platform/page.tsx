@@ -9,7 +9,7 @@ import {
   Play, ArrowRight, Sparkles
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { SubNavigation } from '@/components/layout/SubNavigation'
+
 
 // Buzzwords marquee
 const buzzwords = [
@@ -261,9 +261,6 @@ export default function DataPlatformPage() {
           transition={{ duration: 8, repeat: Infinity }}
         />
       </div>
-
-      {/* Sub Navigation */}
-      <SubNavigation />
 
       {/* Main content */}
       <div className="relative container-main pt-48 pb-24">

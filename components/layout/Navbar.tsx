@@ -57,6 +57,8 @@ interface HoverContextType {
   setActiveHomeSection: (section: string) => void
   isSubNavVisible: boolean
   currentPageHasSubNav: boolean
+  hoveredSubTab: string | null
+  setHoveredSubTab: (subTab: string | null) => void
 }
 
 export const HoverContext = React.createContext<HoverContextType>({
@@ -67,12 +69,15 @@ export const HoverContext = React.createContext<HoverContextType>({
   setActiveHomeSection: () => {},
   isSubNavVisible: false,
   currentPageHasSubNav: false,
+  hoveredSubTab: null,
+  setHoveredSubTab: () => {},
 })
 
 export function NavigationProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const [hoveredParent, setHoveredParentState] = React.useState<string | null>(null)
   const [activeHomeSection, setActiveHomeSection] = React.useState('home')
+  const [hoveredSubTab, setHoveredSubTab] = React.useState<string | null>(null)
   const clearTimeoutRef = React.useRef<NodeJS.Timeout | null>(null)
 
   const cancelClear = React.useCallback(() => {
@@ -119,7 +124,7 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
   }, [])
 
   return (
-    <HoverContext.Provider value={{ hoveredParent, setHoveredParent, cancelClear, activeHomeSection, setActiveHomeSection, isSubNavVisible, currentPageHasSubNav }}>
+    <HoverContext.Provider value={{ hoveredParent, setHoveredParent, cancelClear, activeHomeSection, setActiveHomeSection, isSubNavVisible, currentPageHasSubNav, hoveredSubTab, setHoveredSubTab }}>
       {children}
     </HoverContext.Provider>
   )

@@ -10,12 +10,8 @@ import { NAV_LINKS, SubTab, HoverContext } from './Navbar'
 export function SubNavigation() {
   const pathname = usePathname()
   const router = useRouter()
-  const { hoveredParent, setHoveredParent, cancelClear, activeHomeSection, setActiveHomeSection } = React.useContext(HoverContext)
-  const [mounted, setMounted] = React.useState(false)
-  
-  React.useEffect(() => {
-    setMounted(true)
-  }, [])
+  const { hoveredParent, setHoveredParent, cancelClear, activeHomeSection, setActiveHomeSection, hoveredSubTab, setHoveredSubTab } = React.useContext(HoverContext)
+
   
   const currentNavByPath = React.useMemo(() => {
     return NAV_LINKS.find(link => {
@@ -39,6 +35,8 @@ export function SubNavigation() {
   const isHomePage = pathname === '/'
   const isVisible = subTabs && subTabs.length > 0
 
+  const isDimmed = hoveredParent && !NAV_LINKS.find(l => l.label === hoveredParent)?.subTabs?.length
+
   if (!isVisible) return null
 
   const activeKey = activeNavLink?.label || 'none'
@@ -46,33 +44,39 @@ export function SubNavigation() {
   return (
     <div
       className={cn(
-        "hidden min-[800px]:block max-[393px]:hidden fixed top-20 left-0 right-0 z-40 bg-surface-950/95 backdrop-blur-xl border-b border-border/30 transition-all duration-200",
-        mounted ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"
+        "hidden min-[800px]:block max-[393px]:hidden fixed top-20 left-0 right-0 z-40 bg-surface-900/95 backdrop-blur-xl border-b border-border/30 transition-opacity duration-200",
+        isDimmed && "opacity-30"
       )}
       onMouseEnter={() => activeNavLink && cancelClear()}
-      onMouseLeave={() => setHoveredParent(null)}
+      onMouseLeave={() => {
+        setHoveredParent(null)
+        setHoveredSubTab(null)
+      }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-center h-14">
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="popLayout">
             <motion.nav
               key={activeKey}
               className="flex items-center gap-1"
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 8 }}
-              transition={{ duration: 0.2, ease: 'easeOut' }}
+              initial={{ opacity: 1 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.1, ease: 'easeOut' }}
             >
               {subTabs!.map((sub) => {
                 const isActive = sub.href 
                   ? pathname === sub.href 
                   : isHomePage && activeHomeSection === sub.id
+                const showBox = isActive || hoveredSubTab === sub.id
                 
                 return (
                   <React.Fragment key={sub.id}>
                     {sub.href ? (
                       <Link
                         href={sub.href}
+                        onMouseEnter={() => setHoveredSubTab(sub.id)}
+                        onMouseLeave={() => setHoveredSubTab(null)}
                         className={cn(
                           'relative px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap',
                           isActive 
@@ -80,7 +84,7 @@ export function SubNavigation() {
                             : 'text-content-tertiary hover:text-content-secondary hover:bg-surface-800/50'
                         )}
                       >
-                        {isActive && (
+                        {showBox && (
                           <motion.div
                             layoutId="activeSubTab"
                             className="absolute inset-0 rounded-lg bg-accent/10 border border-accent/30"
@@ -98,6 +102,8 @@ export function SubNavigation() {
                           }
                           setActiveHomeSection(sub.id)
                         }}
+                        onMouseEnter={() => setHoveredSubTab(sub.id)}
+                        onMouseLeave={() => setHoveredSubTab(null)}
                         className={cn(
                           'relative px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap',
                           isActive 
@@ -105,7 +111,7 @@ export function SubNavigation() {
                             : 'text-content-tertiary hover:text-content-secondary hover:bg-surface-800/50'
                         )}
                       >
-                        {isActive && (
+                        {showBox && (
                           <motion.div
                             layoutId="activeSubTab"
                             className="absolute inset-0 rounded-lg bg-accent/10 border border-accent/30"
