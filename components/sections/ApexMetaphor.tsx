@@ -20,54 +20,71 @@ export function ApexMetaphor() {
           background: 'radial-gradient(ellipse 80% 60% at 30% 40%, rgba(48, 107, 255, 0.15) 0%, transparent 60%)',
         }}
       />
-      <div className="absolute inset-0 z-0 w-[60%] left-0 -translate-y-8 overflow-visible">
+      <div className="lg:hidden relative z-10 max-w-6xl mx-auto px-4 pt-4">
+        <div className="space-y-2 text-center">
+          <span className="inline-block text-sm font-semibold text-accent tracking-[0.15em] uppercase">
+            The Last Mile
+          </span>
+          <h2 className="text-display-md text-content-primary font-semibold leading-tight">
+            Everyone talks about AI.
+            <br />
+            <span className="text-content-tertiary">Few cross the finish line.</span>
+          </h2>
+        </div>
+      </div>
+      
+      <div className="lg:hidden w-full h-[480px] relative overflow-visible -mt-8">
+        <LastMileAnimation className="w-full h-full" centered />
+      </div>
+      
+      <div className="hidden lg:block absolute inset-0 z-0 w-[60%] left-0 -translate-y-8 overflow-visible">
         <LastMileAnimation className="w-full h-full" />
       </div>
 
       <div ref={containerRef} className="relative z-10 max-w-6xl mx-auto">
-        <div className="grid lg:grid-cols-3 gap-8 lg:gap-12 items-center min-h-[500px] pt-12 pb-4">
+        <div className="grid lg:grid-cols-3 gap-8 lg:gap-12 items-center min-h-[300px] lg:min-h-[500px] pt-0 lg:pt-12 pb-4">
           <div className="hidden lg:block lg:col-span-1">
           </div>
-          
+            
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:col-span-2 col-span-1 space-y-8 lg:ml-72 lg:mt-32 lg:-mr-12"
+            className="lg:col-span-2 col-span-1 space-y-3 lg:space-y-8 lg:ml-72 lg:mt-32 lg:-mr-12 -mt-6"
           >
-            <div className="space-y-4">
+            <div className="hidden lg:block space-y-4">
               <span className="inline-block text-label font-semibold text-accent tracking-[0.2em] uppercase">
                 The Last Mile
               </span>
-              <h2 className="text-display-lg lg:text-display-xl text-content-primary font-semibold leading-tight">
+              <h2 className="text-display-lg xl:text-display-xl text-content-primary font-semibold leading-tight">
                 Everyone talks about AI.
                 <br />
                 <span className="text-content-tertiary">Few cross the finish line.</span>
               </h2>
             </div>
             
-            <div className="h-px w-24 bg-gradient-to-r from-accent to-transparent" />
+            <div className="h-px w-20 lg:w-24 bg-gradient-to-r from-accent to-transparent" />
             
-            <div className="space-y-6">
-              <p className="text-body-lg text-content-secondary">
+            <div className="space-y-3 lg:space-y-6">
+              <p className="text-body-base lg:text-body-lg text-content-secondary">
                 Most AI projects never reach production. They stall in pilot purgatory—stuck between 
                 proof-of-concept and deployment with no clear path forward.
               </p>
               
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
-                  <span className="text-white/70 font-bold text-lg">80%</span>
+              <div className="flex items-start gap-3 lg:gap-4">
+                <div className="flex-shrink-0 w-10 h-10 lg:w-12 lg:h-12 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
+                  <span className="text-white/70 font-bold text-base lg:text-lg">80%</span>
                 </div>
-                <p className="text-body-lg text-content-secondary pt-2">
+                <p className="text-body-base lg:text-body-lg text-content-secondary pt-2">
                   is where other providers stop. They deliver a model, then leave you to handle 
                   integration, security, and compliance on your own.
                 </p>
               </div>
             </div>
             
-            <div className="p-5 rounded-xl bg-gradient-to-br from-accent/10 to-transparent border border-accent/20">
-              <p className="text-body-lg text-white/90">
+            <div className="p-4 lg:p-5 rounded-xl bg-gradient-to-br from-accent/10 to-transparent border border-accent/20">
+              <p className="text-body-base lg:text-body-lg text-white/90">
                 <span className="gradient-accent font-semibold">APEX:E3 crosses the last mile.</span> We engineer 
                 complete production systems—from data pipelines to deployment, compliance to monitoring. 
                 <span className="text-accent font-medium"> Full implementation. Real results.</span>

@@ -10,7 +10,7 @@ const CHAOS_LINE_COUNT = 500
 const POINTS_PER_LINE = 32
 const CAR_SCALE = 3.5
 
-const MODELS = [
+const MODELS: { name: string; data: typeof F1_WIREFRAME_DATA; scale: number; rotationOffset: number; lineMultiplier?: number }[] = [
   { name: 'f1', data: F1_WIREFRAME_DATA, scale: CAR_SCALE, rotationOffset: 0 },
 ]
 
@@ -105,7 +105,7 @@ interface LineData {
 
 type Phase = 'idle' | 'morphing_to_model' | 'showing_model'
 
-function SculptureLines() {
+function SculptureLines({ position = [-4.5, 1.35, 0] }: { position?: [number, number, number] }) {
   const groupRef = useRef<THREE.Group>(null)
   const linesDataRef = useRef<LineData[]>([])
   const [phase, setPhase] = useState<Phase>('idle')
@@ -433,7 +433,7 @@ function SculptureLines() {
   }, [])
   
   return (
-    <group ref={groupRef} position={[-4.5, 1.35, 0]} scale={0.5}>
+    <group ref={groupRef} position={position} scale={0.5}>
       {lineObjects.map((lineObj, i) => (
         <primitive key={i} object={lineObj} />
       ))}
@@ -491,15 +491,15 @@ function GlowParticles() {
   )
 }
 
-function CameraRig() {
+function CameraRig({ lookAt = [-4.5, 1.35, 0], cameraOffset = [-4.5, 2.6, 5] }: { lookAt?: [number, number, number]; cameraOffset?: [number, number, number] }) {
   const { camera } = useThree()
   
   useFrame((state) => {
     const t = state.clock.elapsedTime
-    camera.position.x = -4.5 + Math.sin(t * 0.08) * 0.3
-    camera.position.y = 2.6 + Math.sin(t * 0.1) * 0.15
-    camera.position.z = 5 + Math.cos(t * 0.08) * 0.3
-    camera.lookAt(-4.5, 1.35, 0)
+    camera.position.x = cameraOffset[0] + Math.sin(t * 0.08) * 0.3
+    camera.position.y = cameraOffset[1] + Math.sin(t * 0.1) * 0.15
+    camera.position.z = cameraOffset[2] + Math.cos(t * 0.08) * 0.3
+    camera.lookAt(lookAt[0], lookAt[1], lookAt[2])
   })
   
   return null
@@ -507,13 +507,19 @@ function CameraRig() {
 
 interface LastMileAnimationProps {
   className?: string
+  centered?: boolean
 }
 
-export function LastMileAnimation({ className = '' }: LastMileAnimationProps) {
+export function LastMileAnimation({ className = '', centered = false }: LastMileAnimationProps) {
+  const groupPosition = centered ? [0, 0, 0] : [-4.5, 1.35, 0]
+  const cameraPosition = centered ? [0, 0.5, 3.5] : [-4.5, 2.6, 5]
+  const lookAtTarget = centered ? [0, 0, 0] : [-4.5, 1.35, 0]
+  const fov = centered ? 40 : 45
+  
   return (
     <div className={`w-full h-full ${className}`}>
       <Canvas
-        camera={{ position: [-4.5, 2.6, 5], fov: 45 }}
+        camera={{ position: cameraPosition as [number, number, number], fov }}
         gl={{ antialias: true, alpha: true }}
         style={{ background: 'transparent' }}
       >
@@ -521,9 +527,9 @@ export function LastMileAnimation({ className = '' }: LastMileAnimationProps) {
         <pointLight position={[10, 10, 10]} intensity={0.4} color="#306BFF" />
         <pointLight position={[-10, 5, -10]} intensity={0.2} color="#4A90D9" />
         
-        <SculptureLines />
+        <SculptureLines position={groupPosition as [number, number, number]} />
         <GlowParticles />
-        <CameraRig />
+        <CameraRig lookAt={lookAtTarget as [number, number, number]} cameraOffset={centered ? [0, 0.5, 3.5] : [-4.5, 2.6, 5]} />
       </Canvas>
     </div>
   )
