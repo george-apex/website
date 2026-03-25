@@ -17,40 +17,83 @@ const POINTS_PER_LINE = 32
 const CAR_SCALE = 2.7
 
 const MODELS = [
-  { name: 'prism', data: PRISM_WIREFRAME_DATA, scale: 1.8 },
-  { name: 'lightbulb', data: LIGHTBULB_WIREFRAME_DATA, scale: 1.6 },
-  { name: 'f1', data: F1_WIREFRAME_DATA, scale: CAR_SCALE },
-  { name: 'vaultDoor', data: VAULTDOOR_WIREFRAME_DATA, scale: 1.5 },
-  { name: 'barChart', data: BAR_CHART_WIREFRAME_DATA, scale: 1.7 },
-  { name: 'folder', data: FOLDER_WIREFRAME_DATA, scale: 1.5 },
-  { name: 'padlock', data: PADLOCK_WIREFRAME_DATA, scale: 1.8 },
+  { name: 'prism', data: PRISM_WIREFRAME_DATA, scale: 1.8, rotationOffset: -Math.PI / 2, lineMultiplier: 10 },
+  { name: 'lightbulb', data: LIGHTBULB_WIREFRAME_DATA, scale: 1.6, rotationOffset: 0 },
+  { name: 'f1', data: F1_WIREFRAME_DATA, scale: CAR_SCALE, rotationOffset: 0 },
+  { name: 'vaultDoor', data: VAULTDOOR_WIREFRAME_DATA, scale: 1.5, rotationOffset: 0 },
+  { name: 'barChart', data: BAR_CHART_WIREFRAME_DATA, scale: 1.7, rotationOffset: 0 },
+  { name: 'folder', data: FOLDER_WIREFRAME_DATA, scale: 1.5, rotationOffset: 0 },
+  { name: 'padlock', data: PADLOCK_WIREFRAME_DATA, scale: 1.8, rotationOffset: 0 },
 ]
 
 function getModelLineCount(modelIndex: number): number {
-  return Math.min(MODELS[modelIndex].data.length, MAX_LINE_COUNT)
+  const model = MODELS[modelIndex]
+  const baseCount = Math.min(model.data.length, MAX_LINE_COUNT)
+  const multiplier = model.lineMultiplier || 1
+  return Math.min(baseCount * multiplier, MAX_LINE_COUNT)
 }
 
 function generateModelWireframe(modelIndex: number, maxLines?: number): THREE.Vector3[][] {
   const model = MODELS[modelIndex]
   const lines: THREE.Vector3[][] = []
   const edgeCount = model.data.length
-  const targetCount = maxLines ? Math.min(maxLines, edgeCount) : edgeCount
-  const step = edgeCount / targetCount
+  const multiplier = model.lineMultiplier || 1
+  const rotationOffset = model.rotationOffset || 0
   
-  for (let i = 0; i < targetCount; i++) {
-    const edgeIndex = Math.floor(i * step) % edgeCount
-    const edge = model.data[edgeIndex]
-    const line: THREE.Vector3[] = []
-    const [p1, p2] = edge
-    for (let j = 0; j < POINTS_PER_LINE; j++) {
-      const t = j / (POINTS_PER_LINE - 1)
-      line.push(new THREE.Vector3(
-        (p1[0] + (p2[0] - p1[0]) * t) * model.scale,
-        (p1[1] + (p2[1] - p1[1]) * t) * model.scale,
-        (p1[2] + (p2[2] - p1[2]) * t) * model.scale
-      ))
+  const cosR = Math.cos(rotationOffset)
+  const sinR = Math.sin(rotationOffset)
+  
+  if (multiplier > 1) {
+    const targetCount = maxLines ? Math.min(maxLines, edgeCount * multiplier) : edgeCount * multiplier
+    
+    for (let i = 0; i < targetCount; i++) {
+      const edgeIndex = i % edgeCount
+      const copyIndex = Math.floor(i / edgeCount)
+      const edge = model.data[edgeIndex]
+      const line: THREE.Vector3[] = []
+      const [p1, p2] = edge
+      
+      const offsetScale = 0.003
+      const offsetAngle = copyIndex * 0.5
+      const offsetX = Math.cos(offsetAngle) * offsetScale * copyIndex
+      const offsetY = Math.sin(offsetAngle) * offsetScale * copyIndex
+      const offsetZ = Math.cos(offsetAngle + 1) * offsetScale * copyIndex
+      
+      for (let j = 0; j < POINTS_PER_LINE; j++) {
+        const t = j / (POINTS_PER_LINE - 1)
+        const x = (p1[0] + (p2[0] - p1[0]) * t) * model.scale + offsetX
+        const y = (p1[1] + (p2[1] - p1[1]) * t) * model.scale + offsetY
+        const z = (p1[2] + (p2[2] - p1[2]) * t) * model.scale + offsetZ
+        
+        const rotX = x * cosR - z * sinR
+        const rotZ = x * sinR + z * cosR
+        
+        line.push(new THREE.Vector3(rotX, y, rotZ))
+      }
+      lines.push(line)
     }
-    lines.push(line)
+  } else {
+    const targetCount = maxLines ? Math.min(maxLines, edgeCount) : edgeCount
+    const step = edgeCount / targetCount
+    
+    for (let i = 0; i < targetCount; i++) {
+      const edgeIndex = Math.floor(i * step) % edgeCount
+      const edge = model.data[edgeIndex]
+      const line: THREE.Vector3[] = []
+      const [p1, p2] = edge
+      for (let j = 0; j < POINTS_PER_LINE; j++) {
+        const t = j / (POINTS_PER_LINE - 1)
+        const x = (p1[0] + (p2[0] - p1[0]) * t) * model.scale
+        const y = (p1[1] + (p2[1] - p1[1]) * t) * model.scale
+        const z = (p1[2] + (p2[2] - p1[2]) * t) * model.scale
+        
+        const rotX = x * cosR - z * sinR
+        const rotZ = x * sinR + z * cosR
+        
+        line.push(new THREE.Vector3(rotX, y, rotZ))
+      }
+      lines.push(line)
+    }
   }
   
   for (let i = lines.length - 1; i > 0; i--) {
