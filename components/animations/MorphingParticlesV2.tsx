@@ -462,9 +462,8 @@ function CameraRig() {
   
   useFrame((state) => {
     const t = state.clock.elapsedTime
-    camera.position.x = Math.sin(t * 0.08) * 0.5
-    camera.position.y = 2.6 + Math.sin(t * 0.1) * 0.15
     camera.position.x = -4.5 + Math.sin(t * 0.08) * 0.3
+    camera.position.y = 2.6 + Math.sin(t * 0.1) * 0.15
     camera.position.z = 5 + Math.cos(t * 0.08) * 0.3
     camera.lookAt(-4.5, 1.35, 0)
   })
