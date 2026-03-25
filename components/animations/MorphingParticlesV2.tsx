@@ -10,6 +10,7 @@ import { BAR_CHART_WIREFRAME_DATA } from './barChartWireframeData'
 import { PADLOCK_WIREFRAME_DATA } from './padlockWireframeData'
 import { VAULTDOOR_WIREFRAME_DATA } from './vaultDoorWireframeData'
 import { PRISM_WIREFRAME_DATA } from './prismWireframeData'
+import { NEURAL_PRISM_WIREFRAME_DATA } from './neuralPrismWireframeData'
 
 const MAX_LINE_COUNT = 4000
 const CHAOS_LINE_COUNT = 500
@@ -18,6 +19,7 @@ const CAR_SCALE = 2.7
 
 const MODELS = [
   { name: 'prism', data: PRISM_WIREFRAME_DATA, scale: 1.8, rotationOffset: -Math.PI / 2, lineMultiplier: 10 },
+  { name: 'neuralPrism', data: NEURAL_PRISM_WIREFRAME_DATA, scale: 1.6, rotationOffset: 0 },
   { name: 'lightbulb', data: LIGHTBULB_WIREFRAME_DATA, scale: 1.6, rotationOffset: 0 },
   { name: 'f1', data: F1_WIREFRAME_DATA, scale: CAR_SCALE, rotationOffset: 0 },
   { name: 'vaultDoor', data: VAULTDOOR_WIREFRAME_DATA, scale: 1.5, rotationOffset: 0 },
