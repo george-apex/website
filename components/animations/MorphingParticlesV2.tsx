@@ -4,26 +4,41 @@ import { useRef, useMemo, useEffect, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import { F1_WIREFRAME_DATA } from './f1WireframeData'
+import { FOLDER_WIREFRAME_DATA } from './folderWireframeData'
+import { LIGHTBULB_WIREFRAME_DATA } from './lightbulbWireframeData'
+import { BAR_CHART_WIREFRAME_DATA } from './barChartWireframeData'
+import { PADLOCK_WIREFRAME_DATA } from './padlockWireframeData'
+import { VAULTDOOR_WIREFRAME_DATA } from './vaultDoorWireframeData'
 
 const CAR_LINE_COUNT = 4000
 const CHAOS_LINE_COUNT = 500
 const POINTS_PER_LINE = 32
 const CAR_SCALE = 2.5
 
-function generateF1CarWireframe(): THREE.Vector3[][] {
+const MODELS = [
+  { name: 'lightbulb', data: LIGHTBULB_WIREFRAME_DATA, scale: 1.6 },
+  { name: 'padlock', data: PADLOCK_WIREFRAME_DATA, scale: 1.8 },
+  { name: 'folder', data: FOLDER_WIREFRAME_DATA, scale: 1.8 },
+  { name: 'barChart', data: BAR_CHART_WIREFRAME_DATA, scale: 2.0 },
+  { name: 'vaultDoor', data: VAULTDOOR_WIREFRAME_DATA, scale: 1.5 },
+  { name: 'f1', data: F1_WIREFRAME_DATA, scale: CAR_SCALE },
+]
+
+function generateModelWireframe(modelIndex: number): THREE.Vector3[][] {
+  const model = MODELS[modelIndex]
   const lines: THREE.Vector3[][] = []
-  const step = Math.max(1, Math.floor(F1_WIREFRAME_DATA.length / CAR_LINE_COUNT))
+  const step = Math.max(1, Math.floor(model.data.length / CAR_LINE_COUNT))
   
-  for (let i = 0; i < F1_WIREFRAME_DATA.length && lines.length < CAR_LINE_COUNT; i += step) {
-    const edge = F1_WIREFRAME_DATA[i]
+  for (let i = 0; i < model.data.length && lines.length < CAR_LINE_COUNT; i += step) {
+    const edge = model.data[i]
     const line: THREE.Vector3[] = []
     const [p1, p2] = edge
     for (let j = 0; j < POINTS_PER_LINE; j++) {
       const t = j / (POINTS_PER_LINE - 1)
       line.push(new THREE.Vector3(
-        (p1[0] + (p2[0] - p1[0]) * t) * CAR_SCALE,
-        (p1[1] + (p2[1] - p1[1]) * t) * CAR_SCALE,
-        (p1[2] + (p2[2] - p1[2]) * t) * CAR_SCALE
+        (p1[0] + (p2[0] - p1[0]) * t) * model.scale,
+        (p1[1] + (p2[1] - p1[1]) * t) * model.scale,
+        (p1[2] + (p2[2] - p1[2]) * t) * model.scale
       ))
     }
     lines.push(line)
@@ -61,8 +76,9 @@ function SculptureLines() {
   const morphDurationRef = useRef(2.5)
   const modelShowDurationRef = useRef(3.5)
   const idleDurationRef = useRef(4)
+  const currentModelIndexRef = useRef(0)
   
-  const targetLines = useMemo(() => generateF1CarWireframe(), [])
+  const targetLines = useMemo(() => generateModelWireframe(0), [])
   
   const getTesseractNodePosition = (
     nodeIndex: number, 
@@ -229,6 +245,17 @@ function SculptureLines() {
             data.morphStartPositions[j] = data.currentPositions[j]
           }
         })
+        
+        const newTargetLines = generateModelWireframe(currentModelIndexRef.current)
+        linesDataRef.current.forEach((data, i) => {
+          const targetLine = newTargetLines[i] || newTargetLines[0]
+          targetLine.forEach((p, j) => {
+            data.targetPositions[j * 3] = p.x
+            data.targetPositions[j * 3 + 1] = p.y
+            data.targetPositions[j * 3 + 2] = p.z
+          })
+        })
+        
         setPhase('morphing_to_model')
         phaseStartRef.current = now
         morphProgressRef.current = 0
@@ -255,6 +282,7 @@ function SculptureLines() {
             data.morphStartPositions[j] = data.currentPositions[j]
           }
         })
+        currentModelIndexRef.current = (currentModelIndexRef.current + 1) % MODELS.length
         setPhase('morphing_to_idle')
         phaseStartRef.current = now
         morphProgressRef.current = 0
@@ -276,6 +304,20 @@ function SculptureLines() {
     
     const tesseractTime = tesseractTimeRef.current
     
+    const tesseractColor = new THREE.Color('#FFFFFF')
+    const modelColor = new THREE.Color('#60A5FA')
+    
+    let targetColor: THREE.Color
+    if (phase === 'idle') {
+      targetColor = tesseractColor
+    } else if (phase === 'morphing_to_model') {
+      targetColor = tesseractColor.clone().lerp(modelColor, morphProgressRef.current)
+    } else if (phase === 'showing_model') {
+      targetColor = modelColor
+    } else {
+      targetColor = modelColor.clone().lerp(tesseractColor, morphProgressRef.current)
+    }
+    
     groupRef.current.children.forEach((child, i) => {
       const line = child as THREE.Line
       const geometry = line.geometry
@@ -283,6 +325,9 @@ function SculptureLines() {
       const data = linesDataRef.current[i]
       
       if (!data) return
+      
+      const material = line.material as THREE.LineBasicMaterial
+      material.color.copy(targetColor)
       
       const isVisible = i < visibleCountRef.current
       line.visible = isVisible
