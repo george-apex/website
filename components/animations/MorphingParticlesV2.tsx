@@ -16,12 +16,12 @@ const POINTS_PER_LINE = 32
 const CAR_SCALE = 2.5
 
 const MODELS = [
-  { name: 'lightbulb', data: LIGHTBULB_WIREFRAME_DATA, scale: 1.6 },
-  { name: 'padlock', data: PADLOCK_WIREFRAME_DATA, scale: 1.8 },
-  { name: 'folder', data: FOLDER_WIREFRAME_DATA, scale: 1.8 },
-  { name: 'barChart', data: BAR_CHART_WIREFRAME_DATA, scale: 2.0 },
-  { name: 'vaultDoor', data: VAULTDOOR_WIREFRAME_DATA, scale: 1.5 },
-  { name: 'f1', data: F1_WIREFRAME_DATA, scale: CAR_SCALE },
+  { name: 'lightbulb', data: LIGHTBULB_WIREFRAME_DATA, scale: 1.6, useNormalBlending: false },
+  { name: 'padlock', data: PADLOCK_WIREFRAME_DATA, scale: 1.8, useNormalBlending: true },
+  { name: 'folder', data: FOLDER_WIREFRAME_DATA, scale: 1.8, useNormalBlending: false },
+  { name: 'barChart', data: BAR_CHART_WIREFRAME_DATA, scale: 2.0, useNormalBlending: true },
+  { name: 'vaultDoor', data: VAULTDOOR_WIREFRAME_DATA, scale: 1.5, useNormalBlending: true },
+  { name: 'f1', data: F1_WIREFRAME_DATA, scale: CAR_SCALE, useNormalBlending: false },
 ]
 
 function generateModelWireframe(modelIndex: number): THREE.Vector3[][] {
@@ -328,6 +328,10 @@ function SculptureLines() {
       
       const material = line.material as THREE.LineBasicMaterial
       material.color.copy(targetColor)
+      
+      const currentModel = MODELS[currentModelIndexRef.current]
+      const useNormalBlending = currentModel?.useNormalBlending && phase !== 'idle'
+      material.blending = useNormalBlending ? THREE.NormalBlending : THREE.AdditiveBlending
       
       const isVisible = i < visibleCountRef.current
       line.visible = isVisible
