@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { NewHero, CapabilitiesSection, IntelligenceLayer } from '@/components/landing'
+import { TesseractHero, CapabilitiesSection, IntelligenceLayer } from '@/components/landing'
 import { ApexMetaphor } from '@/components/sections/ApexMetaphor'
 import { ALICEResponseDemo } from '@/components/sections/ALICEResponseDemo'
 import { CTASection } from '@/components/sections/CTASection'
@@ -21,7 +21,7 @@ export default function Home() {
   const sectionContent: Record<string, React.ReactNode> = {
     home: (
       <>
-        <NewHero />
+        <TesseractHero />
         <IntelligenceLayer />
         <CapabilitiesSection />
       </>

@@ -115,12 +115,17 @@ interface LineData {
   nodeBType: 'inner' | 'outer' | 'extra'
 }
 
-type Phase = 'idle' | 'morphing_to_model' | 'showing_model' | 'morphing_to_idle'
+export type Phase = 'idle' | 'morphing_to_model' | 'showing_model' | 'morphing_to_idle'
 
-function SculptureLines() {
+interface SculptureLinesProps {
+  onPhaseChange?: (phase: Phase) => void
+}
+
+function SculptureLines({ onPhaseChange }: SculptureLinesProps) {
   const groupRef = useRef<THREE.Group>(null)
   const linesDataRef = useRef<LineData[]>([])
   const [phase, setPhase] = useState<Phase>('idle')
+  const prevPhaseRef = useRef<Phase>('idle')
   const phaseStartRef = useRef(0)
   const morphProgressRef = useRef(0)
   const visibleCountRef = useRef(CHAOS_LINE_COUNT)
@@ -130,6 +135,14 @@ function SculptureLines() {
   const idleDurationRef = useRef(4)
   const currentModelIndexRef = useRef(0)
   const currentLineCountRef = useRef(getModelLineCount(0))
+  
+  // Notify parent of phase changes
+  useEffect(() => {
+    if (onPhaseChange && phase !== prevPhaseRef.current) {
+      prevPhaseRef.current = phase
+      onPhaseChange(phase)
+    }
+  }, [phase, onPhaseChange])
   
   const targetLines = useMemo(() => generateModelWireframe(0, MAX_LINE_COUNT), [])
   
@@ -572,9 +585,10 @@ function CameraRig() {
 
 interface MorphingParticlesV2Props {
   className?: string
+  onPhaseChange?: (phase: Phase) => void
 }
 
-export function MorphingParticlesV2({ className = '' }: MorphingParticlesV2Props) {
+export function MorphingParticlesV2({ className = '', onPhaseChange }: MorphingParticlesV2Props) {
   return (
     <div className={`w-full h-full ${className}`}>
       <Canvas
@@ -586,7 +600,7 @@ export function MorphingParticlesV2({ className = '' }: MorphingParticlesV2Props
         <pointLight position={[10, 10, 10]} intensity={0.4} color="#306BFF" />
         <pointLight position={[-10, 5, -10]} intensity={0.2} color="#4A90D9" />
         
-        <SculptureLines />
+        <SculptureLines onPhaseChange={onPhaseChange} />
         <GlowParticles />
         <CameraRig />
       </Canvas>
