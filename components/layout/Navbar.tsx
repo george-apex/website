@@ -4,7 +4,7 @@ import * as React from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, ChevronDown } from 'lucide-react'
+import { Menu, X, ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { SITE_CONFIG } from '@/lib/constants'
@@ -364,9 +364,9 @@ export function Navbar() {
                                 <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-accent rounded-full" />
                               )}
                             </span>
-                            <ChevronDown className={cn(
+                            <ChevronRight className={cn(
                               'w-4 h-4 transition-transform duration-200',
-                              isExpanded && 'rotate-180'
+                              isExpanded && 'rotate-90'
                             )} />
                           </button>
                         ) : (

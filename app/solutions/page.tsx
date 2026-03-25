@@ -418,7 +418,7 @@ export default function SolutionsPage() {
 
       <div className="relative z-10">
         {/* Hero Section */}
-        <section className="pt-32 pb-20 lg:pt-40 lg:pb-28">
+        <section className="pt-8 pb-8 min-[393px]:pt-32 min-[393px]:pb-12 lg:pt-40 lg:pb-16">
           <div className="container-main">
             <motion.div 
               className="text-center"
@@ -440,7 +440,7 @@ export default function SolutionsPage() {
         </section>
 
         {/* Interactive Solutions Grid */}
-        <section className="py-16 lg:py-24">
+        <section className="py-8 lg:py-16">
           <div className="container-main">
             <motion.div
               initial={{ opacity: 0, y: 20 }}

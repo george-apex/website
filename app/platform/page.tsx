@@ -16,7 +16,7 @@ export default function PlatformPage() {
 
       <div className="relative z-10">
         {/* Minimal Hero */}
-        <section className="pt-28 pb-8 lg:pt-36 lg:pb-12">
+        <section className="pt-8 pb-8 min-[393px]:pt-28 lg:pt-36 lg:pb-12">
           <div className="container-main">
             <motion.div 
               className="max-w-2xl mx-auto text-center"

@@ -394,7 +394,7 @@ export default function SecurityPage() {
 
       <div className="relative z-20">
         {/* Hero Section */}
-        <section className="pt-32 pb-16 lg:pt-40 lg:pb-24">
+        <section className="pt-8 pb-16 min-[393px]:pt-32 lg:pt-40 lg:pb-24">
           <div className="container-main">
             <motion.div 
               className="max-w-4xl mx-auto text-center"

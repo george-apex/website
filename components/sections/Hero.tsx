@@ -16,7 +16,7 @@ export function Hero() {
       <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-radial-data opacity-30 pointer-events-none" />
 
       {/* Content */}
-      <div className="container-main relative z-10 pt-32 lg:pt-0">
+      <div className="container-main relative z-10 pt-8 min-[393px]:pt-32 lg:pt-0">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left side - Text content */}
           <div className="max-w-xl">

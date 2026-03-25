@@ -4,7 +4,7 @@ import * as React from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Plus, X, ArrowLeft } from 'lucide-react'
+import { Plus, X, ArrowLeft, ChevronRight } from 'lucide-react'
 import { NAV_LINKS, HoverContext } from './Navbar'
 
 const GOLDEN_RATIO = 1.618
@@ -139,7 +139,7 @@ export function MobileFloatingNav() {
                 className="bg-surface-800/95 backdrop-blur-xl border border-blue-500/50 rounded-xl flex items-center justify-center text-content-primary font-bold text-xs"
                 style={{ width: BUTTON_WIDTH, height: BUTTON_HEIGHT }}
               >
-                Home
+                <span className="w-full h-full flex items-center justify-center gap-0.5">Home<ChevronRight className="w-3 h-3" /></span>
               </motion.button>
               <motion.button
                 custom={1}
@@ -151,7 +151,7 @@ export function MobileFloatingNav() {
                 className="bg-surface-800/95 backdrop-blur-xl border border-blue-500/50 rounded-xl flex items-center justify-center text-content-primary font-bold text-xs"
                 style={{ width: BUTTON_WIDTH, height: BUTTON_HEIGHT }}
               >
-                Products
+                <span className="w-full h-full flex items-center justify-center gap-0.5">Products<ChevronRight className="w-3 h-3" /></span>
               </motion.button>
               <motion.button
                 custom={2}

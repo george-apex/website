@@ -32,7 +32,7 @@ export default function Home() {
   }
 
   return (
-    <div className="relative bg-surface-900 min-h-screen">
+    <div className="relative bg-surface-900">
       <AnimatePresence mode="wait">
         {HOME_SUB_TABS.map((section) => (
           activeHomeSection === section.id && (

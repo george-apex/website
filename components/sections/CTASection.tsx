@@ -98,7 +98,7 @@ export function CTASection() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
 
   return (
-    <section id="contact" className="relative overflow-hidden bg-surface-800 pt-28 min-[800px]:mt-36 min-[800px]:pt-16">
+    <section id="contact" className="relative overflow-hidden bg-surface-800 pt-8 pb-16 min-[393px]:pt-28 min-[800px]:mt-36 min-[800px]:pt-16 min-[800px]:pb-20">
       {/* Background grid */}
       <div className="absolute inset-0 top-36 bg-grid opacity-30" />
       
@@ -336,7 +336,7 @@ export function CTASection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-20 max-[393px]:mt-0"
+          className="mt-20 mb-4 max-[393px]:mt-0"
         >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
