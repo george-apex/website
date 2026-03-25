@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Section } from '@/components/ui/section'
-import { MorphingParticlesV2 } from '@/components/animations/MorphingParticlesV2'
+import { LastMileAnimation } from '@/components/animations/LastMileAnimation'
 
 export function ApexMetaphor() {
   const containerRef = React.useRef<HTMLDivElement>(null)
@@ -21,7 +21,7 @@ export function ApexMetaphor() {
         }}
       />
       <div className="absolute inset-0 z-0 w-[60%] left-0 -translate-y-8 overflow-visible">
-        <MorphingParticlesV2 className="w-full h-full" />
+        <LastMileAnimation className="w-full h-full" />
       </div>
 
       <div ref={containerRef} className="relative z-10 max-w-6xl mx-auto">
