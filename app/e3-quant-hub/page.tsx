@@ -1094,209 +1094,100 @@ const demoResponsesData: Record<string, StructuredResponse> = {
   }
 }
 
-// Tool Categories Data
+// Tool Categories Data - Reorganized into 3 Main Groups
 const toolCategories = [
   {
-    id: 'sarimax',
-    title: 'SARIMAX',
-    subtitle: 'Seasonal Forecasting with Exogenous Variables',
-    icon: TrendingUp,
-    color: 'from-emerald-500 to-teal-500',
-    description: 'Forecast asset prices with seasonal patterns and external factors like oil prices, sector ETFs, and macro indicators.',
-    queries: [
-      { title: 'Energy Sector Forecast', prompt: 'Use SARIMAX to forecast XOM (ExxonMobil) stock price for the next 10 trading days, including CL (Crude Oil WTI) as an exogenous variable.' },
-      { title: 'Tech Sector with Semiconductor Input', prompt: 'Fit a SARIMAX model forecasting NVDA using SOXL (semiconductor ETF) as an exogenous regressor. Use 2 years of daily data.' }
-    ]
-  },
-  {
-    id: 'vecm',
-    title: 'VECM',
-    subtitle: 'Cointegration & Pairs Trading',
-    icon: GitBranch,
-    color: 'from-blue-500 to-indigo-500',
-    description: 'Identify long-run equilibrium relationships between assets for pairs trading and mean-reverting strategies.',
-    queries: [
-      { title: 'Coca-Cola vs Pepsi Pairs Trading', prompt: 'Fit a VECM model for KO and PEP to identify their cointegration relationship for a pairs trading strategy.' },
-      { title: 'Energy Sector Cointegration', prompt: 'Run a VECM analysis on XOM, CVX, and COP (major energy stocks) for a mean-reverting portfolio strategy.' },
-      { title: 'Gold Miners Cointegration', prompt: 'Analyze the cointegration between GDX, GLD, and GDXJ using VECM.' }
-    ]
-  },
-  {
-    id: 'gjr-garch',
-    title: 'GJR-GARCH',
-    subtitle: 'Asymmetric Volatility Modeling',
-    icon: Activity,
-    color: 'from-red-500 to-orange-500',
-    description: 'Model the leverage effect where negative shocks impact volatility more than positive shocks of equal magnitude.',
-    queries: [
-      { title: 'Leverage Effect in Tech Stocks', prompt: 'Fit a GJR-GARCH model to TSLA to quantify the leverage effect.' },
-      { title: 'Volatility Asymmetry Comparison', prompt: 'Compare the leverage effect between SPY and QQQ using GJR-GARCH.' },
-      { title: 'Financial Sector Volatility', prompt: 'Model the asymmetric volatility of JPM using GJR-GARCH for risk management.' }
-    ]
-  },
-  {
-    id: 'har',
-    title: 'HAR Model',
-    subtitle: 'Realized Volatility',
+    id: 'statistical-analysis',
+    title: 'Statistical Analysis',
+    subtitle: 'Volatility, Cointegration & Systemic Risk',
     icon: BarChart3,
     color: 'from-purple-500 to-pink-500',
-    description: 'Decompose realized volatility into daily, weekly, and monthly components to understand long-memory effects.',
+    description: 'Core econometric tools for volatility modeling, cointegration analysis, systemic risk assessment, and machine learning validation.',
     queries: [
-      { title: 'Multi-Horizon Volatility Decomposition', prompt: 'Fit a HAR model to SPY to decompose realized volatility into daily, weekly, and monthly components.' },
-      { title: 'Cross-Asset Volatility Comparison', prompt: 'Compare HAR model forecasts for BTC-USD vs GLD.' }
+      // VECM - Cointegration
+      { title: 'VECM: KO vs PEP Pairs Trading', prompt: 'Fit a VECM model for KO and PEP to identify their cointegration relationship for a pairs trading strategy.' },
+      { title: 'VECM: Energy Sector Cointegration', prompt: 'Run a VECM analysis on XOM, CVX, and COP (major energy stocks) for a mean-reverting portfolio strategy.' },
+      // GJR-GARCH - Asymmetric Volatility
+      { title: 'GJR-GARCH: Leverage Effect in Tech', prompt: 'Fit a GJR-GARCH model to TSLA to quantify the leverage effect.' },
+      { title: 'GJR-GARCH: Volatility Comparison', prompt: 'Compare the leverage effect between SPY and QQQ using GJR-GARCH.' },
+      // HAR - Realized Volatility
+      { title: 'HAR: Multi-Horizon Volatility', prompt: 'Fit a HAR model to SPY to decompose realized volatility into daily, weekly, and monthly components.' },
+      { title: 'HAR: Cross-Asset Volatility', prompt: 'Compare HAR model forecasts for BTC-USD vs GLD.' },
+      // Spillover - Systemic Risk
+      { title: 'Spillover: Banking Sector Risk', prompt: 'Calculate the Diebold-Yilmaz spillover index for JPM, BAC, WFC, C, and GS (major US banks).' },
+      { title: 'Spillover: Cross-Asset Contagion', prompt: 'Analyze spillovers between SPY, TLT, GLD, and BTC-USD.' },
+      // Impulse Response - Shock Transmission
+      { title: 'Impulse: Fed Policy Transmission', prompt: 'Analyze the impulse response of SPY to a shock in TLT (Treasury yields proxy).' },
+      { title: 'Impulse: Oil-to-Energy Transmission', prompt: 'Run an impulse response analysis showing how a shock to USO affects XOM.' },
+      // Purged CV - ML Validation
+      { title: 'Purged CV: ML Model Validation', prompt: 'Run purged cross-validation on SPY using XGBoost to predict 5-day forward returns.' },
+      { title: 'Purged CV: Model Comparison', prompt: 'Compare XGBoost, Random Forest, and Linear Regression using purged cross-validation.' },
     ]
   },
   {
-    id: 'spillover',
-    title: 'Spillover Index',
-    subtitle: 'Diebold-Yilmaz Connectedness',
-    icon: Network,
-    color: 'from-cyan-500 to-blue-500',
-    description: 'Analyze systemic risk and shock transmission between assets using network analysis.',
+    id: 'forecasting',
+    title: 'Forecasting',
+    subtitle: 'Price & Macro-Economic Predictions',
+    icon: TrendingUp,
+    color: 'from-emerald-500 to-teal-500',
+    description: 'Time series forecasting tools for price predictions, seasonal patterns, and macro-economic analysis with exogenous variables.',
     queries: [
-      { title: 'Banking Sector Systemic Risk', prompt: 'Calculate the Diebold-Yilmaz spillover index for JPM, BAC, WFC, C, and GS (major US banks).' },
-      { title: 'Cross-Asset Contagion', prompt: 'Analyze spillovers between SPY, TLT, GLD, and BTC-USD.' },
-      { title: 'Sector Rotation Spillovers', prompt: 'Calculate spillover indices for XLF, XLK, XLE, XLV, and XLY.' }
+      // SARIMAX - Seasonal Forecasting
+      { title: 'SARIMAX: Energy Sector Forecast', prompt: 'Use SARIMAX to forecast XOM (ExxonMobil) stock price for the next 10 trading days, including CL (Crude Oil WTI) as an exogenous variable.' },
+      { title: 'SARIMAX: Tech with Semiconductor Input', prompt: 'Fit a SARIMAX model forecasting NVDA using SOXL (semiconductor ETF) as an exogenous regressor. Use 2 years of daily data.' },
+      // Multi-Tool Analysis
+      { title: 'Multi-Tool: Volatility Pipeline', prompt: 'For AAPL, run GJR-GARCH and HAR model analysis with volatility forecasts.' },
+      { title: 'Multi-Tool: Pairs Trading Research', prompt: 'For a pairs trading strategy between CVX and XOM: test cointegration and calculate hedge ratios.' },
+      // Macro-Financial
+      { title: 'Macro: Interest Rate Sensitivity', prompt: 'Analyze interest rate sensitivity across sectors using spillover index.' },
+      { title: 'Macro: Inflation Hedge Analysis', prompt: 'For inflation hedging research: fit VECM for TIP, GLD, IEF, and VNQ.' },
     ]
   },
   {
-    id: 'impulse',
-    title: 'Impulse Response',
-    subtitle: 'Shock Transmission Analysis',
-    icon: Zap,
-    color: 'from-yellow-500 to-amber-500',
-    description: 'Trace how shocks to one asset propagate through the system over time.',
-    queries: [
-      { title: 'Fed Policy Transmission', prompt: 'Analyze the impulse response of SPY to a shock in TLT (Treasury yields proxy).' },
-      { title: 'Oil-to-Energy Transmission', prompt: 'Run an impulse response analysis showing how a shock to USO affects XOM.' },
-      { title: 'Crypto-to-Tech Transmission', prompt: 'Analyze the impulse response of QQQ to a shock in BTC-USD.' }
-    ]
-  },
-  {
-    id: 'combined',
-    title: 'Multi-Tool Analysis',
-    subtitle: 'Combined Workflows',
-    icon: Layers,
-    color: 'from-indigo-500 to-violet-500',
-    description: 'Complex analysis pipelines combining multiple econometric tools for comprehensive insights.',
-    queries: [
-      { title: 'Full Volatility Pipeline', prompt: 'For AAPL, run GJR-GARCH and HAR model analysis with volatility forecasts.' },
-      { title: 'Pairs Trading Research', prompt: 'For a pairs trading strategy between CVX and XOM: test cointegration and calculate hedge ratios.' },
-      { title: 'Systemic Risk Dashboard', prompt: 'Build a systemic risk dashboard for the financial sector.' }
-    ]
-  },
-  {
-    id: 'risk',
-    title: 'Risk Management',
-    subtitle: 'Advanced Risk Analytics',
+    id: 'portfolio-risk',
+    title: 'Portfolio & Risk Metrics',
+    subtitle: 'Risk Management & Strategy Validation',
     icon: Shield,
     color: 'from-rose-500 to-red-500',
-    description: 'Comprehensive risk assessment including tail risk, volatility regimes, and market connectedness.',
+    description: 'Comprehensive risk assessment, strategy backtesting, parameter optimization, and overfitting detection for robust portfolio management.',
     queries: [
-      { title: 'Tail Risk & Volatility Integration', prompt: 'For a risk report on QQQ: calculate tail risk metrics and fit GJR-GARCH.' },
-      { title: 'Volatility Regime Detection', prompt: 'For SPY: detect Markov regimes and analyze current volatility regime.' }
-    ]
-  },
-  {
-    id: 'strategy',
-    title: 'Strategy Development',
-    subtitle: 'Quantitative Trading Strategies',
-    icon: LineChartIcon,
-    color: 'from-green-500 to-emerald-500',
-    description: 'Research and validate mean-reversion and volatility trading strategies.',
-    queries: [
-      { title: 'Mean-Reversion Strategy Research', prompt: 'For a mean-reversion strategy on GLD: calculate Hurst exponent and half-life.' },
-      { title: 'Volatility Trading Strategy', prompt: 'For a volatility trading strategy on VIX-related products.' }
-    ]
-  },
-  {
-    id: 'macro',
-    title: 'Macro-Financial',
-    subtitle: 'Interest Rate & Inflation Analysis',
-    icon: Building2,
-    color: 'from-slate-500 to-zinc-500',
-    description: 'Analyze interest rate sensitivity and inflation hedging across asset classes.',
-    queries: [
-      { title: 'Interest Rate Sensitivity', prompt: 'Analyze interest rate sensitivity across sectors using spillover index.' },
-      { title: 'Inflation Hedge Analysis', prompt: 'For inflation hedging research: fit VECM for TIP, GLD, IEF, and VNQ.' }
-    ]
-  },
-  {
-    id: 'backtest',
-    title: 'Backtesting',
-    subtitle: 'Transaction Cost Analysis',
-    icon: TestTube,
-    color: 'from-teal-500 to-cyan-500',
-    description: 'Realistic backtesting with transaction costs, slippage models, and execution analysis.',
-    queries: [
-      { title: 'Transaction Cost Impact', prompt: 'Backtest a moving average crossover strategy on SPY with realistic transaction costs.' },
-      { title: 'Strategy Comparison with Costs', prompt: 'Compare three strategies on QQQ with transaction costs and slippage.' },
-      { title: 'HFT Cost Analysis', prompt: 'Analyze transaction costs for a high-turnover RSI mean reversion strategy.' }
-    ]
-  },
-  {
-    id: 'purged-cv',
-    title: 'Purged Cross-Validation',
-    subtitle: 'ML Model Validation',
-    icon: FlaskConical,
-    color: 'from-violet-500 to-purple-500',
-    description: 'Prevent data leakage in time-series cross-validation for machine learning models.',
-    queries: [
-      { title: 'ML Model Validation', prompt: 'Run purged cross-validation on SPY using XGBoost to predict 5-day forward returns.' },
-      { title: 'Model Comparison', prompt: 'Compare XGBoost, Random Forest, and Linear Regression using purged cross-validation.' }
-    ]
-  },
-  {
-    id: 'sensitivity',
-    title: 'Parameter Sensitivity',
-    subtitle: 'Optimization & Robustness',
-    icon: Settings,
-    color: 'from-orange-500 to-yellow-500',
-    description: 'Analyze strategy performance across parameter ranges to identify optimal settings.',
-    queries: [
-      { title: 'MA Crossover Optimization', prompt: 'Run parameter sensitivity analysis for MA crossover on SPY.' },
-      { title: 'Strategy Robustness Check', prompt: 'Analyze parameter sensitivity of RSI mean reversion on GLD.' }
-    ]
-  },
-  {
-    id: 'overfitting',
-    title: 'Overfitting Detection',
-    subtitle: 'CSCV Framework',
-    icon: AlertTriangle,
-    color: 'from-red-600 to-rose-500',
-    description: 'Detect backtest overfitting using Combinatorially Symmetric Cross-Validation.',
-    queries: [
-      { title: 'Overfitting Risk Assessment', prompt: 'Detect backtest overfitting for MA crossover on SPY using CSCV.' },
-      { title: 'Performance Degradation', prompt: 'Estimate expected performance degradation using CSCV.' }
-    ]
-  },
-  {
-    id: 'workflows',
-    title: 'Full Workflows',
-    subtitle: 'End-to-End Analysis',
-    icon: Database,
-    color: 'from-sky-500 to-blue-500',
-    description: 'Complete analytical workflows combining multiple tools for comprehensive strategy validation.',
-    queries: [
-      { title: 'Full Strategy Development', prompt: 'Develop and validate a trading strategy for SPY with full analysis pipeline.' },
-      { title: 'Multi-Strategy Portfolio', prompt: 'Compare three strategies for portfolio allocation.' },
-      { title: 'Sector Rotation Strategy', prompt: 'Backtest a sector rotation strategy using MA crossover.' }
+      // Risk Management
+      { title: 'Risk: Tail Risk Analysis', prompt: 'For a risk report on QQQ: calculate tail risk metrics and fit GJR-GARCH.' },
+      { title: 'Risk: Volatility Regime Detection', prompt: 'For SPY: detect Markov regimes and analyze current volatility regime.' },
+      // Strategy Development
+      { title: 'Strategy: Mean-Reversion Research', prompt: 'For a mean-reversion strategy on GLD: calculate Hurst exponent and half-life.' },
+      { title: 'Strategy: Volatility Trading', prompt: 'For a volatility trading strategy on VIX-related products.' },
+      // Backtesting
+      { title: 'Backtest: Transaction Cost Impact', prompt: 'Backtest a moving average crossover strategy on SPY with realistic transaction costs.' },
+      { title: 'Backtest: Strategy Comparison', prompt: 'Compare three strategies on QQQ with transaction costs and slippage.' },
+      // Parameter Sensitivity
+      { title: 'Sensitivity: MA Optimization', prompt: 'Run parameter sensitivity analysis for MA crossover on SPY.' },
+      { title: 'Sensitivity: Robustness Check', prompt: 'Analyze parameter sensitivity of RSI mean reversion on GLD.' },
+      // Overfitting Detection
+      { title: 'Overfitting: CSCV Assessment', prompt: 'Detect backtest overfitting for MA crossover on SPY using CSCV.' },
+      { title: 'Overfitting: Performance Degradation', prompt: 'Estimate expected performance degradation using CSCV.' },
+      // Full Workflows
+      { title: 'Workflow: Full Strategy Dev', prompt: 'Develop and validate a trading strategy for SPY with full analysis pipeline.' },
+      { title: 'Workflow: Multi-Strategy Portfolio', prompt: 'Compare three strategies for portfolio allocation.' },
     ]
   }
 ]
 
-// Tool Reference Table Data
+// Tool Reference Table Data - Organized by Category
 const toolReference = [
-  { tool: 'fit_sarimax', bestFor: 'Seasonal forecasting with external factors', keyOutput: 'Price forecasts, model diagnostics' },
-  { tool: 'fit_vecm', bestFor: 'Pairs trading, cointegration', keyOutput: 'Hedge ratio, adjustment speeds' },
-  { tool: 'fit_gjr_garch', bestFor: 'Asymmetric volatility, leverage effect', keyOutput: 'Volatility forecast, asymmetry ratio' },
-  { tool: 'fit_har_model', bestFor: 'Realized volatility, long memory', keyOutput: 'Horizon decomposition, vol forecast' },
-  { tool: 'calculate_spillover_index', bestFor: 'Systemic risk, connectedness', keyOutput: 'Total/directional spillovers' },
-  { tool: 'analyze_impulse_response', bestFor: 'Transmission mechanisms', keyOutput: 'Peak response, decay period' },
-  { tool: 'backtest_with_costs', bestFor: 'Realistic cost analysis', keyOutput: 'Net/gross returns, cost breakdown' },
-  { tool: 'purged_cross_validation', bestFor: 'ML model validation', keyOutput: 'IC, leakage detection' },
-  { tool: 'parameter_sensitivity_analysis', bestFor: 'Parameter optimization', keyOutput: 'Optimal params, stability scores' },
-  { tool: 'detect_backtest_overfitting', bestFor: 'Strategy robustness', keyOutput: 'PBO, degradation estimate' },
+  // Statistical Analysis
+  { tool: 'fit_vecm', bestFor: 'Pairs trading, cointegration', keyOutput: 'Hedge ratio, adjustment speeds', category: 'Statistical' },
+  { tool: 'fit_gjr_garch', bestFor: 'Asymmetric volatility, leverage effect', keyOutput: 'Volatility forecast, asymmetry ratio', category: 'Statistical' },
+  { tool: 'fit_har_model', bestFor: 'Realized volatility, long memory', keyOutput: 'Horizon decomposition, vol forecast', category: 'Statistical' },
+  { tool: 'calculate_spillover_index', bestFor: 'Systemic risk, connectedness', keyOutput: 'Total/directional spillovers', category: 'Statistical' },
+  { tool: 'analyze_impulse_response', bestFor: 'Transmission mechanisms', keyOutput: 'Peak response, decay period', category: 'Statistical' },
+  { tool: 'purged_cross_validation', bestFor: 'ML model validation', keyOutput: 'IC, leakage detection', category: 'Statistical' },
+  // Forecasting
+  { tool: 'fit_sarimax', bestFor: 'Seasonal forecasting with external factors', keyOutput: 'Price forecasts, model diagnostics', category: 'Forecasting' },
+  // Portfolio & Risk
+  { tool: 'backtest_with_costs', bestFor: 'Realistic cost analysis', keyOutput: 'Net/gross returns, cost breakdown', category: 'Portfolio & Risk' },
+  { tool: 'parameter_sensitivity_analysis', bestFor: 'Parameter optimization', keyOutput: 'Optimal params, stability scores', category: 'Portfolio & Risk' },
+  { tool: 'detect_backtest_overfitting', bestFor: 'Strategy robustness', keyOutput: 'PBO, degradation estimate', category: 'Portfolio & Risk' },
 ]
 
 // Chart Components
@@ -2124,10 +2015,10 @@ function FloatingStats() {
       transition={{ duration: 0.6, delay: 0.3 }}
     >
       {[
-        { label: 'Econometric Tools', value: '79', suffix: '' },
-        { label: 'Tool Categories', value: '15', suffix: '' },
-        { label: 'Demo Queries', value: '46', suffix: '' },
-        { label: 'Production Grade', value: '100', suffix: '%' },
+        { label: 'Econometric Tools', value: '15', suffix: '' },
+        { label: 'Tool Categories', value: '3', suffix: '' },
+        { label: 'Demo Queries', value: '35', suffix: '' },
+        { label: 'Institutional Grade', value: '100', suffix: '%' },
       ].map((stat, i) => (
         <motion.div
           key={i}
@@ -2332,7 +2223,7 @@ export default function E3QuantHubPage() {
               >
                 E3 Quant Hub
                 <span className="block text-2xl lg:text-3xl font-medium text-content-secondary mt-2">
-                  Production-Grade Econometrics & Backtesting
+                  A.I. Powered Quantitative Analysis & Backtesting
                 </span>
               </motion.h1>
               
@@ -2342,7 +2233,7 @@ export default function E3QuantHubPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                79 tools across 8 categories designed for BlackRock & Vanguard institutional clients. 
+                15 econometric tools across 3 categories designed for institutional clients. 
                 From SARIMAX forecasting to CSCV overfitting detection, explore demo queries that showcase 
                 institutional-grade quantitative analysis.
               </motion.p>
@@ -2421,31 +2312,40 @@ export default function E3QuantHubPage() {
               <h2 className="text-2xl lg:text-3xl font-semibold text-content-primary mb-3">
                 Built for Institutional Clients
               </h2>
+              <p className="text-content-secondary max-w-xl mx-auto">
+                Trusted by hedge funds, asset managers, and trading desks worldwide
+              </p>
             </motion.div>
 
-            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
               {[
                 {
-                  name: 'BlackRock',
-                  subtitle: 'Aladdin Platform Users',
-                  tools: ['Spillover Index - Systemic risk monitoring', 'VECM - Pairs trading & stat arb', 'Impulse Response - Factor transmission'],
+                  title: 'Risk Management Teams',
+                  description: 'Comprehensive tail risk metrics, VaR analysis, and volatility regime detection for portfolio protection.',
+                  tools: ['Spillover Index - Systemic risk monitoring', 'GJR-GARCH - Asymmetric volatility modeling', 'HAR Model - Multi-horizon forecasting'],
                 },
                 {
-                  name: 'Vanguard',
-                  subtitle: 'Index Fund Managers',
-                  tools: ['HAR Model - Volatility forecasting for index tracking', 'GJR-GARCH - Risk management for index funds', 'SARIMAX - Seasonal patterns in index flows'],
+                  title: 'Quantitative Researchers',
+                  description: 'End-to-end strategy development with backtesting, optimization, and robustness validation.',
+                  tools: ['VECM - Pairs trading & stat arb', 'Backtesting - Transaction cost analysis', 'CSCV - Overfitting detection'],
+                },
+                {
+                  title: 'Portfolio Managers',
+                  description: 'Real-time forecasting and macro-economic analysis for tactical allocation decisions.',
+                  tools: ['SARIMAX - Seasonal forecasting', 'Macro-Financial - Rate sensitivity', 'Impulse Response - Factor transmission'],
                 }
               ].map((client, i) => (
                 <motion.div
                   key={i}
                   className="bg-surface-800/50 border border-border rounded-xl p-6"
-                  initial={{ opacity: 0, x: i === 0 ? -20 : 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
                   whileHover={{ borderColor: 'rgba(var(--accent-rgb), 0.3)' }}
                 >
-                  <h3 className="text-xl font-semibold text-content-primary mb-1">{client.name}</h3>
-                  <p className="text-sm text-accent mb-4">{client.subtitle}</p>
+                  <h3 className="text-lg font-semibold text-content-primary mb-2">{client.title}</h3>
+                  <p className="text-sm text-content-secondary mb-4">{client.description}</p>
                   <div className="space-y-2">
                     {client.tools.map((tool, j) => (
                       <div key={j} className="flex items-start gap-2">
@@ -2474,7 +2374,7 @@ export default function E3QuantHubPage() {
                 Ready to Transform Your Quantitative Workflow?
               </h2>
               <p className="text-content-secondary mb-8">
-                Access 79 production-grade econometric tools with natural language queries. 
+                Access 15 production-grade econometric tools across 3 categories with natural language queries. 
                 Schedule a consultation to deploy E3 Quant Hub in your infrastructure.
               </p>
               <div className="flex flex-wrap justify-center gap-3">
