@@ -41,7 +41,7 @@ export const FOOTER_LINKS = {
   company: [
     { label: 'About', href: '/about' },
     { label: 'Careers', href: '/careers' },
-    { label: 'Blog', href: '/blog' },
+    { label: 'Testimonials', href: '/testimonials' },
     { label: 'Press', href: '/press' },
     { label: 'Contact', href: '/contact' },
   ],
