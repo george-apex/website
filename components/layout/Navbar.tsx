@@ -30,9 +30,9 @@ export const NAV_LINKS: NavLink[] = [
     href: '/',
     subTabs: [
       { id: 'home', label: 'APEX:E3', shortLabel: 'APEX:E3' },
+      { id: 'about', label: 'About Us', shortLabel: 'About' },
       { id: 'last-mile', label: 'The Last Mile', shortLabel: 'Last Mile' },
       { id: 'demo', label: 'Interactive Demo', shortLabel: 'Live Demo' },
-      { id: 'about', label: 'About Us', shortLabel: 'About' },
     ]
   },
   { 

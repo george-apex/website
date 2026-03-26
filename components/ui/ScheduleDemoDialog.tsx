@@ -1,8 +1,9 @@
 'use client'
 
 import * as React from 'react'
+import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowRight, Calendar, MessageSquare, Sparkles, Zap, Target } from 'lucide-react'
+import { ArrowRight, Calendar, Sparkles, Zap, Target } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 
@@ -126,7 +127,14 @@ export function ScheduleDemoDialog({ trigger, open, onOpenChange }: ScheduleDemo
                     <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                   </Button>
                   <p className="text-xs text-content-tertiary text-center">
-                    By submitting, you agree to our Privacy Policy and Terms of Service.
+                    By submitting, you agree to our{' '}
+                    <Link href="/privacy" className="text-accent hover:text-accent-light transition-colors">
+                      Privacy Policy
+                    </Link>{' '}
+                    and{' '}
+                    <Link href="/terms" className="text-accent hover:text-accent-light transition-colors">
+                      Terms of Service
+                    </Link>.
                   </p>
                 </form>
               </div>

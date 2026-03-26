@@ -2,9 +2,11 @@
 
 import * as React from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Twitter, Linkedin, Github, Mail } from 'lucide-react'
 import { SITE_CONFIG, FOOTER_LINKS } from '@/lib/constants'
+import { HoverContext } from './Navbar'
 
 const socialLinks = [
   { name: 'Twitter', href: SITE_CONFIG.links.twitter, icon: Twitter },
@@ -15,6 +17,14 @@ const socialLinks = [
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
+  const router = useRouter()
+  const { setActiveHomeSection } = React.useContext(HoverContext)
+
+  const handleAboutClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    setActiveHomeSection('about')
+    router.push('/')
+  }
 
   return (
     <footer className="relative bg-surface-900 border-t border-border overflow-hidden">
@@ -89,12 +99,21 @@ export function Footer() {
             <ul className="space-y-3">
               {FOOTER_LINKS.company.map((link) => (
                 <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-body-sm text-content-secondary hover:text-content-primary transition-colors duration-200"
-                  >
-                    {link.label}
-                  </Link>
+                  {link.label === 'About' ? (
+                    <button
+                      onClick={handleAboutClick}
+                      className="text-body-sm text-content-secondary hover:text-content-primary transition-colors duration-200"
+                    >
+                      {link.label}
+                    </button>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      className="text-body-sm text-content-secondary hover:text-content-primary transition-colors duration-200"
+                    >
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
@@ -127,12 +146,28 @@ export function Footer() {
             <ul className="space-y-3">
               {FOOTER_LINKS.legal.map((link) => (
                 <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-body-sm text-content-secondary hover:text-content-primary transition-colors duration-200"
-                  >
-                    {link.label}
-                  </Link>
+                  {link.label === 'Terms of Service' ? (
+                    <Link
+                      href="/terms"
+                      className="text-body-sm text-content-secondary hover:text-content-primary transition-colors duration-200"
+                    >
+                      Terms of Service
+                    </Link>
+                  ) : link.label === 'Privacy Policy' ? (
+                    <Link
+                      href="/privacy"
+                      className="text-body-sm text-content-secondary hover:text-content-primary transition-colors duration-200"
+                    >
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      className="text-body-sm text-content-secondary hover:text-content-primary transition-colors duration-200"
+                    >
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
