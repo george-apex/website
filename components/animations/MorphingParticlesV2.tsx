@@ -22,10 +22,10 @@ const MODELS = [
   { name: 'neuralPrism', data: NEURAL_PRISM_WIREFRAME_DATA, scale: 1.6, rotationOffset: 0 },
   { name: 'lightbulb', data: LIGHTBULB_WIREFRAME_DATA, scale: 1.6, rotationOffset: 0 },
   { name: 'f1', data: F1_WIREFRAME_DATA, scale: CAR_SCALE, rotationOffset: 0 },
-  { name: 'vaultDoor', data: VAULTDOOR_WIREFRAME_DATA, scale: 1.5, rotationOffset: 0 },
-  { name: 'barChart', data: BAR_CHART_WIREFRAME_DATA, scale: 1.7, rotationOffset: 0 },
-  { name: 'folder', data: FOLDER_WIREFRAME_DATA, scale: 1.5, rotationOffset: 0 },
-  { name: 'padlock', data: PADLOCK_WIREFRAME_DATA, scale: 1.8, rotationOffset: 0 },
+  { name: 'vaultDoor', data: VAULTDOOR_WIREFRAME_DATA, scale: 1.5, rotationOffset: Math.PI },
+  { name: 'barChart', data: BAR_CHART_WIREFRAME_DATA, scale: 1.7, rotationOffset: -Math.PI / 2 },
+  { name: 'folder', data: FOLDER_WIREFRAME_DATA, scale: 1.5, rotationOffset: -Math.PI / 2 },
+  { name: 'padlock', data: PADLOCK_WIREFRAME_DATA, scale: 1.8, rotationOffset: -Math.PI / 2 },
 ]
 
 function getModelLineCount(modelIndex: number): number {
