@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import { SITE_CONFIG } from '@/lib/constants'
+import { ScheduleDemoDialog } from '@/components/ui/ScheduleDemoDialog'
 import { useScrollPosition } from '@/hooks'
 
 export interface SubTab {
@@ -32,7 +32,7 @@ export const NAV_LINKS: NavLink[] = [
       { id: 'home', label: 'APEX:E3', shortLabel: 'APEX:E3' },
       { id: 'last-mile', label: 'The Last Mile', shortLabel: 'Last Mile' },
       { id: 'demo', label: 'Interactive Demo', shortLabel: 'Live Demo' },
-      { id: 'cta', label: 'Get Started', shortLabel: 'Ready?' },
+      { id: 'about', label: 'About Us', shortLabel: 'About' },
     ]
   },
   { 
@@ -293,9 +293,9 @@ export function Navbar() {
 
             {/* Desktop CTA */}
             <div className="hidden min-[800px]:flex items-center gap-3">
-              <Link href="/contact">
-                <Button size="sm">Schedule Demo</Button>
-              </Link>
+              <ScheduleDemoDialog
+                trigger={<Button size="sm">Schedule Demo</Button>}
+              />
             </div>
 
             {/* Mobile Menu Button - visible between 394px and 799px */}
@@ -450,9 +450,9 @@ export function Navbar() {
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.3 }}
                 >
-                  <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)}>
-                    <Button className="w-full">Schedule Demo</Button>
-                  </Link>
+                  <ScheduleDemoDialog
+                    trigger={<Button className="w-full">Schedule Demo</Button>}
+                  />
                 </motion.div>
               </div>
             </motion.nav>

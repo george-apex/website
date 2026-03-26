@@ -68,3 +68,6 @@ export {
 } from './dialog'
 
 export { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './accordion'
+
+// Schedule Demo Dialog
+export { ScheduleDemoDialog } from './ScheduleDemoDialog'

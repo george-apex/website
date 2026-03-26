@@ -5,14 +5,14 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { TesseractHero, CapabilitiesSection, IntelligenceLayer } from '@/components/landing'
 import { ApexMetaphor } from '@/components/sections/ApexMetaphor'
 import { ALICEResponseDemo } from '@/components/sections/ALICEResponseDemo'
-import { CTASection } from '@/components/sections/CTASection'
+import { AboutSection } from '@/components/sections/AboutSection'
 import { HoverContext } from '@/components/layout/Navbar'
 
 const HOME_SUB_TABS = [
   { id: 'home', label: 'Home', shortLabel: 'Home' },
   { id: 'last-mile', label: 'The Last Mile', shortLabel: 'Last Mile' },
   { id: 'demo', label: 'Interactive Demo', shortLabel: 'Demo' },
-  { id: 'cta', label: 'Get Started', shortLabel: 'CTA' },
+  { id: 'about', label: 'About Us', shortLabel: 'About' },
 ]
 
 export default function Home() {
@@ -28,7 +28,7 @@ export default function Home() {
     ),
     'last-mile': <ApexMetaphor />,
     demo: <ALICEResponseDemo />,
-    cta: <CTASection />,
+    about: <AboutSection />,
   }
 
   return (
