@@ -3,21 +3,38 @@
 
 # OS files
 .DS_Store
+Thumbs.db
 
 # IDE
 .idea/
 .vscode/
+*.swp
+*.swo
 
 # Dependencies
-node_modules
+node_modules/
 
 # Next.js
-.next
+.next/
+out/
 
 # Vercel
-.vercel
+.vercel/
 
-# Other
-*.png
-dist/
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
 *.log
+npm-debug.log*
+
+# Misc
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.pdf
+dist/
