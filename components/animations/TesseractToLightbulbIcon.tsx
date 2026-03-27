@@ -10,9 +10,8 @@ const MAX_LINES = 4000 // Full lightbulb wireframe line count
 const POINTS_PER_LINE = 16
 
 // Generate lightbulb wireframe positions
-function generateLightbulbWireframe(maxLines: number): THREE.Vector3[][] {
+function generateLightbulbWireframe(maxLines: number, scale: number = 0.8, yOffset: number = 0.3): THREE.Vector3[][] {
   const lines: THREE.Vector3[][] = []
-  const scale = 0.8
   
   for (let i = 0; i < Math.min(LIGHTBULB_WIREFRAME_DATA.length, maxLines); i++) {
     const edge = LIGHTBULB_WIREFRAME_DATA[i]
@@ -24,7 +23,7 @@ function generateLightbulbWireframe(maxLines: number): THREE.Vector3[][] {
       const x = (p1[0] + (p2[0] - p1[0]) * t) * scale
       const y = (p1[1] + (p2[1] - p1[1]) * t) * scale
       const z = (p1[2] + (p2[2] - p1[2]) * t) * scale
-      line.push(new THREE.Vector3(x, y + 0.3, z))
+      line.push(new THREE.Vector3(x, y + yOffset, z))
     }
     lines.push(line)
   }
@@ -97,9 +96,11 @@ type Phase = 'tesseract' | 'morphing_to_lightbulb' | 'lightbulb' | 'morphing_to_
 
 interface MorphingIconProps {
   size?: number
+  lightbulbScale?: number
+  lightbulbYOffset?: number
 }
 
-function MorphingLines({ size = 40 }: MorphingIconProps) {
+function MorphingLines({ size = 40, lightbulbScale = 0.8, lightbulbYOffset = 0.3 }: MorphingIconProps) {
   const groupRef = useRef<THREE.Group>(null)
   const [phase, setPhase] = useState<Phase>('tesseract')
   const phaseStartRef = useRef(0)
@@ -107,7 +108,7 @@ function MorphingLines({ size = 40 }: MorphingIconProps) {
   const timeRef = useRef(0)
   
   const tesseractConnections = useMemo(() => generateTesseractConnections(), [])
-  const lightbulbLines = useMemo(() => generateLightbulbWireframe(MAX_LINES), [])
+  const lightbulbLines = useMemo(() => generateLightbulbWireframe(MAX_LINES, lightbulbScale, lightbulbYOffset), [lightbulbScale, lightbulbYOffset])
   
   // Timing configuration
   const tesseractDuration = 2.5
@@ -204,7 +205,7 @@ function MorphingLines({ size = 40 }: MorphingIconProps) {
     
     // Color interpolation
     const tesseractColor = new THREE.Color('#FFFFFF')
-    const lightbulbColor = new THREE.Color('#FBBF24') // Amber/yellow for lightbulb
+    const lightbulbColor = new THREE.Color('#60A5FA') // Blue for lightbulb
     
     let targetColor: THREE.Color
     if (phase === 'tesseract') {
@@ -350,9 +351,11 @@ function MorphingLines({ size = 40 }: MorphingIconProps) {
 interface TesseractToLightbulbIconProps {
   className?: string
   size?: number
+  lightbulbScale?: number
+  lightbulbYOffset?: number
 }
 
-export function TesseractToLightbulbIcon({ className = '', size = 40 }: TesseractToLightbulbIconProps) {
+export function TesseractToLightbulbIcon({ className = '', size = 40, lightbulbScale = 0.8, lightbulbYOffset = 0.3 }: TesseractToLightbulbIconProps) {
   return (
     <div className={`${className}`} style={{ width: size, height: size }}>
       <Canvas
@@ -361,7 +364,7 @@ export function TesseractToLightbulbIcon({ className = '', size = 40 }: Tesserac
         style={{ background: 'transparent' }}
       >
         <ambientLight intensity={0.3} />
-        <MorphingLines size={size} />
+        <MorphingLines size={size} lightbulbScale={lightbulbScale} lightbulbYOffset={lightbulbYOffset} />
       </Canvas>
     </div>
   )

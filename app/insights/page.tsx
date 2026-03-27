@@ -141,7 +141,7 @@ export default function InsightsPage() {
           >
             <div className="flex items-center gap-3 mb-6">
               <div className="w-12 h-12 rounded-card border border-accent/30 bg-surface-800 flex items-center justify-center overflow-hidden">
-                <TesseractToLightbulbIcon size={48} />
+                <TesseractToLightbulbIcon size={48} lightbulbScale={1.56} lightbulbYOffset={0.1} />
               </div>
               <span className="text-label text-accent uppercase tracking-wider">Insights</span>
             </div>
