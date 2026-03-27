@@ -9,6 +9,7 @@ import {
   Play, ArrowRight, Sparkles
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { ScheduleDemoDialog } from '@/components/ui/ScheduleDemoDialog'
 
 
 // Buzzwords marquee
@@ -296,10 +297,14 @@ export default function DataPlatformPage() {
             </p>
 
             <div className="flex gap-3 mb-8">
-              <Button className="group">
-                Request Demo
-                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
+              <ScheduleDemoDialog
+                trigger={
+                  <Button className="group">
+                    Schedule Demo
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                }
+              />
               <Link href="/agents">
                 <Button variant="outline">
                   <Play className="w-4 h-4 mr-2" />
