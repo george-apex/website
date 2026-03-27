@@ -43,12 +43,12 @@ const EASE = {
 
 // Animation timing constants (in seconds)
 const TIMING = {
-  total: 2400, // Total animation duration in ms
+  total: 1500, // Total animation duration in ms - matches when visuals complete
   phase1End: 0.3, // Click acknowledgement ends
   phase2Start: 0.2, // Terminal sweep starts
   phase2End: 1.2, // Terminal sweep ends
   phase3End: 2.0, // System assembly ends
-  revealStart: 1.8, // Reveal transition starts
+  revealStart: 1.0, // Reveal transition starts
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -156,9 +156,9 @@ function TerminalOverlay({ delay }: { delay: number }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: [0, 1, 1, 0] }}
       transition={{
-        duration: 2.2,
+        duration: 1.3,
         delay,
-        times: [0, 0.08, 0.85, 1],
+        times: [0, 0.1, 0.75, 1],
         ease: EASE.smooth
       }}
     >
@@ -200,9 +200,9 @@ function WatchlistPanel({ delay, side }: { delay: number; side: 'left' | 'right'
       initial={{ opacity: 0, x: side === 'left' ? -30 : 30 }}
       animate={{ opacity: [0, 0, 0.95, 0.95, 0], x: side === 'left' ? [-30, 0, 0, 0] : [30, 0, 0, 0] }}
       transition={{
-        duration: 1.8,
+        duration: 1.1,
         delay,
-        times: [0, 0.12, 0.25, 0.78, 1],
+        times: [0, 0.15, 0.3, 0.7, 1],
         ease: EASE.smooth
       }}
     >
@@ -223,9 +223,9 @@ function WatchlistPanel({ delay, side }: { delay: number; side: 'left' | 'right'
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: [0, 0, 1, 1, 0], y: [10, 0, 0, 0] }}
             transition={{
-              duration: 1.5,
+              duration: 1.0,
               delay: delay + 0.15 + i * 0.08,
-              times: [0, 0.2, 0.35, 0.75, 1],
+              times: [0, 0.25, 0.4, 0.7, 1],
             }}
           >
             <span className="text-[11px] text-white/80 font-medium">{row.ticker}</span>
@@ -261,9 +261,9 @@ function ChartFragment({ delay, position }: { delay: number; position: 'top' | '
       initial={{ opacity: 0 }}
       animate={{ opacity: [0, 0, 0.9, 0.9, 0] }}
       transition={{
-        duration: 1.6,
+        duration: 1.0,
         delay,
-        times: [0, 0.15, 0.3, 0.75, 1],
+        times: [0, 0.2, 0.35, 0.7, 1],
       }}
     >
       {/* Chart panel */}
@@ -298,7 +298,7 @@ function ChartFragment({ delay, position }: { delay: number; position: 'top' | '
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: [0, 1, 1], opacity: [0, 0.9, 0.9] }}
             transition={{
-              duration: 1.2,
+              duration: 0.8,
               delay: delay + 0.3,
               ease: EASE.precise
             }}
@@ -331,9 +331,9 @@ function MetricPanel({ delay }: { delay: number }) {
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: [0, 0, 0.95, 0.95, 0], y: [15, 0, 0, 0] }}
       transition={{
-        duration: 1.5,
+        duration: 1.0,
         delay,
-        times: [0, 0.15, 0.28, 0.72, 1],
+        times: [0, 0.2, 0.35, 0.7, 1],
       }}
     >
       {/* Panel container */}
@@ -345,9 +345,9 @@ function MetricPanel({ delay }: { delay: number }) {
             initial={{ opacity: 0, x: 15 }}
             animate={{ opacity: [0, 0, 1, 1, 0], x: [15, 0, 0, 0] }}
             transition={{
-              duration: 1.3,
+              duration: 0.9,
               delay: delay + 0.2 + i * 0.1,
-              times: [0, 0.2, 0.35, 0.72, 1],
+              times: [0, 0.25, 0.4, 0.7, 1],
             }}
           >
             <span className="text-[9px] text-slate-500 tracking-wider uppercase">{metric.label}</span>
@@ -376,9 +376,9 @@ function GridGeometry({ delay }: { delay: number }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: [0, 0.7, 0.5, 0] }}
       transition={{
-        duration: 1.8,
+        duration: 1.1,
         delay,
-        times: [0, 0.25, 0.7, 1],
+        times: [0, 0.3, 0.65, 1],
       }}
     >
       {/* Vertical grid lines */}
@@ -391,9 +391,9 @@ function GridGeometry({ delay }: { delay: number }) {
             initial={{ scaleY: 0, opacity: 0 }}
             animate={{ scaleY: [0, 1, 1, 0], opacity: [0, 0.6, 0.4, 0] }}
             transition={{
-              duration: 1.4,
+              duration: 0.9,
               delay: delay + i * 0.05,
-              times: [0, 0.3, 0.7, 1],
+              times: [0, 0.35, 0.65, 1],
             }}
           />
         ))}
@@ -409,9 +409,9 @@ function GridGeometry({ delay }: { delay: number }) {
             initial={{ scaleX: 0, opacity: 0 }}
             animate={{ scaleX: [0, 1, 1, 0], opacity: [0, 0.5, 0.3, 0] }}
             transition={{
-              duration: 1.4,
+              duration: 0.9,
               delay: delay + i * 0.05,
-              times: [0, 0.3, 0.7, 1],
+              times: [0, 0.35, 0.65, 1],
             }}
           />
         ))}
@@ -431,9 +431,9 @@ function StatusBar({ delay }: { delay: number }) {
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: [0, 0, 0.9, 0.9, 0], y: [15, 0, 0, 0] }}
       transition={{
-        duration: 1.8,
+        duration: 1.1,
         delay,
-        times: [0, 0.12, 0.25, 0.78, 1],
+        times: [0, 0.15, 0.3, 0.7, 1],
       }}
     >
       <div className="flex items-center gap-4 px-5 py-2.5 bg-white/[0.03] rounded-full border border-white/[0.06]">
@@ -487,7 +487,7 @@ function ThesisIndicator({ delay }: { delay: number }) {
       initial={{ opacity: 0, x: -25 }}
       animate={{ opacity: [0, 0, 0.9, 0.9, 0], x: [-25, 0, 0, 0] }}
       transition={{
-        duration: 1.6,
+        duration: 1.0,
         delay,
         times: [0, 0.15, 0.28, 0.75, 1],
       }}
@@ -548,7 +548,7 @@ function NodeMap({ delay }: { delay: number }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: [0, 0, 0.8, 0.8, 0] }}
       transition={{
-        duration: 1.6,
+        duration: 1.0,
         delay,
         times: [0, 0.18, 0.32, 0.75, 1],
       }}
@@ -653,11 +653,39 @@ function RevealTransition({ delay }: { delay: number }) {
 // ┐═════════════════════════════════════════════════════════════════════════
 
 export function ApexActivation({ isActive, originPoint, onComplete }: ApexActivationProps) {
-  // Trigger completion callback after animation
+  const [elapsed, setElapsed] = React.useState(0)
+  const [phase, setPhase] = React.useState('')
+
   React.useEffect(() => {
-    if (isActive) {
-      const timer = setTimeout(onComplete, TIMING.total) // Complete at 2400ms
-      return () => clearTimeout(timer)
+    if (!isActive) {
+      setElapsed(0)
+      setPhase('')
+      return
+    }
+
+    const startTime = Date.now()
+    
+    const interval = setInterval(() => {
+      const now = Date.now()
+      const ms = now - startTime
+      setElapsed(ms)
+      
+      if (ms < 300) setPhase('Phase 1: Click Acknowledgement')
+      else if (ms < 1000) setPhase('Phase 2: Terminal Sweep')
+      else if (ms < 1400) setPhase('Phase 3: System Assembly')
+      else if (ms < 1500) setPhase('Phase 4: Workspace Reveal')
+      else setPhase('Complete - Opening Modal')
+    }, 16)
+
+    const timer = setTimeout(() => {
+      setPhase('Complete - Opening Modal')
+      onComplete()
+      clearInterval(interval)
+    }, TIMING.total)
+
+    return () => {
+      clearTimeout(timer)
+      clearInterval(interval)
     }
   }, [isActive, onComplete])
 
@@ -665,6 +693,16 @@ export function ApexActivation({ isActive, originPoint, onComplete }: ApexActiva
 
   return (
     <div className="fixed inset-0 pointer-events-none z-[50]">
+      {/* DEBUG TIMER OVERLAY */}
+      <div className="fixed top-4 left-4 z-[100] pointer-events-auto bg-black/90 text-white font-mono text-sm px-4 py-3 rounded-lg border border-cyan-400/50">
+        <div className="text-cyan-400 text-xs mb-1">DEBUG TIMER</div>
+        <div className="text-xl font-bold">{elapsed}ms</div>
+        <div className="text-yellow-400 text-xs mt-1">{phase}</div>
+        <div className="text-white/50 text-[10px] mt-2">
+          Modal opens at: 1500ms
+        </div>
+      </div>
+      
       {/* Phase 1: Click Acknowledgement (0-300ms) */}
       <ClickAcknowledgement origin={originPoint} />
       

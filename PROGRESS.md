@@ -1,5 +1,9 @@
 # Progress Tracker
 
+> **IMPORTANT: At the start of every session, ensure the dev server is running on port 3000.**
+> Run: `lsof -ti:3000,3001 | xargs kill -9 2>/dev/null; nohup npm run dev > /dev/null 2>&1 &`
+> This kills any existing processes on ports 3000/3001 and starts fresh on port 3000.
+
 ## Current Session: Face Animation Development
 
 ### Completed
