@@ -46,9 +46,9 @@ export const FOOTER_LINKS = {
     { label: 'Contact', href: '/contact' },
   ],
   resources: [
+    { label: 'Insights', href: '/insights' },
     { label: 'Documentation', href: '/docs' },
     { label: 'Case Studies', href: '/solutions#case-studies' },
-    { label: 'Whitepapers', href: '/resources' },
     { label: 'Webinars', href: '/webinars' },
     { label: 'API Reference', href: '/api' },
   ],

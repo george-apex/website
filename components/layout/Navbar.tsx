@@ -44,6 +44,7 @@ export const NAV_LINKS: NavLink[] = [
       { id: 'e3-quant-hub', label: 'E3 Quant Hub', shortLabel: 'E3 Quant Hub', href: '/e3-quant-hub' },
     ]
   },
+  { label: 'Insights', href: '/insights' },
   { label: 'Solutions', href: '/solutions' },
   { label: 'Security', href: '/security' },
   { label: 'Contact', href: '/contact' },
