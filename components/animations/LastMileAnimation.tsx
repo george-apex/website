@@ -8,7 +8,7 @@ import { F1_WIREFRAME_DATA } from './f1WireframeData'
 const MAX_LINE_COUNT = 4000
 const CHAOS_LINE_COUNT = 500
 const POINTS_PER_LINE = 32
-const CAR_SCALE = 3.5
+const CAR_SCALE = 5.25
 
 const MODELS: { name: string; data: typeof F1_WIREFRAME_DATA; scale: number; rotationOffset: number; lineMultiplier?: number }[] = [
   { name: 'f1', data: F1_WIREFRAME_DATA, scale: CAR_SCALE, rotationOffset: 0 },

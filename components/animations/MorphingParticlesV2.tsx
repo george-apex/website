@@ -15,7 +15,7 @@ import { NEURAL_PRISM_WIREFRAME_DATA } from './neuralPrismWireframeData'
 const MAX_LINE_COUNT = 4000
 const CHAOS_LINE_COUNT = 500
 const POINTS_PER_LINE = 32
-const CAR_SCALE = 2.7
+const CAR_SCALE = 4.05
 
 const MODELS = [
   { name: 'prism', data: PRISM_WIREFRAME_DATA, scale: 1.8, rotationOffset: -Math.PI / 2, lineMultiplier: 10 },
@@ -25,7 +25,7 @@ const MODELS = [
   { name: 'vaultDoor', data: VAULTDOOR_WIREFRAME_DATA, scale: 1.5, rotationOffset: Math.PI },
   { name: 'barChart', data: BAR_CHART_WIREFRAME_DATA, scale: 1.7, rotationOffset: -Math.PI / 2 },
   { name: 'folder', data: FOLDER_WIREFRAME_DATA, scale: 1.5, rotationOffset: -Math.PI / 2 },
-  { name: 'padlock', data: PADLOCK_WIREFRAME_DATA, scale: 1.8, rotationOffset: -Math.PI / 2 },
+  { name: 'padlock', data: PADLOCK_WIREFRAME_DATA, scale: 1.53, rotationOffset: -Math.PI / 2 },
 ]
 
 function getModelLineCount(modelIndex: number): number {
