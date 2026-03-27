@@ -5,12 +5,12 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { 
   FileText, 
-  Lightbulb, 
   ArrowRight, 
   Clock,
   ExternalLink
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { TesseractToLightbulbIcon } from '@/components/animations/TesseractToLightbulbIcon'
 
 const featuredInsights = [
   {
@@ -140,8 +140,8 @@ export default function InsightsPage() {
             className="max-w-4xl"
           >
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-card border border-accent/30 bg-surface-800 flex items-center justify-center">
-                <Lightbulb className="w-5 h-5 text-accent" />
+              <div className="w-12 h-12 rounded-card border border-accent/30 bg-surface-800 flex items-center justify-center overflow-hidden">
+                <TesseractToLightbulbIcon size={48} />
               </div>
               <span className="text-label text-accent uppercase tracking-wider">Insights</span>
             </div>
