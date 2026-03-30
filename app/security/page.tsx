@@ -666,15 +666,15 @@ export default function SecurityPage() {
                     
                     {/* Floating labels */}
                     {[
-                      { x: '-90px', y: '-60px', label: 'Auth' },
-                      { x: '90px', y: '-50px', label: 'Encrypt' },
-                      { x: '-80px', y: '70px', label: 'Audit' },
-                      { x: '80px', y: '60px', label: 'Control' },
+                      { left: 'calc(50% - 120px)', top: 'calc(50% - 90px)', label: 'Auth' },
+                      { left: 'calc(50% + 80px)', top: 'calc(50% - 80px)', label: 'Encrypt' },
+                      { left: 'calc(50% - 130px)', top: 'calc(50% + 70px)', label: 'Audit' },
+                      { left: 'calc(50% + 90px)', top: 'calc(50% + 60px)', label: 'Control' },
                     ].map((el, i) => (
                       <motion.div
                         key={i}
-                        className="absolute px-3 py-1.5 text-xs rounded border border-border bg-surface-700 text-content-secondary font-mono"
-                        style={{ left: el.x, top: el.y }}
+                        className="absolute px-3 py-1.5 text-xs rounded border border-border bg-surface-700 text-content-secondary font-mono whitespace-nowrap"
+                        style={{ left: el.left, top: el.top }}
                         animate={{ y: [0, -5, 0] }}
                         transition={{ duration: 3, delay: i * 0.3, repeat: Infinity }}
                       >
