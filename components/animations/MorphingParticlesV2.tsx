@@ -126,11 +126,11 @@ interface SculptureLinesProps {
 function SculptureLines({ onPhaseChange }: SculptureLinesProps) {
   const groupRef = useRef<THREE.Group>(null)
   const linesDataRef = useRef<LineData[]>([])
-  const [phase, setPhase] = useState<Phase>('idle')
+  const [phase, setPhase] = useState<Phase>('showing_model')
   const prevPhaseRef = useRef<Phase>('idle')
   const phaseStartRef = useRef(0)
   const morphProgressRef = useRef(0)
-  const visibleCountRef = useRef(CHAOS_LINE_COUNT)
+  const visibleCountRef = useRef(getModelLineCount(0))
   const tesseractTimeRef = useRef(0)
   const morphDurationRef = useRef(2.5)
   const modelShowDurationRef = useRef(3.5)
@@ -276,6 +276,9 @@ function SculptureLines({ onPhaseChange }: SculptureLinesProps) {
         targetPositions[j * 3] = p.x
         targetPositions[j * 3 + 1] = p.y
         targetPositions[j * 3 + 2] = p.z
+        currentPositions[j * 3] = p.x
+        currentPositions[j * 3 + 1] = p.y
+        currentPositions[j * 3 + 2] = p.z
       })
       
       const connIdx = i % generateTesseractConnections.length
@@ -285,7 +288,7 @@ function SculptureLines({ onPhaseChange }: SculptureLinesProps) {
         currentPositions,
         targetPositions,
         morphStartPositions,
-        visible: i < CHAOS_LINE_COUNT,
+        visible: i < getModelLineCount(0),
         nodeAIndex: conn.a,
         nodeBIndex: conn.b,
         nodeAType: conn.aType,
@@ -293,7 +296,6 @@ function SculptureLines({ onPhaseChange }: SculptureLinesProps) {
       })
     }
     
-    visibleCountRef.current = CHAOS_LINE_COUNT
     phaseStartRef.current = performance.now()
   }, [targetLines, generateTesseractConnections])
   
@@ -481,9 +483,10 @@ function SculptureLines({ onPhaseChange }: SculptureLinesProps) {
       positionAttr.needsUpdate = true
     })
     
-    const groupRotationY = time * 0.15
-    const groupRotationX = Math.sin(time * 0.1) * 0.12
-    const groupRotationZ = Math.cos(time * 0.08) * 0.05
+    const rotationTime = time + 8
+    const groupRotationY = rotationTime * 0.15
+    const groupRotationX = Math.sin(rotationTime * 0.1) * 0.12
+    const groupRotationZ = Math.cos(rotationTime * 0.08) * 0.05
     groupRef.current.rotation.y = groupRotationY
     groupRef.current.rotation.x = groupRotationX
     groupRef.current.rotation.z = groupRotationZ
