@@ -126,15 +126,16 @@ interface SculptureLinesProps {
 function SculptureLines({ onPhaseChange }: SculptureLinesProps) {
   const groupRef = useRef<THREE.Group>(null)
   const linesDataRef = useRef<LineData[]>([])
-  const [phase, setPhase] = useState<Phase>('showing_model')
+  const [phase, setPhase] = useState<Phase>('idle')
   const prevPhaseRef = useRef<Phase>('idle')
   const phaseStartRef = useRef(0)
   const morphProgressRef = useRef(0)
-  const visibleCountRef = useRef(getModelLineCount(0))
+  const visibleCountRef = useRef(CHAOS_LINE_COUNT)
   const tesseractTimeRef = useRef(0)
-  const morphDurationRef = useRef(2.5)
+  const morphDurationRef = useRef(1.5)
   const modelShowDurationRef = useRef(3.5)
-  const idleDurationRef = useRef(4)
+  const idleDurationRef = useRef(0.5)
+  const isFirstCycleRef = useRef(true)
   const currentModelIndexRef = useRef(0)
   const currentLineCountRef = useRef(getModelLineCount(0))
   
@@ -276,9 +277,6 @@ function SculptureLines({ onPhaseChange }: SculptureLinesProps) {
         targetPositions[j * 3] = p.x
         targetPositions[j * 3 + 1] = p.y
         targetPositions[j * 3 + 2] = p.z
-        currentPositions[j * 3] = p.x
-        currentPositions[j * 3 + 1] = p.y
-        currentPositions[j * 3 + 2] = p.z
       })
       
       const connIdx = i % generateTesseractConnections.length
@@ -288,7 +286,7 @@ function SculptureLines({ onPhaseChange }: SculptureLinesProps) {
         currentPositions,
         targetPositions,
         morphStartPositions,
-        visible: i < getModelLineCount(0),
+        visible: i < CHAOS_LINE_COUNT,
         nodeAIndex: conn.a,
         nodeBIndex: conn.b,
         nodeAType: conn.aType,
@@ -339,6 +337,10 @@ function SculptureLines({ onPhaseChange }: SculptureLinesProps) {
         setPhase('showing_model')
         phaseStartRef.current = now
         visibleCountRef.current = currentLineCountRef.current
+        if (isFirstCycleRef.current) {
+          idleDurationRef.current = 4
+          isFirstCycleRef.current = false
+        }
       } else {
         const progress = morphProgressRef.current
         const targetVisible = CHAOS_LINE_COUNT + Math.floor((currentLineCountRef.current - CHAOS_LINE_COUNT) * progress)
@@ -483,7 +485,7 @@ function SculptureLines({ onPhaseChange }: SculptureLinesProps) {
       positionAttr.needsUpdate = true
     })
     
-    const rotationTime = time + 8
+    const rotationTime = time + 6
     const groupRotationY = rotationTime * 0.15
     const groupRotationX = Math.sin(rotationTime * 0.1) * 0.12
     const groupRotationZ = Math.cos(rotationTime * 0.08) * 0.05
