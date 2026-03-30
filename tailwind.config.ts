@@ -8,6 +8,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      screens: {
+        'burger-max': { max: '393px' },
+        'burger-min': '394px',
+        'burger-range': { min: '401px', max: '799px' },
+        'desktop': '800px',
+      },
       colors: {
         // Institutional dark palette - Bloomberg/Palantir inspired
         'surface': {

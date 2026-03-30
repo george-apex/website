@@ -418,7 +418,7 @@ export default function SolutionsPage() {
 
       <div className="relative z-10">
         {/* Hero Section */}
-        <section className="pt-8 pb-8 min-[393px]:pt-32 min-[393px]:pb-12 lg:pt-40 lg:pb-16">
+        <section className="pt-8 pb-8 burger-range:pt-[120px] burger-range:pb-12 desktop:pt-[120px] lg:pb-16">
           <div className="container-main">
             <motion.div 
               className="text-center"

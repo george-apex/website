@@ -16,7 +16,7 @@ function TrajectoryAccelerationLine() {
   const isInView = useInView(ref, { once: true, margin: "-50px" })
   
   return (
-    <div ref={ref} className="absolute inset-0 top-36 pointer-events-none overflow-hidden">
+    <div ref={ref} className="absolute inset-0 pointer-events-none overflow-hidden">
       <svg className="w-full h-full" preserveAspectRatio="none">
         <defs>
           <linearGradient id="ctaTrajectory" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -98,27 +98,17 @@ export function CTASection() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
 
   return (
-    <section id="contact" className="relative overflow-hidden bg-surface-800 pt-8 pb-16 min-[393px]:pt-28 min-[800px]:mt-36 min-[800px]:pt-16 min-[800px]:pb-20">
+    <section id="contact" className="relative overflow-hidden bg-surface-800 pt-8 pb-16 min-[393px]:pt-28 burger-range:pt-[120px] desktop:pt-48 desktop:pb-20">
       {/* Background grid */}
-      <div className="absolute inset-0 top-36 bg-grid opacity-30" />
+      <div className="absolute inset-0 bg-grid opacity-30" />
       
       {/* Subtle radial glow */}
-      <div className="absolute inset-0 top-36 bg-radial-accent opacity-40" />
+      <div className="absolute inset-0 bg-radial-accent opacity-40" />
       
       {/* Trajectory acceleration line */}
       <TrajectoryAccelerationLine />
       
-      {/* Accent lines */}
-      <motion.div
-        className="absolute left-0 right-0 h-px top-[15%]"
-        style={{ 
-          background: 'linear-gradient(90deg, transparent, rgba(48, 107, 255, 0.2) 30%, rgba(48, 107, 255, 0.3) 50%, rgba(48, 107, 255, 0.2) 70%, transparent)',
-        }}
-        initial={{ scaleX: 0 }}
-        whileInView={{ scaleX: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.5 }}
-      />
+      {/* Accent line */}
       <motion.div
         className="absolute left-0 right-0 h-px bottom-[15%]"
         style={{ 

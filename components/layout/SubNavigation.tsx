@@ -44,7 +44,7 @@ export function SubNavigation() {
   return (
     <div
       className={cn(
-        "hidden min-[800px]:block max-[393px]:hidden fixed top-20 left-0 right-0 z-40 bg-surface-900/95 backdrop-blur-xl border-b border-border/30 transition-opacity duration-200",
+        "hidden desktop:block fixed top-20 left-0 right-0 z-40 bg-surface-900/95 backdrop-blur-xl border-b border-border/30 transition-opacity duration-200",
         isDimmed && "opacity-30"
       )}
       onMouseEnter={() => activeNavLink && cancelClear()}

@@ -264,7 +264,7 @@ export default function DataPlatformPage() {
       </div>
 
       {/* Main content */}
-      <div className="relative container-main pt-8 pb-24 min-[393px]:pt-48">
+      <div className="relative container-main pt-8 pb-24 min-[393px]:pt-48 burger-range:pt-[120px] desktop:pt-48">
         
         {/* Hero Section - Compact */}
         <div className="grid lg:grid-cols-2 gap-8 items-center mb-16">

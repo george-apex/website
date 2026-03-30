@@ -92,7 +92,7 @@ export default function ContactPage() {
       </div>
 
       {/* Hero */}
-      <section className="relative pt-8 pb-16 min-[393px]:pt-32">
+      <section className="relative pt-8 pb-16 burger-range:pt-[120px] desktop:pt-[120px]">
         <Container>
           <ScrollReveal>
             <div className="max-w-4xl mx-auto text-center">

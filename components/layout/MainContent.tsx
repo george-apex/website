@@ -18,8 +18,8 @@ export function MainContent({ children }: MainContentProps) {
       id="main-content" 
       className={cn(
         "relative transition-all duration-200",
-        "min-[800px]:pt-0",
-        shouldAddPadding && "min-[800px]:pt-14"
+        "desktop:pt-0",
+        shouldAddPadding && "desktop:pt-14"
       )}
     >
       {children}

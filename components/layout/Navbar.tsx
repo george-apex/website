@@ -149,11 +149,22 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = React.useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
   const [openDropdown, setOpenDropdown] = React.useState<string | null>(null)
+  const [windowWidth, setWindowWidth] = React.useState(800)
   const scrollPosition = useScrollPosition()
-  const { hoveredParent, setHoveredParent, cancelClear, setActiveHomeSection } = React.useContext(HoverContext)
+  const { hoveredParent, setHoveredParent, cancelClear, activeHomeSection, setActiveHomeSection } = React.useContext(HoverContext)
 
   const activeParent = getParentTab(pathname)
   const displayParent = hoveredParent || activeParent
+
+  React.useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth)
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  const showBurgerMenu = windowWidth > 400 && windowWidth < 800
+  const showHeader = true
 
   React.useEffect(() => {
     setIsScrolled(scrollPosition.y > 50)
@@ -181,14 +192,15 @@ export function Navbar() {
 
   return (
     <>
+      {showHeader && (
       <motion.header
         className={cn(
-          'fixed top-0 left-0 right-0 z-50 transition-all duration-300 max-[393px]:hidden',
+          'main-header fixed top-0 left-0 right-0 z-[60] transition-all duration-300 backdrop-blur-xl',
           isScrolled
-            ? 'bg-surface-900/95 backdrop-blur-xl border-b border-border'
+            ? 'bg-surface-900/95 border-b border-border'
             : 'bg-transparent'
         )}
-        initial={{ y: -100 }}
+        initial={{ y: 0 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       >
@@ -215,13 +227,11 @@ export function Navbar() {
                 </g>
                 <g className="e3-part">
                   <polygon points="405.28 .83 367.2 .83 362.08 11.96 405.28 11.96 405.28 .83"/>
-                  <polygon points="405.28 31.43 372.31 31.43 367.2 42.56 405.28 42.56 405.28 31.43"/>
                   <polygon points="405.28 62.04 367.2 62.04 362.08 73.15 405.28 73.15 405.28 62.04"/>
-                  <rect x="405.29" y="11.96" width="11.12" height="50.07"/>
+                  <polygon points="405.29 11.96 405.29 31.43 372.85 31.43 367.2 42.57 405.29 42.57 405.29 62.03 416.41 62.03 416.41 11.96 405.29 11.96"/>
                   <polygon points="312.45 73.15 350.53 73.15 355.65 62.04 312.45 62.04 312.45 73.15"/>
-                  <polygon points="312.45 42.56 345.42 42.56 350.53 31.43 312.45 31.43 312.45 42.56"/>
                   <polygon points="312.45 11.96 350.53 11.96 355.65 .83 312.45 .83 312.45 11.96"/>
-                  <rect x="301.32" y="11.96" width="11.12" height="50.07"/>
+                  <polygon points="350.53 31.43 312.44 31.43 312.44 11.96 301.32 11.96 301.32 62.03 312.44 62.03 312.44 42.57 345 42.57 350.53 31.43"/>
                   <rect x="276.12" y="11.96" width="11.12" height="11.12"/>
                   <rect x="276.12" y="50.92" width="11.12" height="11.12"/>
                 </g>
@@ -229,7 +239,7 @@ export function Navbar() {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden min-[800px]:flex items-center gap-1">
+            <div className="hidden desktop:flex items-center gap-1">
               {NAV_LINKS.map((link) => {
                 const hasSubTabs = link.subTabs && link.subTabs.length > 0
                 const isActive = displayParent === link.label
@@ -293,15 +303,15 @@ export function Navbar() {
             </div>
 
             {/* Desktop CTA */}
-            <div className="hidden min-[800px]:flex items-center gap-3">
+            <div className="hidden desktop:flex items-center gap-3">
               <ScheduleDemoDialog
                 trigger={<Button size="sm">Schedule Demo</Button>}
               />
             </div>
 
-            {/* Mobile Menu Button - visible between 394px and 799px */}
+            {/* Mobile Menu Button - visible between 401px and 799px */}
             <button
-              className="hidden min-[394px]:flex min-[800px]:hidden p-2 text-content-secondary hover:text-content-primary transition-colors items-center justify-center"
+              className="burger-menu-btn flex p-2 text-content-secondary hover:text-content-primary transition-colors items-center justify-center"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
             >
@@ -314,12 +324,13 @@ export function Navbar() {
           </div>
         </nav>
       </motion.header>
+      )}
 
-      {/* Mobile Menu - hidden at 393px and below (uses MobileFloatingNav) */}
+      {/* Mobile Menu - hidden at 400px and below (uses MobileFloatingNav) */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            className="fixed inset-0 z-50 min-[800px]:hidden max-[393px]:hidden"
+            className="mobile-menu-container fixed inset-0 z-50 bg-surface-900/95 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -366,13 +377,7 @@ export function Navbar() {
                                 : 'text-content-secondary hover:text-accent hover:bg-surface-700'
                             )}
                             onClick={() => {
-                              if (link.label === 'Home') {
-                                setActiveHomeSection('home')
-                                router.push('/')
-                                setIsMobileMenuOpen(false)
-                              } else {
-                                setOpenDropdown(isExpanded ? null : link.label)
-                              }
+                              setOpenDropdown(isExpanded ? null : link.label)
                             }}
                           >
                             <span className="relative">
@@ -418,22 +423,44 @@ export function Navbar() {
                           >
                             <div className="pl-4 pb-1">
                               {link.subTabs!.map((sub) => (
-                                <Link
-                                  key={sub.id}
-                                  href={sub.href || `/${sub.id}`}
-                                  className={cn(
-                                    'block py-2.5 px-4 text-body rounded-card transition-colors',
-                                    pathname === sub.href 
-                                      ? 'text-accent bg-accent/5' 
-                                      : 'text-content-tertiary hover:text-accent hover:bg-surface-700'
-                                  )}
-                                  onClick={() => {
-                                    setOpenDropdown(null)
-                                    setIsMobileMenuOpen(false)
-                                  }}
-                                >
-                                  {sub.label}
-                                </Link>
+                                sub.href ? (
+                                  <Link
+                                    key={sub.id}
+                                    href={sub.href}
+                                    className={cn(
+                                      'block py-2.5 px-4 text-body rounded-card transition-colors',
+                                      pathname === sub.href 
+                                        ? 'text-accent bg-accent/5' 
+                                        : 'text-content-tertiary hover:text-accent hover:bg-surface-700'
+                                    )}
+                                    onClick={() => {
+                                      setOpenDropdown(null)
+                                      setIsMobileMenuOpen(false)
+                                    }}
+                                  >
+                                    {sub.label}
+                                  </Link>
+                                ) : (
+                                  <button
+                                    key={sub.id}
+                                    className={cn(
+                                      'block w-full text-left py-2.5 px-4 text-body rounded-card transition-colors',
+                                      pathname === '/' && activeHomeSection === sub.id
+                                        ? 'text-accent bg-accent/5' 
+                                        : 'text-content-tertiary hover:text-accent hover:bg-surface-700'
+                                    )}
+                                    onClick={() => {
+                                      if (pathname !== '/') {
+                                        router.push('/')
+                                      }
+                                      setActiveHomeSection(sub.id)
+                                      setOpenDropdown(null)
+                                      setIsMobileMenuOpen(false)
+                                    }}
+                                  >
+                                    {sub.label}
+                                  </button>
+                                )
                               ))}
                             </div>
                           </motion.div>

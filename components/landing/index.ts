@@ -1,5 +1,6 @@
 export { NewHero } from './NewHero'
 export { TesseractHero } from './TesseractHero'
+export { HeroLogo } from './HeroLogo'
 export { NeuralSovereigntyBg } from './NeuralSovereigntyBg'
 export { CapabilitiesSection } from './CapabilitiesSection'
 export { IntelligenceLayer } from './IntelligenceLayer'

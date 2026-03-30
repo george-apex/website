@@ -52,7 +52,7 @@ export function MobileFloatingNav() {
 
   React.useEffect(() => {
     const checkWidth = () => {
-      setIsVisible(window.innerWidth < 394)
+      setIsVisible(window.innerWidth <= 400)
     }
     checkWidth()
     window.addEventListener('resize', checkWidth)

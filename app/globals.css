@@ -490,6 +490,31 @@
   }
 }
 
+/* Burger menu visibility - hidden at 400px and below, and at 800px+ */
+.burger-menu-btn {
+  display: flex;
+}
+
+@media (max-width: 400px), (min-width: 800px) {
+  .burger-menu-btn {
+    display: none !important;
+  }
+}
+
+/* Header visibility - hidden at 400px and below */
+@media (max-width: 400px) {
+  .main-header {
+    display: none !important;
+  }
+}
+
+/* Mobile menu visibility - hidden at 400px and below, and at 800px+ */
+@media (max-width: 400px), (min-width: 800px) {
+  .mobile-menu-container {
+    display: none !important;
+  }
+}
+
 /* ===================================
    REDUCED MOTION
    =================================== */

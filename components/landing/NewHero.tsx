@@ -119,7 +119,7 @@ export function NewHero() {
 
       {/* Content */}
       <motion.div 
-        className="relative z-10 container-main py-20 lg:py-0 pointer-events-none"
+        className="relative z-10 container-main py-8 min-[393px]:py-20 lg:py-0 pointer-events-none"
         style={{ opacity, scale }}
       >
         <div className="max-w-4xl mx-auto text-center pointer-events-auto">
