@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import Link from 'next/link'
 import { motion, useMotionValue, useSpring, useInView, AnimatePresence } from 'framer-motion'
 import { Shield, Server, Scale, Flag, FileCheck, Key, CheckCircle, ArrowRight, Lock, Fingerprint, Eye, ChevronRight, ExternalLink } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -709,9 +710,11 @@ export default function SecurityPage() {
                 <Button size="lg" icon={<ArrowRight className="w-4 h-4" />}>
                   Talk to Security Team
                 </Button>
-                <Button variant="secondary" size="lg">
-                  View Documentation
-                </Button>
+                <Link href="/docs">
+                  <Button variant="secondary" size="lg">
+                    View Documentation
+                  </Button>
+                </Link>
               </div>
             </motion.div>
           </div>

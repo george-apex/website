@@ -313,13 +313,7 @@ export default function DataPlatformPage() {
               </Link>
             </div>
 
-            {/* Quick metrics */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <PulsingMetric label="Sources" value="50+" color="rgb(var(--accent))" delay={0.2} />
-              <PulsingMetric label="Latency" value="&lt;100ms" color="#22c55e" delay={0.3} />
-              <PulsingMetric label="Uptime" value="99.9%" color="#3b82f6" delay={0.4} />
-              <PulsingMetric label="Quality" value="100%" color="#a855f7" delay={0.5} />
-            </div>
+
           </motion.div>
 
           {/* Right - Orbital visualization */}
