@@ -173,7 +173,6 @@ export function Navbar() {
                   <div 
                     key={link.label}
                     className="relative"
-                    onMouseEnter={() => hasSubTabs && setOpenDropdown(link.label)}
                     onMouseLeave={() => {
                       setOpenDropdown(null)
                       setHoveredSubTab(null)
@@ -184,6 +183,7 @@ export function Navbar() {
                         onClick={() => {
                           router.push(link.href || '/')
                         }}
+                        onMouseEnter={() => setOpenDropdown(link.label)}
                         className={cn(
                           'flex items-center gap-1.5 px-4 py-2 text-body-sm rounded-lg transition-all',
                           isActive 
@@ -218,7 +218,7 @@ export function Navbar() {
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: 8, scale: 0.95 }}
                           transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
-                          className="absolute top-full left-0 pt-3 w-64"
+                          className="absolute top-full left-0 w-64"
                         >
                           <div className="relative bg-surface-800/95 backdrop-blur-xl rounded-xl border border-border/50 shadow-2xl overflow-hidden">
                             <div className="absolute inset-0 bg-gradient-to-b from-accent/5 to-transparent pointer-events-none" />
