@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 // ═══════════════════════════════════════════════════════════════════════════
 // APEX ACTIVATION — INSTITUTIONAL TERMINAL TRANSITION
 // ═══════════════════════════════════════════════════════════════════════════
-// Premium financial terminal transition for entering the ALICE workspace.
+// Premium financial terminal transition for entering the A.L.I.C.E. workspace.
 // 
 // Design Philosophy:
 // - Entering a live institutional intelligence terminal
@@ -24,7 +24,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 // 1. CLICK ACKNOWLEDGEMENT (0-300ms): Button responds, interface acknowledges
 // 2. TERMINAL SWEEP (300-1200ms): Dark overlay sweeps, data elements appear
 // 3. SYSTEM ASSEMBLY (1200-2000ms): Panels align, traces draw, geometry sharpens
-// 4. WORKSPACE REVEAL (2000-2400ms): Clean emergence of ALICE workspace
+// 4. WORKSPACE REVEAL (2000-2400ms): Clean emergence of A.L.I.C.E. workspace
 // ═══════════════════════════════════════════════════════════════════════════
 
 interface ApexActivationProps {

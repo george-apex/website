@@ -1503,7 +1503,7 @@ export function HeroTransformation() {
           whileTap={{ scale: 0.98 }}
         >
           <span className="text-sm text-content-secondary">
-            {isTransformed ? 'See the Process' : 'Experience ALICE'}
+            {isTransformed ? 'See the Process' : 'Experience A.L.I.C.E.'}
           </span>
           <motion.div
             animate={{ rotate: isTransformed ? 180 : 0 }}

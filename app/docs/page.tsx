@@ -8,7 +8,7 @@ const docCategories = [
   {
     icon: Terminal,
     title: 'Getting Started',
-    description: 'Quick start guides and installation instructions for ALICE and our platform.',
+    description: 'Quick start guides and installation instructions for A.L.I.C.E. and our platform.',
     links: ['Quick Start Guide', 'Installation', 'Configuration', 'First AI Agent'],
   },
   {

@@ -71,7 +71,7 @@ export function Hero() {
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <span className="text-content-primary font-medium">Too much noise.</span> Not enough signal.{' '}
-              <span className="text-accent">ALICE</span> transforms fragmented information into structured, 
+              <span className="text-accent">A.L.I.C.E.</span> transforms fragmented information into structured, 
               decision-ready intelligence for institutional finance.
             </motion.p>
 

@@ -36,7 +36,7 @@ const caseStudies = [
     title: 'Global Investment Bank',
     industry: 'Financial Services',
     result: '40% reduction in compliance review time',
-    summary: 'How ALICE automated regulatory document analysis for a tier-1 investment bank.',
+    summary: 'How A.L.I.C.E. automated regulatory document analysis for a tier-1 investment bank.',
   },
   {
     title: 'Healthcare Network',

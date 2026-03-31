@@ -237,12 +237,11 @@ export function CapabilitiesSection() {
             What We Do
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white mb-6">
-            Enterprise AI,{' '}
-            <span className="text-white/60">purpose-built for finance</span>
+            Complete Infrastructure{' '}
+            <span className="text-white/60">for AI-Driven Finance</span>
           </h2>
           <p className="text-lg text-white/50 max-w-2xl mx-auto">
-            From data infrastructure to intelligent agents, we provide the complete stack
-            for institutional AI deployment.
+            From data pipelines to intelligent agents—everything you need to deploy production AI.
           </p>
         </motion.div>
 

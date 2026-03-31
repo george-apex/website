@@ -4,7 +4,7 @@ import * as React from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, ChevronRight } from 'lucide-react'
+import { Menu, X, ArrowRight, Shield, Users, Briefcase, Zap, Database, ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { ScheduleDemoDialog } from '@/components/ui/ScheduleDemoDialog'
@@ -16,6 +16,7 @@ export interface SubTab {
   shortLabel?: string
   href?: string
   icon?: React.ReactNode
+  description?: string
 }
 
 export interface NavLink {
@@ -26,106 +27,33 @@ export interface NavLink {
 
 export const NAV_LINKS: NavLink[] = [
   { 
-    label: 'Home', 
-    href: '/',
+    label: 'Solutions',
+    href: '/solutions',
     subTabs: [
-      { id: 'home', label: 'APEX:E3', shortLabel: 'APEX:E3' },
-      { id: 'about', label: 'About Us', shortLabel: 'About' },
-      { id: 'last-mile', label: 'The Last Mile', shortLabel: 'Last Mile' },
-      { id: 'demo', label: 'Interactive Demo', shortLabel: 'Live Demo' },
-    ]
-  },
-  { 
-    label: 'Products',
-    href: '/data-platform',
-    subTabs: [
-      { id: 'data-platform', label: 'Data Platform', href: '/data-platform' },
-      { id: 'agents', label: 'Agents', href: '/agents' },
-      { id: 'e3-quant-hub', label: 'E3 Quant Hub', shortLabel: 'E3 Quant Hub', href: '/e3-quant-hub' },
+      { id: 'product', label: 'Product', href: '/data-platform', icon: <Database className="w-4 h-4" />, description: 'Data platform features' },
+      { id: 'agents', label: 'Agents', href: '/agents', icon: <Zap className="w-4 h-4" />, description: 'AI agents suite' },
+      { id: 'security', label: 'Security', href: '/security', icon: <Shield className="w-4 h-4" />, description: 'Enterprise security' },
     ]
   },
   { label: 'Insights', href: '/insights' },
-  { label: 'Solutions', href: '/solutions' },
-  { label: 'Security', href: '/security' },
-  { label: 'Contact', href: '/contact' },
+  { 
+    label: 'Company',
+    href: '/about',
+    subTabs: [
+      { id: 'about', label: 'About Us', href: '/about', icon: <Users className="w-4 h-4" />, description: 'Our story' },
+      { id: 'careers', label: 'Careers', href: '/careers', icon: <Briefcase className="w-4 h-4" />, description: 'Join the team' },
+      { id: 'contact', label: 'Contact', href: '/contact', icon: <ArrowRight className="w-4 h-4" />, description: 'Get in touch' },
+    ]
+  },
 ]
 
-interface HoverContextType {
-  hoveredParent: string | null
-  setHoveredParent: (parent: string | null) => void
-  cancelClear: () => void
-  activeHomeSection: string
-  setActiveHomeSection: (section: string) => void
-  isSubNavVisible: boolean
-  currentPageHasSubNav: boolean
-  hoveredSubTab: string | null
-  setHoveredSubTab: (subTab: string | null) => void
-}
+interface HoverContextType {}
 
-export const HoverContext = React.createContext<HoverContextType>({
-  hoveredParent: null,
-  setHoveredParent: () => {},
-  cancelClear: () => {},
-  activeHomeSection: 'home',
-  setActiveHomeSection: () => {},
-  isSubNavVisible: false,
-  currentPageHasSubNav: false,
-  hoveredSubTab: null,
-  setHoveredSubTab: () => {},
-})
+export const HoverContext = React.createContext<HoverContextType>({})
 
 export function NavigationProvider({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname()
-  const [hoveredParent, setHoveredParentState] = React.useState<string | null>(null)
-  const [activeHomeSection, setActiveHomeSection] = React.useState('home')
-  const [hoveredSubTab, setHoveredSubTab] = React.useState<string | null>(null)
-  const clearTimeoutRef = React.useRef<NodeJS.Timeout | null>(null)
-
-  const cancelClear = React.useCallback(() => {
-    if (clearTimeoutRef.current) {
-      clearTimeout(clearTimeoutRef.current)
-      clearTimeoutRef.current = null
-    }
-  }, [])
-
-  const setHoveredParent = React.useCallback((parent: string | null) => {
-    cancelClear()
-    
-    if (parent === null) {
-      clearTimeoutRef.current = setTimeout(() => {
-        setHoveredParentState(null)
-      }, 150)
-    } else {
-      setHoveredParentState(parent)
-    }
-  }, [cancelClear])
-
-  const isSubNavVisible = React.useMemo(() => {
-    const navWithSubTabs = NAV_LINKS.find(link => link.label === hoveredParent)
-    return !!(navWithSubTabs?.subTabs && navWithSubTabs.subTabs.length > 0)
-  }, [hoveredParent])
-
-  const currentPageHasSubNav = React.useMemo(() => {
-    const currentNav = NAV_LINKS.find(link => {
-      if (link.href === pathname) return true
-      if (link.subTabs) {
-        return link.subTabs.some(sub => sub.href === pathname)
-      }
-      return false
-    })
-    return !!(currentNav?.subTabs && currentNav.subTabs.length > 0)
-  }, [pathname])
-
-  React.useEffect(() => {
-    return () => {
-      if (clearTimeoutRef.current) {
-        clearTimeout(clearTimeoutRef.current)
-      }
-    }
-  }, [])
-
   return (
-    <HoverContext.Provider value={{ hoveredParent, setHoveredParent, cancelClear, activeHomeSection, setActiveHomeSection, isSubNavVisible, currentPageHasSubNav, hoveredSubTab, setHoveredSubTab }}>
+    <HoverContext.Provider value={{}}>
       {children}
     </HoverContext.Provider>
   )
@@ -149,12 +77,11 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = React.useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
   const [openDropdown, setOpenDropdown] = React.useState<string | null>(null)
+  const [hoveredSubTab, setHoveredSubTab] = React.useState<string | null>(null)
   const [windowWidth, setWindowWidth] = React.useState(800)
   const scrollPosition = useScrollPosition()
-  const { hoveredParent, setHoveredParent, cancelClear, activeHomeSection, setActiveHomeSection } = React.useContext(HoverContext)
 
   const activeParent = getParentTab(pathname)
-  const displayParent = hoveredParent || activeParent
 
   React.useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth)
@@ -195,23 +122,21 @@ export function Navbar() {
       {showHeader && (
       <motion.header
         className={cn(
-          'main-header fixed top-0 left-0 right-0 z-[60] transition-all duration-300 backdrop-blur-xl',
+          'main-header fixed top-0 left-0 right-0 z-[60] transition-all duration-300',
           isScrolled
-            ? 'bg-surface-900/95 border-b border-border'
+            ? 'bg-surface-900/80 backdrop-blur-xl border-b border-border/50'
             : 'bg-transparent'
         )}
         initial={{ y: 0 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       >
-        {/* Subtle top accent line */}
         {isScrolled && (
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
         )}
         
         <nav className="container-main">
           <div className="flex items-center justify-between h-20">
-            {/* Logo */}
             <Link href="/" className="flex items-center group">
               <svg 
                 className="h-6 w-auto [&_.apex-part]:fill-white [&_.e3-part]:fill-white group-hover:[&_.apex-part]:fill-accent group-hover:[&_.e3-part]:fill-accent transition-colors duration-300"
@@ -238,78 +163,156 @@ export function Navbar() {
               </svg>
             </Link>
 
-            {/* Desktop Navigation */}
             <div className="hidden desktop:flex items-center gap-1">
               {NAV_LINKS.map((link) => {
                 const hasSubTabs = link.subTabs && link.subTabs.length > 0
-                const isActive = displayParent === link.label
-                const isHovered = hoveredParent === link.label
+                const isActive = activeParent === link.label
+                const isOpen = openDropdown === link.label
 
-                if (hasSubTabs) {
-                  return (
-                    <div 
-                      key={link.label}
-                      className="relative"
-                      onMouseEnter={() => setHoveredParent(link.label)}
-                      onMouseLeave={() => setHoveredParent(null)}
-                    >
-                      <Link
-                        href={link.href || '#'}
+                return (
+                  <div 
+                    key={link.label}
+                    className="relative"
+                    onMouseEnter={() => hasSubTabs && setOpenDropdown(link.label)}
+                    onMouseLeave={() => {
+                      setOpenDropdown(null)
+                      setHoveredSubTab(null)
+                    }}
+                  >
+                    {hasSubTabs ? (
+                      <button
                         onClick={() => {
-                          if (link.label === 'Home') {
-                            setActiveHomeSection('home')
-                          }
+                          router.push(link.href || '/')
                         }}
                         className={cn(
-                          'flex items-center gap-1 px-3 py-2 text-body-sm rounded-lg transition-all',
+                          'flex items-center gap-1.5 px-4 py-2 text-body-sm rounded-lg transition-all',
                           isActive 
                             ? 'text-accent font-semibold' 
                             : 'text-content-secondary hover:text-content-primary hover:bg-surface-800/50'
                         )}
                       >
-                        <span className="relative">
-                          {link.label}
-                          {(isHovered || isActive) && (
-                            <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-accent rounded-full" />
-                          )}
-                        </span>
+                        {link.label}
+                        <ChevronRight className={cn(
+                          'w-3.5 h-3.5 transition-transform duration-200',
+                          isOpen && 'rotate-90'
+                        )} />
+                      </button>
+                    ) : (
+                      <Link
+                        href={link.href || '#'}
+                        className={cn(
+                          'px-4 py-2 text-body-sm rounded-lg transition-all',
+                          isActive 
+                            ? 'text-accent font-semibold' 
+                            : 'text-content-secondary hover:text-content-primary hover:bg-surface-800/50'
+                        )}
+                      >
+                        {link.label}
                       </Link>
-                    </div>
-                  )
-                }
-
-                return (
-                  <Link
-                    key={link.label}
-                    href={link.href || '#'}
-                    className={cn(
-                      'px-3 py-2 text-body-sm rounded-lg transition-all',
-                      isActive 
-                        ? 'text-accent font-semibold' 
-                        : 'text-content-secondary hover:text-content-primary hover:bg-surface-800/50'
                     )}
-                    onMouseEnter={() => setHoveredParent(link.label)}
-                    onMouseLeave={() => setHoveredParent(null)}
-                  >
-                    <span className="relative">
-                      {link.label}
-                      {(isHovered || isActive) && (
-                        <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-accent rounded-full" />
+
+                    <AnimatePresence>
+                      {hasSubTabs && isOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 8, scale: 0.95 }}
+                          transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                          className="absolute top-full left-0 pt-3 w-64"
+                        >
+                          <div className="relative bg-surface-800/95 backdrop-blur-xl rounded-xl border border-border/50 shadow-2xl overflow-hidden">
+                            <div className="absolute inset-0 bg-gradient-to-b from-accent/5 to-transparent pointer-events-none" />
+                            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent" />
+                            
+                            <div className="relative p-2">
+                              {link.subTabs!.map((sub, index) => {
+                                const subIsActive = sub.href ? pathname === sub.href : false
+                                const isHovered = hoveredSubTab === sub.id
+
+                                const content = (
+                                  <motion.div
+                                    initial={{ opacity: 0, x: -10 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: index * 0.05 }}
+                                    onMouseEnter={() => setHoveredSubTab(sub.id)}
+                                    onMouseLeave={() => setHoveredSubTab(null)}
+                                    className={cn(
+                                      'relative flex items-start gap-3 p-3 rounded-lg transition-all cursor-pointer group',
+                                      subIsActive 
+                                        ? 'bg-accent/10' 
+                                        : isHovered ? 'bg-surface-700/50' : ''
+                                    )}
+                                  >
+                                    {isHovered && !subIsActive && (
+                                      <motion.div
+                                        layoutId="dropdownHover"
+                                        className="absolute inset-0 rounded-lg bg-surface-700/30"
+                                        transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                                      />
+                                    )}
+                                    {subIsActive && (
+                                      <motion.div
+                                        layoutId="dropdownActive"
+                                        className="absolute inset-0 rounded-lg bg-accent/10 border border-accent/20"
+                                        transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                                      />
+                                    )}
+                                    <div className={cn(
+                                      'relative z-10 p-2 rounded-lg',
+                                      subIsActive ? 'bg-accent/20 text-accent' : 'bg-surface-700/50 text-content-secondary group-hover:text-accent'
+                                    )}>
+                                      {sub.icon}
+                                    </div>
+                                    <div className="relative z-10 flex-1 min-w-0">
+                                      <div className={cn(
+                                        'text-sm font-medium',
+                                        subIsActive ? 'text-accent' : 'text-content-primary'
+                                      )}>
+                                        {sub.label}
+                                      </div>
+                                      {sub.description && (
+                                        <div className="text-xs text-content-tertiary mt-0.5">
+                                          {sub.description}
+                                        </div>
+                                      )}
+                                    </div>
+                                    <ChevronRight className={cn(
+                                      'relative z-10 w-4 h-4 text-content-tertiary transition-transform',
+                                      isHovered && 'translate-x-0.5 text-accent'
+                                    )} />
+                                  </motion.div>
+                                )
+
+                                if (sub.href) {
+                                  return (
+                                    <Link key={sub.id} href={sub.href}>
+                                      {content}
+                                    </Link>
+                                  )
+                                }
+
+                                return (
+                                  <div key={sub.id}>
+                                    {content}
+                                  </div>
+                                )
+                              })}
+                            </div>
+                          </div>
+                        </motion.div>
                       )}
-                    </span>
-                  </Link>
+                    </AnimatePresence>
+                  </div>
                 )
               })}
             </div>
 
-            {/* Desktop CTA */}
             <div className="hidden desktop:flex items-center gap-3">
               <ScheduleDemoDialog
                 trigger={<Button size="sm">Schedule Demo</Button>}
               />
             </div>
 
-            {/* Mobile Menu Button - visible between 401px and 799px */}
             <button
               className="burger-menu-btn flex p-2 text-content-secondary hover:text-content-primary transition-colors items-center justify-center"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -326,7 +329,6 @@ export function Navbar() {
       </motion.header>
       )}
 
-      {/* Mobile Menu - hidden at 400px and below (uses MobileFloatingNav) */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -335,7 +337,6 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            {/* Backdrop */}
             <motion.div
               className="absolute inset-0 bg-surface-900/95 backdrop-blur-sm"
               initial={{ opacity: 0 }}
@@ -344,7 +345,6 @@ export function Navbar() {
               onClick={() => setIsMobileMenuOpen(false)}
             />
 
-            {/* Menu Content */}
             <motion.nav
               className="absolute top-20 left-0 right-0 bg-surface-800 border-b border-border p-6"
               initial={{ y: -20, opacity: 0 }}
@@ -352,13 +352,12 @@ export function Navbar() {
               exit={{ y: -20, opacity: 0 }}
               transition={{ duration: 0.2 }}
             >
-              {/* Top accent line */}
               <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
               
               <div className="flex flex-col gap-1">
                 {NAV_LINKS.map((link, index) => {
                   const hasSubTabs = link.subTabs && link.subTabs.length > 0
-                  const isActive = displayParent === link.label
+                  const isActive = activeParent === link.label
                   const isExpanded = openDropdown === link.label
 
                   return (
@@ -428,7 +427,7 @@ export function Navbar() {
                                     key={sub.id}
                                     href={sub.href}
                                     className={cn(
-                                      'block py-2.5 px-4 text-body rounded-card transition-colors',
+                                      'flex items-center gap-3 py-2.5 px-4 text-body rounded-card transition-colors',
                                       pathname === sub.href 
                                         ? 'text-accent bg-accent/5' 
                                         : 'text-content-tertiary hover:text-accent hover:bg-surface-700'
@@ -438,26 +437,19 @@ export function Navbar() {
                                       setIsMobileMenuOpen(false)
                                     }}
                                   >
+                                    {sub.icon}
                                     {sub.label}
                                   </Link>
                                 ) : (
                                   <button
                                     key={sub.id}
-                                    className={cn(
-                                      'block w-full text-left py-2.5 px-4 text-body rounded-card transition-colors',
-                                      pathname === '/' && activeHomeSection === sub.id
-                                        ? 'text-accent bg-accent/5' 
-                                        : 'text-content-tertiary hover:text-accent hover:bg-surface-700'
-                                    )}
+                                    className="flex items-center gap-3 w-full text-left py-2.5 px-4 text-body rounded-card transition-colors text-content-tertiary hover:text-accent hover:bg-surface-700"
                                     onClick={() => {
-                                      if (pathname !== '/') {
-                                        router.push('/')
-                                      }
-                                      setActiveHomeSection(sub.id)
                                       setOpenDropdown(null)
                                       setIsMobileMenuOpen(false)
                                     }}
                                   >
+                                    {sub.icon}
                                     {sub.label}
                                   </button>
                                 )

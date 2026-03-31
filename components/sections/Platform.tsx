@@ -20,7 +20,7 @@ function SelfAssemblingNetwork() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   
   const nodes = [
-    { id: 'core', x: 50, y: 50, label: 'ALICE', size: 'lg' },
+    { id: 'core', x: 50, y: 50, label: 'A.L.I.C.E.', size: 'lg' },
     { id: 'n1', x: 20, y: 30, label: 'Agent 1', size: 'sm' },
     { id: 'n2', x: 80, y: 30, label: 'Agent 2', size: 'sm' },
     { id: 'n3', x: 20, y: 70, label: 'Data', size: 'sm' },

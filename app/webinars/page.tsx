@@ -24,7 +24,7 @@ const upcomingWebinars = [
     spots: 'Limited seats',
   },
   {
-    title: 'Building Custom AI Agents with ALICE',
+    title: 'Building Custom AI Agents with A.L.I.C.E.',
     date: 'Coming Soon',
     time: '2:00 PM PST',
     duration: '90 min',

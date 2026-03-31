@@ -3,7 +3,6 @@ import { Urbanist } from 'next/font/google'
 import { Suspense } from 'react'
 import './globals.css'
 import { Navbar, NavigationProvider } from '@/components/layout/Navbar'
-import { SubNavigation } from '@/components/layout/SubNavigation'
 import { MobileFloatingNav } from '@/components/layout/MobileFloatingNav'
 import { Footer } from '@/components/layout/Footer'
 import { MainContent } from '@/components/layout/MainContent'
@@ -97,24 +96,12 @@ export default function RootLayout({
       <body className="relative min-h-screen bg-surface-900 text-white antialiased">
         <Suspense fallback={<div className="min-h-screen" />}>
           <NavigationProvider>
-            {/* Scroll Progress Indicator */}
             <ScrollProgressIndicator />
-            
-            {/* Navigation */}
             <Navbar />
-            
-            {/* Sub Navigation */}
-            <SubNavigation />
-            
-            {/* Main content */}
             <MainContent>
               {children}
             </MainContent>
-            
-            {/* Mobile Floating Navigation */}
             <MobileFloatingNav />
-            
-            {/* Footer */}
             <Footer />
           </NavigationProvider>
         </Suspense>

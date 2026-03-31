@@ -15,17 +15,46 @@ import { NEURAL_PRISM_WIREFRAME_DATA } from './neuralPrismWireframeData'
 const MAX_LINE_COUNT = 4000
 const CHAOS_LINE_COUNT = 500
 const POINTS_PER_LINE = 32
-const CAR_SCALE = 4.05
+
+const ANIMATION_CONFIG = {
+  timing: {
+    firstCycleIdleDuration: 0.5,
+    subsequentIdleDuration: 4,
+    morphDuration: 1.5,
+    modelShowDuration: 3.5,
+  },
+  
+  rotation: {
+    baseOffset: 6,
+    speedY: 0.15,
+    speedX: 0.1,
+    speedZ: 0.08,
+    amplitudeX: 0.12,
+    amplitudeZ: 0.05,
+  },
+  
+  colors: {
+    tesseract: '#FFFFFF',
+    model: '#60A5FA',
+  },
+  
+  particles: {
+    count: 50,
+    size: 0.025,
+    color: '#5088FF',
+    opacity: 0.5,
+  },
+}
 
 const MODELS = [
   { name: 'prism', data: PRISM_WIREFRAME_DATA, scale: 1.8, rotationOffset: -Math.PI / 2, lineMultiplier: 10 },
   { name: 'neuralPrism', data: NEURAL_PRISM_WIREFRAME_DATA, scale: 1.6, rotationOffset: 0 },
   { name: 'lightbulb', data: LIGHTBULB_WIREFRAME_DATA, scale: 1.6, rotationOffset: 0 },
-  { name: 'f1', data: F1_WIREFRAME_DATA, scale: CAR_SCALE, rotationOffset: 0 },
-  { name: 'vaultDoor', data: VAULTDOOR_WIREFRAME_DATA, scale: 1.5, rotationOffset: Math.PI },
-  { name: 'barChart', data: BAR_CHART_WIREFRAME_DATA, scale: 1.7, rotationOffset: -Math.PI / 2 },
-  { name: 'folder', data: FOLDER_WIREFRAME_DATA, scale: 1.5, rotationOffset: -Math.PI / 2 },
-  { name: 'padlock', data: PADLOCK_WIREFRAME_DATA, scale: 1.53, rotationOffset: -Math.PI / 2 },
+  { name: 'f1', data: F1_WIREFRAME_DATA, scale: 4.05, rotationOffset: -Math.PI / 4 },
+  { name: 'vaultDoor', data: VAULTDOOR_WIREFRAME_DATA, scale: 1.5, rotationOffset: Math.PI / 2 },
+  { name: 'barChart', data: BAR_CHART_WIREFRAME_DATA, scale: 1.7, rotationOffset: Math.PI },
+  { name: 'folder', data: FOLDER_WIREFRAME_DATA, scale: 1.5, rotationOffset: 0 },
+  { name: 'padlock', data: PADLOCK_WIREFRAME_DATA, scale: 1.53, rotationOffset: 0 },
 ]
 
 function getModelLineCount(modelIndex: number): number {
@@ -132,12 +161,13 @@ function SculptureLines({ onPhaseChange }: SculptureLinesProps) {
   const morphProgressRef = useRef(0)
   const visibleCountRef = useRef(CHAOS_LINE_COUNT)
   const tesseractTimeRef = useRef(0)
-  const morphDurationRef = useRef(1.5)
-  const modelShowDurationRef = useRef(3.5)
-  const idleDurationRef = useRef(0.5)
   const isFirstCycleRef = useRef(true)
   const currentModelIndexRef = useRef(0)
   const currentLineCountRef = useRef(getModelLineCount(0))
+  
+  const getIdleDuration = () => isFirstCycleRef.current 
+    ? ANIMATION_CONFIG.timing.firstCycleIdleDuration 
+    : ANIMATION_CONFIG.timing.subsequentIdleDuration
   
   // Notify parent of phase changes
   useEffect(() => {
@@ -307,7 +337,7 @@ function SculptureLines({ onPhaseChange }: SculptureLinesProps) {
     if (phase === 'idle') {
       tesseractTimeRef.current += 0.016
       
-      if (phaseElapsed > idleDurationRef.current) {
+      if (phaseElapsed > getIdleDuration()) {
         linesDataRef.current.forEach(data => {
           for (let j = 0; j < POINTS_PER_LINE * 3; j++) {
             data.morphStartPositions[j] = data.currentPositions[j]
@@ -331,14 +361,13 @@ function SculptureLines({ onPhaseChange }: SculptureLinesProps) {
       }
     } else if (phase === 'morphing_to_model') {
       tesseractTimeRef.current += 0.016
-      morphProgressRef.current = Math.min(1, phaseElapsed / morphDurationRef.current)
+      morphProgressRef.current = Math.min(1, phaseElapsed / ANIMATION_CONFIG.timing.morphDuration)
       
-      if (phaseElapsed > morphDurationRef.current) {
+      if (phaseElapsed > ANIMATION_CONFIG.timing.morphDuration) {
         setPhase('showing_model')
         phaseStartRef.current = now
         visibleCountRef.current = currentLineCountRef.current
         if (isFirstCycleRef.current) {
-          idleDurationRef.current = 4
           isFirstCycleRef.current = false
         }
       } else {
@@ -349,7 +378,7 @@ function SculptureLines({ onPhaseChange }: SculptureLinesProps) {
     } else if (phase === 'showing_model') {
       tesseractTimeRef.current += 0.016
       
-      if (phaseElapsed > modelShowDurationRef.current) {
+      if (phaseElapsed > ANIMATION_CONFIG.timing.modelShowDuration) {
         linesDataRef.current.forEach(data => {
           for (let j = 0; j < POINTS_PER_LINE * 3; j++) {
             data.morphStartPositions[j] = data.currentPositions[j]
@@ -362,9 +391,9 @@ function SculptureLines({ onPhaseChange }: SculptureLinesProps) {
       }
     } else if (phase === 'morphing_to_idle') {
       tesseractTimeRef.current += 0.016
-      morphProgressRef.current = Math.min(1, phaseElapsed / morphDurationRef.current)
+      morphProgressRef.current = Math.min(1, phaseElapsed / ANIMATION_CONFIG.timing.morphDuration)
       
-      if (phaseElapsed > morphDurationRef.current) {
+      if (phaseElapsed > ANIMATION_CONFIG.timing.morphDuration) {
         setPhase('idle')
         phaseStartRef.current = now
         visibleCountRef.current = CHAOS_LINE_COUNT
@@ -377,8 +406,8 @@ function SculptureLines({ onPhaseChange }: SculptureLinesProps) {
     
     const tesseractTime = tesseractTimeRef.current
     
-    const tesseractColor = new THREE.Color('#FFFFFF')
-    const modelColor = new THREE.Color('#60A5FA')
+    const tesseractColor = new THREE.Color(ANIMATION_CONFIG.colors.tesseract)
+    const modelColor = new THREE.Color(ANIMATION_CONFIG.colors.model)
     
     let targetColor: THREE.Color
     if (phase === 'idle') {
@@ -485,10 +514,12 @@ function SculptureLines({ onPhaseChange }: SculptureLinesProps) {
       positionAttr.needsUpdate = true
     })
     
-    const rotationTime = time + 6
-    const groupRotationY = rotationTime * 0.15
-    const groupRotationX = Math.sin(rotationTime * 0.1) * 0.12
-    const groupRotationZ = Math.cos(rotationTime * 0.08) * 0.05
+    const { rotation } = ANIMATION_CONFIG
+    
+    const rotationTime = time + rotation.baseOffset
+    const groupRotationY = rotationTime * rotation.speedY
+    const groupRotationX = Math.sin(rotationTime * rotation.speedX) * rotation.amplitudeX
+    const groupRotationZ = Math.cos(rotationTime * rotation.speedZ) * rotation.amplitudeZ
     groupRef.current.rotation.y = groupRotationY
     groupRef.current.rotation.x = groupRotationX
     groupRef.current.rotation.z = groupRotationZ
@@ -504,7 +535,7 @@ function SculptureLines({ onPhaseChange }: SculptureLinesProps) {
       geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
       
       const material = new THREE.LineBasicMaterial({
-        color: '#60A5FA',
+        color: ANIMATION_CONFIG.colors.model,
         transparent: true,
         opacity: 0.6,
         blending: THREE.AdditiveBlending,
@@ -528,7 +559,7 @@ function SculptureLines({ onPhaseChange }: SculptureLinesProps) {
 
 function GlowParticles() {
   const pointsRef = useRef<THREE.Points>(null)
-  const particleCount = 50
+  const particleCount = ANIMATION_CONFIG.particles.count
   
   const positions = useMemo(() => {
     const pos = new Float32Array(particleCount * 3)
@@ -565,10 +596,10 @@ function GlowParticles() {
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.025}
-        color="#5088FF"
+        size={ANIMATION_CONFIG.particles.size}
+        color={ANIMATION_CONFIG.particles.color}
         transparent
-        opacity={0.5}
+        opacity={ANIMATION_CONFIG.particles.opacity}
         sizeAttenuation
         blending={THREE.AdditiveBlending}
       />

@@ -134,7 +134,7 @@ export function ChaosToClarity() {
             <span className="text-accent">to Clarity</span>
           </>
         }
-        subtitle="ALICE transforms fragmented information into structured, decision-ready intelligence. Stop drowning in data. Start making decisions with conviction."
+        subtitle="A.L.I.C.E. transforms fragmented information into structured, decision-ready intelligence. Stop drowning in data. Start making decisions with conviction."
         align="center"
         className="text-center mx-auto mb-16"
       />
@@ -149,7 +149,7 @@ export function ChaosToClarity() {
         >
           <span className="inline-flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            Move your mouse to experience ALICE's clarity
+            Move your mouse to experience A.L.I.C.E.'s clarity
           </span>
         </motion.p>
 
@@ -450,7 +450,7 @@ export function ChaosToClarity() {
                 transition={{ delay: 0.1 }}
               >
                 <span className="text-xs text-accent font-medium bg-surface-900/90 px-2 py-0.5 rounded-full border border-accent/30">
-                  ALICE
+                  A.L.I.C.E.
                 </span>
               </motion.div>
             </motion.div>
@@ -690,7 +690,7 @@ export function ChaosToClarity() {
                 <AlertCircle className="w-4 h-4 text-negative" />
               </div>
               <h4 className="font-medium text-content-primary">
-                Life Before ALICE
+                Life Before A.L.I.C.E.
               </h4>
             </div>
             <ul className="space-y-3">
@@ -728,7 +728,7 @@ export function ChaosToClarity() {
                 <Sparkles className="w-4 h-4 text-accent" />
               </div>
               <h4 className="font-medium text-content-primary">
-                Life With ALICE
+                Life With A.L.I.C.E.
               </h4>
             </div>
             <ul className="space-y-3">
@@ -764,14 +764,14 @@ export function ChaosToClarity() {
         >
           <p className="text-body-lg text-content-secondary mb-6">
             <span className="text-accent font-medium">Too much noise.</span> Not enough signal.{' '}
-            <span className="text-content-primary font-medium">Until ALICE.</span>
+            <span className="text-content-primary font-medium">Until A.L.I.C.E.</span>
           </p>
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-accent text-surface-900 font-medium hover:bg-accent-light transition-colors"
           >
-            See ALICE in Action
+            See A.L.I.C.E. in Action
             <ArrowRight className="w-4 h-4" />
           </motion.button>
         </motion.div>
