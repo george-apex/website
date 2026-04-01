@@ -27,15 +27,8 @@ const CLIENTS = [
     invert: true
   },
   { 
-    name: 'CorPrime', 
-    logo: '/client-logos/CorPrime-Logo.png', 
-    height: 40,
-    aspectRatio: 2.5,
-    invert: true
-  },
-  { 
     name: 'University of Oxford', 
-    logo: '/client-logos/university-of-oxford-badge-logo.svg', 
+    logo: '/client-logos/University_of_Oxford-Logo.wine.svg', 
     height: 40,
     aspectRatio: 1.1,
     invert: true
