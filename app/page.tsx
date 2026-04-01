@@ -8,8 +8,8 @@ export default function Home() {
   return (
     <div className="relative bg-surface-900">
       <TesseractHero />
-      <ClientRibbon />
       <ALICEResponseDemo />
+      <ClientRibbon />
       <ApexMetaphor />
       <IntelligenceLayer />
       <CapabilitiesSection />

@@ -21,12 +21,12 @@ const CLIENTS = [
 
 export function ClientRibbon() {
   return (
-    <section className="relative py-12 bg-surface-950 border-y border-white/5 overflow-hidden">
+    <section className="relative py-6 bg-surface-950 border-y border-white/5 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-r from-surface-950 via-transparent to-surface-950 z-10 pointer-events-none" />
       
       <div className="flex items-center">
         <motion.div
-          className="flex items-center gap-16 whitespace-nowrap"
+          className="flex items-center gap-12 whitespace-nowrap"
           animate={{ x: ['0%', '-50%'] }}
           transition={{
             duration: 40,
@@ -37,7 +37,7 @@ export function ClientRibbon() {
           {[...CLIENTS, ...CLIENTS].map((client, i) => (
             <div
               key={i}
-              className="flex items-center gap-3 text-white/30 hover:text-white/50 transition-colors duration-300"
+              className="flex items-center gap-2 text-white/20 hover:text-white/40 transition-colors duration-300"
             >
               {client.logo.startsWith('/') ? (
                 <div style={{ width: client.width || 128 }} className={`relative h-10 opacity-80 hover:opacity-100 transition-all duration-300 ${client.color === 'white' ? 'brightness-0 invert' : ''}`}>
@@ -61,8 +61,8 @@ export function ClientRibbon() {
         </motion.div>
       </div>
       
-      <div className="absolute left-0 bottom-2 z-20 pointer-events-none pl-20 desktop:pl-24">
-        <div className="text-xs text-white/40 uppercase tracking-widest">
+      <div className="absolute left-0 bottom-1 z-20 pointer-events-none pl-12 desktop:pl-16">
+        <div className="text-[10px] text-white/30 uppercase tracking-widest">
           Trusted by Global Institutions
         </div>
       </div>

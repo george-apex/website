@@ -69,32 +69,40 @@ export function TesseractHero() {
               </svg>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/20 text-accent text-sm font-medium mb-6"
-            >
-              <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-              Introducing A.L.I.C.E. — Autonomous AI Agent
-            </motion.div>
-
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="text-3xl burger-range:text-4xl desktop:text-5xl font-semibold leading-tight mb-6"
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="text-3xl burger-range:text-4xl desktop:text-5xl font-bold leading-none mb-4"
             >
-              <span className="text-white">The AI Agent for Capital Markets</span>
+              <span className="bg-gradient-to-r from-white via-accent to-accent bg-clip-text text-transparent">A.L.I.C.E.</span>
             </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="text-xl burger-range:text-2xl desktop:text-3xl font-medium text-white mb-2"
+            >
+              Autonomous Intelligence for Capital Markets
+            </motion.p>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="text-base burger-range:text-lg text-accent font-medium mb-6"
+            >
+              Researches. Analyzes. Acts.
+            </motion.p>
 
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+              transition={{ duration: 0.8, delay: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="text-base burger-range:text-lg text-white/60 mb-8"
             >
-              A.L.I.C.E. autonomously researches, analyzes, and acts across equities, fixed income, multi-asset, and alternatives. Secure data processing. Explainable models. Natural language analytics. Deployed on your infrastructure.
+              Secure, explainable AI deployed on your infrastructure across equities, fixed income, multi-asset, and alternatives.
             </motion.p>
 
             <motion.div
@@ -124,26 +132,26 @@ export function TesseractHero() {
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="flex flex-wrap items-center gap-6 text-sm text-white/70"
+              transition={{ duration: 0.8, delay: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="flex flex-wrap items-center gap-5 text-xs text-white/50"
             >
-              <div className="flex items-center gap-2">
-                <Shield className="w-4 h-4 text-positive" />
+              <div className="flex items-center gap-1.5">
+                <Shield className="w-3.5 h-3.5 text-positive/70" />
                 <span>SOC 2 Type II</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Database className="w-4 h-4 text-accent" />
-                <span>On-Premise Deploy</span>
+              <div className="flex items-center gap-1.5">
+                <Database className="w-3.5 h-3.5 text-accent/70" />
+                <span>On-Premise</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Zap className="w-4 h-4 text-accent" />
+              <div className="flex items-center gap-1.5">
+                <Zap className="w-3.5 h-3.5 text-accent/70" />
                 <span>$10T+ AUM</span>
               </div>
             </motion.div>
           </div>
         </motion.div>
 
-        <div className="relative flex items-center justify-center overflow-visible py-8 burger-range:py-4 desktop:py-0 desktop:h-[700px]">
+        <div className="relative flex items-center justify-center overflow-visible py-8 burger-range:py-4 desktop:py-0 desktop:h-[700px] desktop:ml-8">
           <div className="w-[85vw] h-[85vw] burger-range:w-[70vw] burger-range:h-[70vw] desktop:w-full desktop:h-full desktop:max-w-[600px]">
             <MorphingParticlesV2 
               className="w-full h-full"
