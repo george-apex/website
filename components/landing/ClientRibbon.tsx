@@ -5,9 +5,9 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 
 const CLIENTS = [
-  { name: 'Vanguard', logo: '/client-logos/Vanguard-logo.png', color: 'original', width: 120 },
-  { name: 'DWS', logo: '/client-logos/DWS_Group_202x_logo.svg', color: 'white', width: 120 },
-  { name: 'DeusX', logo: '/client-logos/DeusX_temp_logo.svg', color: 'white', width: 120 },
+  { name: 'Vanguard', logo: '/client-logos/Vanguard-logo.png', color: 'original', width: 180 },
+  { name: 'DWS', logo: '/client-logos/DWS_Group_202x_logo.svg', color: 'white', width: 180 },
+  { name: 'DeusX', logo: '/client-logos/DeusX_temp_logo.svg', color: 'white', width: 180 },
   { name: 'Example 3', logo: 'EXAMPLE 3' },
   { name: 'Example 4', logo: 'EXAMPLE 4' },
   { name: 'Example 5', logo: 'EXAMPLE 5' },
@@ -17,7 +17,6 @@ const CLIENTS = [
   { name: 'Example 9', logo: 'EXAMPLE 9' },
   { name: 'Example 10', logo: 'EXAMPLE 10' },
   { name: 'Example 11', logo: 'EXAMPLE 11' },
-  { name: 'Example 12', logo: 'EXAMPLE 12' },
 ]
 
 export function ClientRibbon() {
